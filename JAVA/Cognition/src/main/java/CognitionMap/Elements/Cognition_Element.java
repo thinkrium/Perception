@@ -2,9 +2,9 @@ package CognitionMap.Elements;
 
 public class Cognition_Element {
 
-    public int value;
+    public float value;
 
-    public Cognition_Element(int value) {
+    public Cognition_Element(float value) {
         this.value = value;
 
     }

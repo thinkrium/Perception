@@ -35,9 +35,6 @@ public class Math {
      */
     public static Cognition_Element[][] GenerateOutputPrediction(Cognition_Element[][] inputs, Cognition_Element[][] weights, Bias[] biases) {
         Cognition_Element [][] outputs = new Cognition_Element[inputs.length][weights.length];
-
-        System.out.println("Generating predictions here");
-
         for(int input_row_index = 0; input_row_index < inputs.length; input_row_index++) {
             System.out.println("");
 
@@ -51,12 +48,12 @@ public class Math {
                                                   *
                                                   weights[input_row_index][weight_column_index].value;
 
-                     System.out.print(" (" + inputs[input_row_index][input_column_index].value + " * " + weights[input_row_index][weight_column_index].value + ") ");
-                     outputs[input_row_index][input_column_index] = new Cognition_Element(input_specific_prediction);
                  }
-                 System.out.println("");
+
+                 input_specific_prediction += biases[input_row_index].value;
+                 outputs[input_row_index][input_column_index] = new Cognition_Element(input_specific_prediction);
+
              }
-             System.out.println("");
         }
 
 

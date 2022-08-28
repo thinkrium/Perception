@@ -1,6 +1,7 @@
 package CognitionMap;
 
 import CognitionMap.Elements.Bias;
+import CognitionMap.Elements.Cognition_Element;
 import CognitionMap.Elements.Neural_Node;
 import CognitionMap.Elements.Weight;
 import CognitionMap.Math.Math;
@@ -11,6 +12,9 @@ import java.util.Random;
 public class Layer {
 
     private Neural_Node[][] inputs;
+
+    private Neural_Node[][] outputs;
+
     private Weight[][] weights;
 
     private Bias [] biases;
@@ -19,7 +23,6 @@ public class Layer {
 
     private int input_count;
 
-    private float [][] outputs;
     /**
      * The constructor initiiates the layer of neurons and weights
      * For every neuron there is a bias
@@ -35,26 +38,52 @@ public class Layer {
      */
     public Layer(int input_count, int neuron_count) {
 
-        Random random = new Random();
 
         this.input_count = input_count;
         this.neuron_count = neuron_count;
         this.weights = new Weight[neuron_count][input_count];
-
-
         this.biases = new Bias[neuron_count];
 
-        for( int neuron_index = 0; neuron_index < neuron_count; neuron_index++ ) {
-            for( int input_index = 0; input_index < input_count; input_index++ ) {
-                    this.weights[neuron_index][input_index] = new Weight(random.nextFloat());
-            }
-        }
+        Define_Weights_Initial_Value();
+        Define_Biases_Initial_Value();
+    }
 
-        for(int bias_index = 0;bias_index < neuron_count; bias_index++) {
+    public void Define_Biases_Initial_Value() {
+        for(int bias_index = 0; bias_index < this.neuron_count; bias_index++) {
             this.biases[bias_index] = new Bias(0);
         }
     }
+    public void Define_Weights_Initial_Value(  ) {
+        Random random = new Random();
 
+        for( int neuron_index = 0; neuron_index < this.neuron_count; neuron_index++ ) {
+            for( int input_index = 0; input_index < this.input_count; input_index++ ) {
+                this.weights[neuron_index][input_index] = new Weight(random.nextFloat());
+            }
+        }
+    }
+    public void Set_Activation_Values_By_Method(Enums.Layer_Activation_Method activation_method) {
+
+        if(activation_method == Enums.Layer_Activation_Method.ReLU) {
+            this.outputs =
+                    (Neural_Node[][]) Layer_Activation.Activate_By_ReLU((Cognition_Element[][]) this.outputs);
+        }
+        if(activation_method == Enums.Layer_Activation_Method.SoftMax) {
+            this.outputs =
+                    (Neural_Node[][]) Layer_Activation.Activate_By_Softmax((Cognition_Element[][]) this.outputs);
+        }
+
+    }
+
+    public void Activate_Layer() {
+
+        Set_Activation_Values_By_Method(Enums.Layer_Activation_Method.SoftMax);
+    }
+
+
+    public Cognition_Element[][] Forward_Pass() {
+        return  null;
+    }
 
     /**
      * This function sets the value of 'the inputs' * 'the weights' + 'the bias'
@@ -97,7 +126,9 @@ public class Layer {
         else if (display_level == Enums.Display_Level.Biases) {
             Display_Biases_To_Console();
         }
-
+        else if (display_level == Enums.Display_Level.Generated_Predictions) {
+            Display_Generated_Predictions_To_Console();
+        }
     }
 
     /**
@@ -154,6 +185,7 @@ public class Layer {
         for (Bias bias : this.biases) {
             System.out.print(bias.value + " ");
         }
+        System.out.println("");
 
     }
 

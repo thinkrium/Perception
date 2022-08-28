@@ -19,7 +19,7 @@ public class Main {
         }
 
         layer.Generate_Layer_Specific_Prediction( inputs );
-        layer.Display(Enums.Display_Level.All);
+        layer.Display_To_Console(Enums.Display_Level.All);
 
     }
 }

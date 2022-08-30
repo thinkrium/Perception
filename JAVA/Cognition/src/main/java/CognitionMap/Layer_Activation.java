@@ -21,7 +21,7 @@ public class Layer_Activation {
      * For every output index by row and column
      * Exponentiate the index
      *
-     * For Every Row Sum the Exponentiated Value
+     * For Every Row Sum the Exponentiated individual Values
      *
      * For every column in Each Row Divide that exponentiated value by the sum
      *
@@ -32,31 +32,40 @@ public class Layer_Activation {
      */
     public static Cognition_Element[][] Activate_By_Softmax(Cognition_Element[][] outputs) {
 
-        boolean output_row_has_been_summated = false;
+        boolean test_summation;
+
+        boolean output_row_has_been_summated;
 
         for(int output_row_index = 0; output_row_index < outputs.length; output_row_index++) {
 
-            float exponentiated_sum = 0;
+            output_row_has_been_summated = false;
+            test_summation = false;
+
+            double exponentiated_sum = 0;
 
             for(int output_col_index = 0; output_col_index < outputs[output_row_index].length; output_col_index++) {
 
-                if(output_row_has_been_summated) {
+                 if(!output_row_has_been_summated) {
                     for (int normalizing_index = 0; normalizing_index < outputs[output_row_index].length; normalizing_index++) {
 
-                        float output_value = outputs[output_row_index][output_col_index].value;
+                        double output_value = (double) outputs[output_row_index][output_col_index].value;
 
                         output_value =
-                                (float) Math.pow(
+                                  Math.pow(
                                         Math.E,
                                         output_value
                                 );
 
-                        exponentiated_sum += output_col_index;
+                        exponentiated_sum += output_value;
+
+                        outputs[output_row_index][normalizing_index].value = (float) output_value;
                     }
-                    output_row_has_been_summated = true;
+                     output_row_has_been_summated = true;
                 }
-//                outputs[output_row_index][output_col_index].value = output_value;
+                outputs[output_row_index][output_col_index].value = (float) (outputs[output_row_index][output_col_index].value / exponentiated_sum);
             }
+            output_row_has_been_summated = false;
+
         }
         return outputs;
     }

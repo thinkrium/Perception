@@ -25,18 +25,17 @@ public class Math {
      **/
 
      /**
-     *   For every "Inputs" column index;
-     *   each individual column in the weights is indexed in that row
-     *   and the output column index increments +1
-     *
-     * @param inputs
-     * @param weights
-     * @return output
-     */
+      * For every "Inputs" column index;
+      * each individual column in the weights is indexed in that row
+      * and the output column index increments +1
+      *
+      * @param inputs
+      * @param weights
+      * @return output
+      */
     public static Cognition_Element[][] GenerateOutputPrediction(Cognition_Element[][] inputs, Cognition_Element[][] weights, Bias[] biases) {
         Cognition_Element [][] outputs = new Cognition_Element[inputs.length][weights.length];
         for(int input_row_index = 0; input_row_index < inputs.length; input_row_index++) {
-            System.out.println("");
 
             float input_specific_prediction = 0;
 
@@ -55,7 +54,6 @@ public class Math {
 
              }
         }
-
 
         return outputs;
     }

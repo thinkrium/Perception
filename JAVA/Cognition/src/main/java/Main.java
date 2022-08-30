@@ -19,7 +19,13 @@ public class Main {
         }
 
         layer.Generate_Layer_Specific_Prediction( inputs );
-        layer.Display_To_Console(Enums.Display_Level.All);
+
+        layer.Display_To_Console(Enums.Display_Level.Nerual_Nodes);
+
+        layer.Display_To_Console(Enums.Display_Level.Generated_Predictions);
+
+        layer.Activate_Layer();
+        layer.Display_To_Console(Enums.Display_Level.Outputs);
 
     }
 }

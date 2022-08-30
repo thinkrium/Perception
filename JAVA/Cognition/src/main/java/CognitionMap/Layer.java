@@ -11,9 +11,9 @@ import java.util.Random;
 
 public class Layer {
 
-    private Neural_Node[][] inputs;
+    private Cognition_Element[][] inputs;
 
-    private Neural_Node[][] outputs;
+    private Cognition_Element[][] outputs;
 
     private Weight[][] weights;
 
@@ -56,6 +56,7 @@ public class Layer {
     public void Define_Weights_Initial_Value(  ) {
         Random random = new Random();
 
+
         for( int neuron_index = 0; neuron_index < this.neuron_count; neuron_index++ ) {
             for( int input_index = 0; input_index < this.input_count; input_index++ ) {
                 this.weights[neuron_index][input_index] = new Weight(random.nextFloat());
@@ -66,11 +67,11 @@ public class Layer {
 
         if(activation_method == Enums.Layer_Activation_Method.ReLU) {
             this.outputs =
-                    (Neural_Node[][]) Layer_Activation.Activate_By_ReLU((Cognition_Element[][]) this.outputs);
+                      Layer_Activation.Activate_By_ReLU((Cognition_Element[][]) this.outputs);
         }
         if(activation_method == Enums.Layer_Activation_Method.SoftMax) {
             this.outputs =
-                    (Neural_Node[][]) Layer_Activation.Activate_By_Softmax((Cognition_Element[][]) this.outputs);
+                     Layer_Activation.Activate_By_Softmax((Cognition_Element[][]) this.outputs);
         }
 
     }
@@ -95,7 +96,7 @@ public class Layer {
 
         this.inputs = inputs;
 
-        Math.GenerateOutputPrediction(inputs, weights, biases);
+        this.outputs =  Math.GenerateOutputPrediction(inputs, weights, biases);
     }
 
     /**
@@ -116,6 +117,7 @@ public class Layer {
             Display_Weights_To_Console();
             Display_Biases_To_Console();
             Display_Generated_Predictions_To_Console();
+            Display_Outputs_To_Console();
         }
         else if (display_level == Enums.Display_Level.Nerual_Nodes) {
             Display_Neural_Nodes_To_Console();
@@ -128,6 +130,13 @@ public class Layer {
         }
         else if (display_level == Enums.Display_Level.Generated_Predictions) {
             Display_Generated_Predictions_To_Console();
+        }
+        else if (display_level == Enums.Display_Level.Outputs) {
+            Display_Outputs_To_Console();
+        }
+        else {
+
+            System.out.println("That log level does not exist; Cannot log " + display_level);
         }
     }
 
@@ -153,6 +162,38 @@ public class Layer {
             System.out.println("");
         }
     }
+
+
+    /**
+     *  Displays the Outputs to the console
+     *
+     **/
+    public void Display_Outputs_To_Console() {
+
+        System.out.println("Generating outputs here");
+
+        float summated_outputs = 0;
+
+        for(int output_row_index = 0; output_row_index < this.outputs.length; output_row_index++) {
+            System.out.println("");
+
+
+            for (int output_column_index = 0; output_column_index < this.outputs[output_row_index].length; output_column_index++) {
+                summated_outputs += this.outputs[output_row_index][output_column_index].value;
+                System.out.print(  this.outputs[output_row_index][output_column_index].value + " ");
+            }
+
+            System.out.println();
+            System.out.println("Summed up at Row");
+            System.out.println(summated_outputs);
+
+            summated_outputs = 0;
+            System.out.println("");
+        }
+        System.out.println("");
+
+    }
+
 
     /**
      *  Displays the Weights to the console

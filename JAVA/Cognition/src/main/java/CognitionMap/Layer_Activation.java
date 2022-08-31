@@ -1,6 +1,7 @@
 package CognitionMap;
 
 import CognitionMap.Elements.Cognition_Element;
+import CognitionMap.Math.Cognition_Math;
 
 public class Layer_Activation {
 
@@ -58,11 +59,14 @@ public class Layer_Activation {
 
                         exponentiated_sum += output_value;
 
-                        outputs[output_row_index][normalizing_index].value = (float) output_value;
+                        outputs[output_row_index][normalizing_index].value = Cognition_Math.Limit_Precision(
+                                (float) output_value,5);
                     }
                      output_row_has_been_summated = true;
                 }
-                outputs[output_row_index][output_col_index].value = (float) (outputs[output_row_index][output_col_index].value / exponentiated_sum);
+                outputs[output_row_index][output_col_index].value = Cognition_Math.Limit_Precision(
+                        ((float) (outputs[output_row_index][output_col_index].value / exponentiated_sum)),
+              5);
             }
             output_row_has_been_summated = false;
 

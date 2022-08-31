@@ -3,7 +3,7 @@ package CognitionMap.Math;
 import CognitionMap.Elements.Bias;
 import CognitionMap.Elements.Cognition_Element;
 
-public class Math {
+public class Cognition_Math {
 
     /**    List1                         List2
      //
@@ -57,4 +57,10 @@ public class Math {
 
         return outputs;
     }
+
+    public static float Limit_Precision(float initial_number, int precision_limit) {
+
+        return Float.parseFloat(String.format("%." + precision_limit + "g%n", initial_number));
+    }
+
 }

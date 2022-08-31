@@ -4,7 +4,7 @@ import CognitionMap.Elements.Bias;
 import CognitionMap.Elements.Cognition_Element;
 import CognitionMap.Elements.Neural_Node;
 import CognitionMap.Elements.Weight;
-import CognitionMap.Math.Math;
+import CognitionMap.Math.Cognition_Math;
 import Utilities.Enums;
 
 import java.util.Random;
@@ -59,7 +59,9 @@ public class Layer {
 
         for( int neuron_index = 0; neuron_index < this.neuron_count; neuron_index++ ) {
             for( int input_index = 0; input_index < this.input_count; input_index++ ) {
-                this.weights[neuron_index][input_index] = new Weight(random.nextFloat());
+                this.weights[neuron_index][input_index] = new Weight(
+                        Cognition_Math.Limit_Precision(random.nextFloat(), 5)
+                     );
             }
         }
     }
@@ -96,7 +98,7 @@ public class Layer {
 
         this.inputs = inputs;
 
-        this.outputs =  Math.GenerateOutputPrediction(inputs, weights, biases);
+        this.outputs =  Cognition_Math.GenerateOutputPrediction(inputs, weights, biases);
     }
 
     /**
@@ -179,13 +181,18 @@ public class Layer {
 
 
             for (int output_column_index = 0; output_column_index < this.outputs[output_row_index].length; output_column_index++) {
-                summated_outputs += this.outputs[output_row_index][output_column_index].value;
-                System.out.print(  this.outputs[output_row_index][output_column_index].value + " ");
+                summated_outputs +=
+                        Cognition_Math.Limit_Precision(  this.outputs[output_row_index][output_column_index].value, 5)
+
+                ;
+                System.out.print(
+                        Cognition_Math.Limit_Precision(
+                                this.outputs[output_row_index][output_column_index].value , 5) + " ");
             }
 
             System.out.println();
             System.out.println("Summed up at Row");
-            System.out.println(summated_outputs);
+            System.out.println(Cognition_Math.Limit_Precision(  summated_outputs, 5));
 
             summated_outputs = 0;
             System.out.println("");

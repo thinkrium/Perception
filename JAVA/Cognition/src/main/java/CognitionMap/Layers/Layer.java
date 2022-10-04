@@ -1,4 +1,4 @@
-package CognitionMap;
+package CognitionMap.Layers;
 
 import CognitionMap.Elements.Bias;
 import CognitionMap.Elements.Cognition_Element;
@@ -23,6 +23,7 @@ public class Layer {
 
     private int input_count;
 
+    private int precision_limit = 5;
     /**
      * The constructor initiiates the layer of neurons and weights
      * For every neuron there is a bias
@@ -78,11 +79,15 @@ public class Layer {
 
     }
 
-    public void Activate_Layer() {
+    public void Activate_Layer_Using_Softmax() {
 
         Set_Activation_Values_By_Method(Enums.Layer_Activation_Method.SoftMax);
     }
 
+    public void Activate_Layer_Using_ReLu() {
+
+        Set_Activation_Values_By_Method(Enums.Layer_Activation_Method.ReLU);
+    }
 
     public Cognition_Element[][] Forward_Pass() {
         return  null;
@@ -182,17 +187,17 @@ public class Layer {
 
             for (int output_column_index = 0; output_column_index < this.outputs[output_row_index].length; output_column_index++) {
                 summated_outputs +=
-                        Cognition_Math.Limit_Precision(  this.outputs[output_row_index][output_column_index].value, 5)
+                        Cognition_Math.Limit_Precision(  this.outputs[output_row_index][output_column_index].value, this.precision_limit)
 
                 ;
                 System.out.print(
                         Cognition_Math.Limit_Precision(
-                                this.outputs[output_row_index][output_column_index].value , 5) + " ");
+                                this.outputs[output_row_index][output_column_index].value , this.precision_limit) + " ");
             }
 
             System.out.println();
             System.out.println("Summed up at Row");
-            System.out.println(Cognition_Math.Limit_Precision(  summated_outputs, 5));
+            System.out.println(Cognition_Math.Limit_Precision(  summated_outputs, this.precision_limit));
 
             summated_outputs = 0;
             System.out.println("");

@@ -1,5 +1,5 @@
 import CognitionMap.Elements.Neural_Node;
-import CognitionMap.Layer;
+import CognitionMap.Layers.Layer;
 import Utilities.Enums;
 
 public class Main {
@@ -24,7 +24,7 @@ public class Main {
 
         layer.Display_To_Console(Enums.Display_Level.Generated_Predictions);
 
-        layer.Activate_Layer();
+        layer.Activate_Layer_Using_Softmax();
         layer.Display_To_Console(Enums.Display_Level.Outputs);
 
     }

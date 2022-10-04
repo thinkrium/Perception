@@ -1,4 +1,4 @@
-package CognitionMap;
+package CognitionMap.Layers;
 
 import CognitionMap.Elements.Cognition_Element;
 import CognitionMap.Math.Cognition_Math;
@@ -39,6 +39,10 @@ public class Layer_Activation {
 
         for(int output_row_index = 0; output_row_index < outputs.length; output_row_index++) {
 
+            /**
+             * Before you activate a node you have to take a sigma/sum of each exponentiated row
+             * to activate by
+             */
             output_row_has_been_summated = false;
             test_summation = false;
 

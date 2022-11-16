@@ -90,7 +90,7 @@ public class Layer {
     }
 
     public Cognition_Element[][] Forward_Pass() {
-        return  null;
+        return  this.outputs;
     }
 
     /**

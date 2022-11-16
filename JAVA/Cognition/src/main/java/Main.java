@@ -25,6 +25,13 @@ public class Main {
         layer.Display_To_Console(Enums.Display_Level.Generated_Predictions);
 
         layer.Activate_Layer_Using_Softmax();
+
+        /**
+         * It seems the next step is to propogate forward to the next
+         * layer
+         */
+
+
         layer.Display_To_Console(Enums.Display_Level.Outputs);
 
     }

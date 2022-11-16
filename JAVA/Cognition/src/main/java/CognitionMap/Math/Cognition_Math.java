@@ -46,7 +46,6 @@ public class Cognition_Math {
                      input_specific_prediction += inputs[input_row_index][input_column_index].value
                                                   *
                                                   weights[input_row_index][weight_column_index].value;
-
                  }
 
                  input_specific_prediction += biases[input_row_index].value;

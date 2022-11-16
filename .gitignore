@@ -26,6 +26,12 @@
 *.a
 *.lib
 
+#configs
+.vs/
+
+#binaries
+out/
+
 # Executables
 *.exe
 *.out

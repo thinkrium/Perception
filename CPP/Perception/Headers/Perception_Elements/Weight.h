@@ -12,13 +12,13 @@ namespace Perception {
 		{
 		public:
 			Weight();
-			Weight(short param_value);
-			void Set_Value(short param_value);
-			short Get_Value();
+			Weight(float param_value);
+			void Set_Value(float param_value);
+			float Get_Value();
 			~Weight();
 
 		private:
-			short value;
+			float value;
 		};
 
 	}

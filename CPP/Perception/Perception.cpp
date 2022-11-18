@@ -2,13 +2,15 @@
 //
 
 #include "Perception.h"
-#include <Neural_Node.h>
+#include <Layer.h>
 
 using namespace std;
 using namespace Perception::Layer;
 
 int main()
 {
+
+	Layer layer(3);
 
 
 	cout << "Hello CMake." << endl;

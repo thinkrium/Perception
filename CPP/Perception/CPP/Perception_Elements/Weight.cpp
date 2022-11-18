@@ -10,16 +10,16 @@ Perception::Layer::Weight::Weight()
 /// <summary>
 /// Instantiate an Input for a Neural Node and assigns it a value for input
 /// </summary>
-/// <param name="param_value">Short</param>
-Perception::Layer::Weight::Weight(short param_value)
+/// <param name="param_value">float</param>
+Perception::Layer::Weight::Weight(float param_value)
 {
 }
 
 /// <summary>
 /// Assigns the input a value
 /// </summary>
-/// <param name="param_value">Short</param>
-void Perception::Layer::Weight::Set_Value(short param_value) {
+/// <param name="param_value">float</param>
+void Perception::Layer::Weight::Set_Value(float param_value) {
 
 }
 
@@ -27,7 +27,7 @@ void Perception::Layer::Weight::Set_Value(short param_value) {
 /// Gets the input value
 /// </summary>
 /// <returns></returns>
-short Perception::Layer::Weight::Get_Value() {
+float Perception::Layer::Weight::Get_Value() {
 	return Test_Return_Data;
 }
 

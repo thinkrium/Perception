@@ -29,10 +29,13 @@
 #configs
 .vs/
 
-#binaries
+#cpp binaries
 out/
 
 # Executables
 *.exe
 *.out
 *.app
+
+#java stuff
+target/

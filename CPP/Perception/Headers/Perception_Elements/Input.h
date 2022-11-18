@@ -13,13 +13,13 @@ namespace Perception {
 		{
 		public:
 			Input();
-			Input(short param_value);
-			void Set_Value(short param_value);
-			short Get_Value();
+			Input(float param_value);
+			void Set_Value(float param_value);
+			float Get_Value();
 			~Input();
 
 		private:
-			short value;
+			float value;
 		};
 
 	}

@@ -21,7 +21,7 @@ namespace Perception {
 				void Create_Layer_Nodes();
 				void Create_Nodes_By_Count();
 				void Create_Nodes_By_Count(int param_node_count);
-				short Generate_Random_Numerical_Value();
+				float Generate_Random_Numerical_Value();
 				~Layer();
 
 			private:

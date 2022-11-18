@@ -14,17 +14,17 @@ namespace Perception {
 		{
 			public:
 				Neural_Node();
-				Neural_Node(short param_input);
-				Neural_Node(short param_input, short param_weight);
-				void Set_Input(short param_input);
-				short Get_Input();
-				void Set_Weight(short param_weight);
-				short Get_Weight();
+				Neural_Node(float param_input);
+				Neural_Node(float param_input, float param_weight);
+				void Set_Input(float param_input);
+				float Get_Input();
+				void Set_Weight(float param_weight);
+				float Get_Weight();
 				~Neural_Node();
 
 			private:
-				short input;
-				short weight;
+				float input;
+				float weight;
 
 		};
 

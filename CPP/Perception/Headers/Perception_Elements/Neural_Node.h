@@ -2,9 +2,12 @@
 #define Neural_Node_H
 
 #include <Root.h>
+#include <Input.h>
+#include <Weight.h>
+
 using namespace Utilities;
 
-namespace Cognition {
+namespace Perception {
 
 	namespace Layer {
 		class Neural_Node : public Root

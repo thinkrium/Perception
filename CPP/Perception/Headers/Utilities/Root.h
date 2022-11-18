@@ -4,6 +4,9 @@
 #include <iostream>
 using namespace std;
 
+
+#define Test_Return_Data 0
+
 namespace Utilities {
 	class Root
 	{

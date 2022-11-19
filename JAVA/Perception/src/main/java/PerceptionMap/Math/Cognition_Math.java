@@ -1,7 +1,7 @@
-package CognitionMap.Math;
+package PerceptionMap.Math;
 
-import CognitionMap.Elements.Bias;
-import CognitionMap.Elements.Cognition_Element;
+import PerceptionMap.Elements.Bias;
+import PerceptionMap.Elements.Perception_Element;
 
 public class Cognition_Math {
 
@@ -33,8 +33,8 @@ public class Cognition_Math {
       * @param weights
       * @return output
       */
-    public static Cognition_Element[][] GenerateOutputPrediction(Cognition_Element[][] inputs, Cognition_Element[][] weights, Bias[] biases) {
-        Cognition_Element [][] outputs = new Cognition_Element[inputs.length][weights.length];
+    public static Perception_Element[][] GenerateOutputPrediction(Perception_Element[][] inputs, Perception_Element[][] weights, Bias[] biases) {
+        Perception_Element[][] outputs = new Perception_Element[inputs.length][weights.length];
         for(int input_row_index = 0; input_row_index < inputs.length; input_row_index++) {
 
             float input_specific_prediction = 0;
@@ -49,7 +49,7 @@ public class Cognition_Math {
                  }
 
                  input_specific_prediction += biases[input_row_index].value;
-                 outputs[input_row_index][input_column_index] = new Cognition_Element(input_specific_prediction);
+                 outputs[input_row_index][input_column_index] = new Perception_Element(input_specific_prediction);
 
              }
         }

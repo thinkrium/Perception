@@ -20,11 +20,14 @@ namespace Perception {
 				float Get_Input();
 				void Set_Weight(float param_weight);
 				float Get_Weight();
+				void Set_Bias(float param_bias);
+				float Get_Bias();
 				~Neural_Node();
 
 			private:
 				float input;
 				float weight;
+				float bias;
 
 		};
 

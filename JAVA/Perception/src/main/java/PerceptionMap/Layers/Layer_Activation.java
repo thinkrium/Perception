@@ -1,12 +1,12 @@
-package CognitionMap.Layers;
+package PerceptionMap.Layers;
 
-import CognitionMap.Elements.Cognition_Element;
-import CognitionMap.Math.Cognition_Math;
+import PerceptionMap.Elements.Perception_Element;
+import PerceptionMap.Math.Cognition_Math;
 
 public class Layer_Activation {
 
 
-    public static Cognition_Element[][] Activate_By_ReLU(Cognition_Element [][] outputs) {
+    public static Perception_Element[][] Activate_By_ReLU(Perception_Element[][] outputs) {
 
         for(int output_row_index = 0; output_row_index < outputs.length; output_row_index++) {
             for(int output_col_index = 0; output_col_index < outputs[output_row_index].length; output_col_index++) {
@@ -31,7 +31,7 @@ public class Layer_Activation {
      * @param outputs
      * @return outputs
      */
-    public static Cognition_Element[][] Activate_By_Softmax(Cognition_Element[][] outputs) {
+    public static Perception_Element[][] Activate_By_Softmax(Perception_Element[][] outputs) {
 
         boolean test_summation;
 

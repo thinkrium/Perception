@@ -1,19 +1,19 @@
-package CognitionMap.Layers;
+package PerceptionMap.Layers;
 
-import CognitionMap.Elements.Bias;
-import CognitionMap.Elements.Cognition_Element;
-import CognitionMap.Elements.Neural_Node;
-import CognitionMap.Elements.Weight;
-import CognitionMap.Math.Cognition_Math;
+import PerceptionMap.Elements.Bias;
+import PerceptionMap.Elements.Perception_Element;
+import PerceptionMap.Elements.Neural_Node;
+import PerceptionMap.Elements.Weight;
+import PerceptionMap.Math.Cognition_Math;
 import Utilities.Enums;
 
 import java.util.Random;
 
 public class Layer {
 
-    private Cognition_Element[][] inputs;
+    private Perception_Element[][] inputs;
 
-    private Cognition_Element[][] outputs;
+    private Perception_Element[][] outputs;
 
     private Weight[][] weights;
 
@@ -70,11 +70,11 @@ public class Layer {
 
         if(activation_method == Enums.Layer_Activation_Method.ReLU) {
             this.outputs =
-                      Layer_Activation.Activate_By_ReLU((Cognition_Element[][]) this.outputs);
+                      Layer_Activation.Activate_By_ReLU((Perception_Element[][]) this.outputs);
         }
         if(activation_method == Enums.Layer_Activation_Method.SoftMax) {
             this.outputs =
-                     Layer_Activation.Activate_By_Softmax((Cognition_Element[][]) this.outputs);
+                     Layer_Activation.Activate_By_Softmax((Perception_Element[][]) this.outputs);
         }
 
     }
@@ -89,7 +89,7 @@ public class Layer {
         Set_Activation_Values_By_Method(Enums.Layer_Activation_Method.ReLU);
     }
 
-    public Cognition_Element[][] Forward_Pass() {
+    public Perception_Element[][] Forward_Pass() {
         return  this.outputs;
     }
 

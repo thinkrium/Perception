@@ -1,5 +1,5 @@
-import CognitionMap.Elements.Neural_Node;
-import CognitionMap.Layers.Layer;
+import PerceptionMap.Elements.Neural_Node;
+import PerceptionMap.Layers.Layer;
 import Utilities.Enums;
 
 public class Main {

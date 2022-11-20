@@ -34,9 +34,9 @@ FetchContent_MakeAvailable(googletest)
 # Now simply link against gtest or gtest_main as needed. Eg
 add_executable(${Project_Test_Name} "Testing/Testing_Layer.cpp")
 target_link_libraries(${Project_Test_Name} gtest_main)
-add_test(NAME Testing_Random_Number_Generator COMMAND Testing_Random_Number_Generator)
 
 # TODO: Add tests and install targets if needed.
  
 enable_testing()
 
+add_test(NAME ${Project_Test_Name} COMMAND ${Project_Test_Name} )

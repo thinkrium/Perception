@@ -66,7 +66,7 @@ float Perception::Layer::Neural_Node::Get_Weight() {
 /// </summary>
 /// <param name="param_bias">float</param>
 void Perception::Layer::Neural_Node::Set_Bias(float param_bias) {
-
+	this->bias = param_bias;
 }
 
 /// <summary>
@@ -74,7 +74,7 @@ void Perception::Layer::Neural_Node::Set_Bias(float param_bias) {
 /// </summary>
 /// <returns>float value of bias from Neural Node</returns>
 float Perception::Layer::Neural_Node::Get_Bias() {
-
+	return this->bias;
 }
 
 

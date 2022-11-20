@@ -3,6 +3,8 @@
 #
 cmake_minimum_required (VERSION 3.8)
 
+set(Project_Test_Name "Perception_Test")
+
 project ("Perception")
 
 # Add source to this project's executable.
@@ -17,4 +19,24 @@ if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET Perception PROPERTY CXX_STANDARD 20)
 endif()
 
+include(FetchContent)
+
+FetchContent_Declare(
+  googletest
+  # Specify the commit you depend on and update it regularly.
+  URL https://github.com/google/googletest/archive/609281088cfefc76f9d0ce82e1ff6c30cc3591e5.zip
+)
+# For Windows: Prevent overriding the parent project's compiler/linker settings
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+
+FetchContent_MakeAvailable(googletest)
+
+# Now simply link against gtest or gtest_main as needed. Eg
+add_executable(${Project_Test_Name} "Testing/Testing_Layer.cpp")
+target_link_libraries(${Project_Test_Name} gtest_main)
+add_test(NAME Testing_Random_Number_Generator COMMAND Testing_Random_Number_Generator)
+
 # TODO: Add tests and install targets if needed.
+ 
+enable_testing()
+

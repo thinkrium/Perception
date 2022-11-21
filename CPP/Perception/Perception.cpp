@@ -12,7 +12,6 @@ int main()
 
 	Layer layer(3);
 
-
-	cout << "Hello CMake." << endl;
+	  
 	return 0;
 }

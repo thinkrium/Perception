@@ -13,22 +13,41 @@ namespace Perception {
 		class Neural_Node : public Root
 		{
 			public:
+
+				/*
+					Instantiates an empty Neural Node which can be populated with
+					content later
+				 */
 				Neural_Node();
+
+				/*
+				   Instantiate a Neural Node and assigns it a value for input
+				   Param=param_input
+				 */
 				Neural_Node(float param_input);
-				Neural_Node(float param_input, float param_weight);
+
+				/*
+				   Sets the input value of a Neural Node
+				   Param=param_input
+				*/
 				void Set_Input(float param_input);
+				/*
+				Gets the input value of the Neural Node
+				returns float input value
+				*/
 				float Get_Input();
-				void Set_Weight(float param_weight);
-				float Get_Weight();
-				void Set_Bias(float param_bias);
-				float Get_Bias();
+
+				/*
+				Destructor
+				*/
 				~Neural_Node();
 
 			private:
-				float input;
-				float weight;
-				float bias;
 
+				/*
+				   The value of the node 
+				*/
+				float input;
 		};
 
 	}

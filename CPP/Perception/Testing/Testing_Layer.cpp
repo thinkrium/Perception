@@ -1,18 +1,46 @@
 #include <gtest/gtest.h>
 
-TEST(Perception_Test, Testomg_True) {
-	EXPECT_TRUE(true);
-}
- 
-TEST(Perception_Test, some_other_thing) {
-	EXPECT_TRUE(true);
-}
+#include <Layer.h>
 
 
-TEST(Perception_Test, asdfa) {
-	EXPECT_TRUE(true);
+using namespace Perception::Layer;
+//Perception_Test
+
+/// <summary>
+/// Tests the Node count is correct
+/// </summary>
+TEST(Perception_Test, Test_Layer_Node_Count_From_Constructor) {
+    int test_node_count = 3;
+    Layer test_layer(test_node_count);  
+    EXPECT_EQ(test_node_count, test_layer.Get_Node_Count());
 }
 
-TEST(Perception_Test, ssdfsdfasdfasd) {
-	EXPECT_TRUE(true);
+/// <summary>
+/// Tests the Node count is correct
+/// </summary>
+TEST(Perception_Test, Test_Layer_Node_Count_From_Method) {
+    int test_node_count = 3;
+    Layer test_layer;
+    test_layer.Create_Nodes_By_Count(3);
+    EXPECT_EQ(test_node_count, test_layer.Get_Node_Count());
 }
+
+/// <summary>
+/// Tests the Node count is correct
+/// </summary>
+TEST(Perception_Test, Test_Setting_Node_Count_By_Method) {
+    int test_node_count = 3;
+    Layer test_layer;
+    test_layer.Set_Node_Count(3);
+    EXPECT_EQ(test_node_count, test_layer.Get_Node_Count());
+}
+
+/// <summary>
+/// Tests the random value generator
+/// </summary>
+TEST(Perception_Test, Test_Random_Value_In_Range) {
+    Layer test_layer;
+    float test_random_value = test_layer.Generate_Random_Numerical_Value();
+    EXPECT_TRUE(((test_random_value >= -1) && (test_random_value <= 1))) << " by the value of " << test_random_value;
+}
+

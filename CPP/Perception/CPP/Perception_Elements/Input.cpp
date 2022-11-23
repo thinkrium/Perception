@@ -1,9 +1,11 @@
 #include <Input.h>
 
+using namespace Perception::Layer::Element;
+
 /// <summary>
 /// Instantiate an empty Input for a Neural Node 
 /// </summary>
-Perception::Layer::Input::Input()
+Input::Input()
 {
 }
 
@@ -11,7 +13,7 @@ Perception::Layer::Input::Input()
 /// Instantiate an Input for a Neural Node and assigns it a value for input
 /// </summary>
 /// <param name="param_value">float</param>
-Perception::Layer::Input::Input(float param_value)
+Input::Input(float param_value)
 {
 }
 
@@ -19,7 +21,7 @@ Perception::Layer::Input::Input(float param_value)
 /// Assigns the input a value
 /// </summary>
 /// <param name="param_value">float</param>
-void Perception::Layer::Input::Set_Value(float param_value) {
+void Input::Set_Value(float param_value) {
 
 }
 
@@ -27,14 +29,14 @@ void Perception::Layer::Input::Set_Value(float param_value) {
 /// Gets the input value
 /// </summary>
 /// <returns></returns>
-float Perception::Layer::Input::Get_Value() {
+float Input::Get_Value() {
 	return Test_Return_Data;
 }
 
 /// <summary>
 /// destructor for input object
 /// </summary>
-Perception::Layer::Input::~Input()
+Input::~Input()
 {
 }
 

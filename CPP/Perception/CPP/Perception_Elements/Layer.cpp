@@ -3,30 +3,37 @@
 #include <iostream>
 
 using namespace std;
+using namespace Perception::Layer::Element;
 
-Perception::Layer::Layer::Layer()
+Layer::Layer()
 {
 }
 
 
-Perception::Layer::Layer::Layer(int param_node_count) {
+Layer::Layer(int param_node_count) {
     this->neuralNodeCount = param_node_count;
     this->Create_Layer_Nodes();
+    this->Create_Layer_Weights();
 }
 
-void Perception::Layer::Layer::Set_Node_Count(int param_node_count) { 
+void Layer::Set_Node_Count(int param_node_count) { 
     this->neuralNodeCount = param_node_count;
 }
 
-int Perception::Layer::Layer::Get_Node_Count() {
+int Layer::Get_Node_Count() {
     return this->neuralNodeCount;
 }
 
-void Perception::Layer::Layer::Create_Layer_Nodes() {
+void Layer::Create_Layer_Nodes() {
     this->Create_Nodes_By_Count();
 }
 
-void Perception::Layer::Layer::Create_Nodes_By_Count() {
+void Layer::Create_Layer_Weights() {
+    this->Create_Weights_By_Count();
+}
+
+
+void Layer::Create_Nodes_By_Count() {
     for (int index = 0; index < this->neuralNodeCount; index++) {
         neuralNodes.push_back(
             Neural_Node(
@@ -36,7 +43,7 @@ void Perception::Layer::Layer::Create_Nodes_By_Count() {
     }
 }
  
-void Perception::Layer::Layer::Create_Nodes_By_Count(int param_node_count) {
+void Layer::Create_Nodes_By_Count(int param_node_count) {
     for (int index = 0; index < param_node_count; index++) {
         neuralNodes.push_back(
             Neural_Node(
@@ -46,7 +53,23 @@ void Perception::Layer::Layer::Create_Nodes_By_Count(int param_node_count) {
     }
 }
 
-float Perception::Layer::Layer::Generate_Random_Numerical_Value() {
+void Layer::Create_Weights_By_Count() {
+    for (int index = 0; index < this->neuralNodeCount; index++) {
+        weights.push_back(
+            this->Generate_Random_Numerical_Value()
+        );
+    }
+}
+
+void Layer::Create_Weights_By_Count(int param_node_count) {
+    for (int index = 0; index < param_node_count; index++) {
+        weights.push_back(            
+            this->Generate_Random_Numerical_Value()   
+        );
+    }
+}
+
+float Layer::Generate_Random_Numerical_Value() {
     
     random_device random_generator; // obtain a random number from hardware
     
@@ -61,11 +84,20 @@ float Perception::Layer::Layer::Generate_Random_Numerical_Value() {
     return random_number;
 }
 
-float Perception::Layer::Layer::Feed_Forward_Pass() {
+float Layer::Dot_Product(vector<float> inputs, vector<float> weights) {
+    float results = 0;
+    for (int index = 0; index < inputs.size(); index++) {
+        results += inputs[index] * weights[index];
+    }
+
+    return results;
+}
+
+float Layer::Feed_Forward_Pass() {
     return Test_Return_Data;
 }
  
-Perception::Layer::Layer::~Layer()
+Layer::~Layer()
 {
 }
 

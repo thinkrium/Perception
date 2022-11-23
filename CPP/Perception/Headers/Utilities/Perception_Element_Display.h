@@ -1,0 +1,7 @@
+#ifndef PERCEPTION_ELEMENT_DISPLAY_H
+#define PERCEPTION_ELEMENT_DISPLAY_H
+
+namespace Utilities {
+}
+
+#endif // !PERCEPTION_ELEMENT_DISPLAY_H

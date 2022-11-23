@@ -1,55 +1,57 @@
 #ifndef Neural_Node_H
 #define Neural_Node_H
 
-#include <Root.h>
 #include <Input.h>
 #include <Weight.h>
+#include <Perception_Element.h>
 
 using namespace Utilities;
 
 namespace Perception {
 
 	namespace Layer {
-		class Neural_Node : public Root
-		{
-			public:
+		namespace Element {
 
-				/*
-					Instantiates an empty Neural Node which can be populated with
-					content later
-				 */
-				Neural_Node();
+			class Neural_Node : public Perception_Element
+ 			{
+				public:
 
-				/*
-				   Instantiate a Neural Node and assigns it a value for input
-				   Param=param_input
-				 */
-				Neural_Node(float param_input);
+					/*
+						Instantiates an empty Neural Node which can be populated with
+						content later
+					 */
+					Neural_Node();
 
-				/*
-				   Sets the input value of a Neural Node
-				   Param=param_input
-				*/
-				void Set_Input(float param_input);
-				/*
-				Gets the input value of the Neural Node
-				returns float input value
-				*/
-				float Get_Input();
+					/*
+					   Instantiate a Neural Node and assigns it a value for input
+					   Param=param_input
+					 */
+					Neural_Node(float param_input);
 
-				/*
-				Destructor
-				*/
-				~Neural_Node();
+					/*
+					   Sets the input value of a Neural Node
+					   Param=param_input
+					*/
+					void Set_Input(float param_input);
+					/*
+					Gets the input value of the Neural Node
+					returns float input value
+					*/
+					float Get_Input();
 
-			private:
+					/*
+					Destructor
+					*/
+					~Neural_Node();
 
-				/*
-				   The value of the node 
-				*/
-				float input;
-		};
+				private:
 
+					/*
+					   The value of the node
+					*/
+					float input;
+			};
+		}
 	}
 }
 

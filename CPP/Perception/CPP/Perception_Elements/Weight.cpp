@@ -1,9 +1,10 @@
 #include <Weight.h>
 
+using namespace Perception::Layer::Element;
 /// <summary>
 /// Instantiate an empty Input for a Neural Node 
 /// </summary>
-Perception::Layer::Weight::Weight()
+Weight::Weight()
 {
 }
 
@@ -11,7 +12,7 @@ Perception::Layer::Weight::Weight()
 /// Instantiate an Input for a Neural Node and assigns it a value for input
 /// </summary>
 /// <param name="param_value">float</param>
-Perception::Layer::Weight::Weight(float param_value)
+Weight::Weight(float param_value)
 {
 }
 
@@ -19,7 +20,7 @@ Perception::Layer::Weight::Weight(float param_value)
 /// Assigns the input a value
 /// </summary>
 /// <param name="param_value">float</param>
-void Perception::Layer::Weight::Set_Value(float param_value) {
+void Weight::Set_Value(float param_value) {
 
 }
 
@@ -27,14 +28,14 @@ void Perception::Layer::Weight::Set_Value(float param_value) {
 /// Gets the input value
 /// </summary>
 /// <returns></returns>
-float Perception::Layer::Weight::Get_Value() {
+float Weight::Get_Value() {
 	return Test_Return_Data;
 }
 
 /// <summary>
 /// destructor for input object
 /// </summary>
-Perception::Layer::Weight::~Weight()
+Weight::~Weight()
 {
 }
 

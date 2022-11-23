@@ -8,7 +8,7 @@ set(Project_Test_Name "Perception_Test")
 project ("Perception")
 
 # Add source to this project's executable.
-add_executable (Perception "Perception.cpp" "Perception.h" "Headers/Perception_Elements/Neural_Node.h" "CPP/Perception_Elements/Neural_Node.cpp" "Headers/Utilities/Root.h" "CPP/Utilities/Root.cpp" "CPP/Perception_Elements/Layer.cpp" "Headers/Perception_Elements/Layer.h" "CPP/Perception_Elements/Weight.cpp" "CPP/Perception_Elements/Input.cpp" "Headers/Perception_Elements/Weight.h" "Headers/Perception_Elements/Input.h")
+add_executable (Perception "Perception.cpp" "Perception.h" "Headers/Perception_Elements/Neural_Node.h" "CPP/Perception_Elements/Neural_Node.cpp" "Headers/Utilities/Root.h" "CPP/Utilities/Root.cpp" "CPP/Perception_Elements/Layer.cpp" "Headers/Perception_Elements/Layer.h" "CPP/Perception_Elements/Weight.cpp" "CPP/Perception_Elements/Input.cpp" "Headers/Perception_Elements/Weight.h" "Headers/Perception_Elements/Input.h" "Headers/Utilities/Perception_Element_Display.h" "CPP/Utilities/Perception_Element_Display.cpp" "CPP/Perception_Elements/Perception_Element.cpp" "Headers/Perception_Elements/Perception_Element.h")
 
 target_include_directories(${PROJECT_NAME} PUBLIC 
       ${CMAKE_CURRENT_SOURCE_DIR}/Headers/Perception_Elements
@@ -32,7 +32,7 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
 # Now simply link against gtest or gtest_main as needed. Eg
-add_executable(${Project_Test_Name} "Testing/Testing_Layer.cpp" "Perception.cpp" "Perception.h" "Headers/Perception_Elements/Neural_Node.h" "CPP/Perception_Elements/Neural_Node.cpp" "Headers/Utilities/Root.h" "CPP/Utilities/Root.cpp" "CPP/Perception_Elements/Layer.cpp" "Headers/Perception_Elements/Layer.h" "CPP/Perception_Elements/Weight.cpp" "CPP/Perception_Elements/Input.cpp" "Headers/Perception_Elements/Weight.h" "Headers/Perception_Elements/Input.h")
+add_executable(${Project_Test_Name} "Testing/Testing_Layer.cpp" "Perception.cpp" "Perception.h" "Headers/Perception_Elements/Neural_Node.h" "CPP/Perception_Elements/Neural_Node.cpp" "Headers/Utilities/Root.h" "CPP/Utilities/Root.cpp" "CPP/Perception_Elements/Layer.cpp" "Headers/Perception_Elements/Layer.h" "CPP/Perception_Elements/Weight.cpp" "CPP/Perception_Elements/Input.cpp" "Headers/Perception_Elements/Weight.h" "Headers/Perception_Elements/Input.h" "Headers/Utilities/Perception_Element_Display.h" "CPP/Utilities/Perception_Element_Display.cpp" "CPP/Perception_Elements/Perception_Element.cpp" "Headers/Perception_Elements/Perception_Element.h")
 
 target_include_directories(${Project_Test_Name} PUBLIC 
       ${CMAKE_CURRENT_SOURCE_DIR}/Headers/Perception_Elements

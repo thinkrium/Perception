@@ -101,7 +101,7 @@ namespace Perception {
 					/*
 					   Performs a Dot product operation on the incoming weights and parameters
 					*/
-					float Dot_Product(vector<float> inputs, vector<float> weights);
+					float Dot_Product(vector<Input> inputs, vector<Weight> weights);
 
 					/*
 					  Passes the full matrix multiplacation value of the this layer to the

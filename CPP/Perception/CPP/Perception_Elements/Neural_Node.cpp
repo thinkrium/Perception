@@ -16,7 +16,7 @@ void Neural_Node::Set_Input(float param_input) {
 }
 
 
-float Neural_Node::Get_Input() {
+Input Neural_Node::Get_Input() {
 	return this->input;
 }
 

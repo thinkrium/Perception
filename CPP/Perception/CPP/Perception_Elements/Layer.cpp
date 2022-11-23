@@ -84,17 +84,18 @@ float Layer::Generate_Random_Numerical_Value() {
     return random_number;
 }
 
-float Layer::Dot_Product(vector<float> inputs, vector<float> weights) {
+float Layer::Dot_Product(vector<Input> inputs, vector<Weight> weights) {
     float results = 0;
     for (int index = 0; index < inputs.size(); index++) {
-        results += inputs[index] * weights[index];
+        results += inputs[index].Get_Value() * weights[index].Get_Value();
     }
 
     return results;
 }
 
 float Layer::Feed_Forward_Pass() {
-    return Test_Return_Data;
+
+     return Test_Return_Data;
 }
  
 Layer::~Layer()

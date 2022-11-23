@@ -37,7 +37,7 @@ namespace Perception {
 					Gets the input value of the Neural Node
 					returns float input value
 					*/
-					float Get_Input();
+					Input Get_Input();
 
 					/*
 					Destructor
@@ -49,7 +49,7 @@ namespace Perception {
 					/*
 					   The value of the node
 					*/
-					float input;
+					Input input;
 			};
 		}
 	}

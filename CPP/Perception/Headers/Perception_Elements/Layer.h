@@ -32,12 +32,12 @@ namespace Perception {
 
 
 					 /*
-					   Creates an Empty Layer without any Neural Nodes
+					   Initializes an Empty Layer without any Neural Nodes
 					 */
 					Layer();
 
 					/*
-					  Creates an Layer of Neural Nodes by the count of param_node_count
+					  Initializes an Layer of Neural Nodes by the count of param_node_count
 					*/
 					Layer(int param_node_count);
 
@@ -48,47 +48,47 @@ namespace Perception {
 					void Set_Node_Count(int param_node_count);
 
 					/*
-					   Creates the all new nodes for this layer and initializes their value with random number between -1 and 1
+					   Initializes the all new nodes for this layer and initializes their value with random number between -1 and 1
 					*/
 					int Get_Node_Count();
 
 					/*
-					   Creates the all new nodes for this layer by the size of the previously defined
+					   Initializes the all new nodes for this layer by the size of the previously defined
 					   node count
 					   and initializes their value with random number between -1 and 1
 					*/
-					void Create_Layer_Nodes();
+					void Initialize_Layer_Nodes();
 
 					/*
-					   Creates the all new nodes for this layer by the size of the previously defined
+					   Initializes the all new nodes for this layer by the size of the previously defined
 					   node count
 					   and initializes their value with random number between -1 and 1
 					*/
-					void Create_Layer_Weights();
+					void Initialize_Layer_Weights();
 
 					/*
-						Creates the all new nodes for this layer by the size of the internal objects node_count
+						Initializes the all new nodes for this layer by the size of the internal objects node_count
 						and initializes their value with random number between -1 and 1
 					*/
-					void Create_Nodes_By_Count();
+					void Initialize_Nodes_By_Count();
 
 					/*
-						Creates the all new nodes for this layer by the size of the param_node_count
+						Initializes the all new nodes for this layer by the size of the param_node_count
 						and initializes their value with random number between -1 and 1
 					*/
-					void Create_Nodes_By_Count(int param_node_count);
+					void Initialize_Nodes_By_Count(int param_node_count);
 
 					/*
-					Creates the all new weights for this layer by the size of the internal objects node_count
+					Initializes the all new weights for this layer by the size of the internal objects node_count
 					and initializes their value with random number between -1 and 1
 					*/
-					void Create_Weights_By_Count();
+					void Initialize_Weights_By_Count();
 
 					/*
-					Creates the all new weights for this layer by the size of the internal objects node_count
+					Initializes the all new weights for this layer by the size of the internal objects node_count
 					and initializes their value with random number between -1 and 1
 					*/
-					void Create_Weights_By_Count(int param_node_count);
+					void Initialize_Weights_By_Count(int param_node_count);
 					/*
 
 					  Generates a random number between -1 and 1 from the hardware
@@ -96,12 +96,17 @@ namespace Perception {
 					  returns random float value between -1 and 1
 					*/
 
+					/*
+					* Initializes the bias of the output
+					*/
+					void Initialize_Bias(float param_bias);
+
 					float Generate_Random_Numerical_Value();
 
 					/*
 					   Performs a Dot product operation on the incoming weights and parameters
 					*/
-					float Dot_Product(vector<float> inputs, vector<float> weights);
+					float Dot_Product(vector<Neural_Node> param_inputs, vector<float> param_weights);
 
 					/*
 					  Passes the full matrix multiplacation value of the this layer to the
@@ -124,14 +129,14 @@ namespace Perception {
 					vector<Neural_Node> neuralNodes;
 
 					/*
-					  The Vector/list of weights
+					  The Vector/list of weights {prediction importance}
 					*/
 					vector<float> weights;
 
 					/*
-					  The Vector/list of biases
+					  The bias of the predictoin
 					*/
-					vector<float> biases;
+					float bias;
 
 			};
 		}

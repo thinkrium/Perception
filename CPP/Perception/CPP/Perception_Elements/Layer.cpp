@@ -1,6 +1,7 @@
 #include <Layer.h>
 // tempoorary test for random # generation value
 #include <iostream>
+#include <cmath>
 
 using namespace std;
 using namespace Perception::Layer::Element;
@@ -92,6 +93,35 @@ float Layer::Dot_Product(vector<Neural_Node> param_inputs, vector<float> param_w
 
     return results;
 }
+
+void Layer::Activate_Neural_Nodes() {
+    for (int index = 0; index < this->Get_Node_Count(); index++) {
+        this->Activate_Neural_Node_By(Activation_Method::ReLu,
+        this->neuralNodes[index]
+            );
+    }
+}
+
+void Layer::Activate_Neural_Node_By(Utilities::Activation_Method method, Neural_Node &param_current_node) {
+    for (int index = 0; index < this->Get_Node_Count(); index++) {
+        this->Activate_Neural_Node_By(method, this->neuralNodes[index]);
+    }
+}
+
+void Layer::Activate_Neural_Node_By_ReLu(Neural_Node& param_current_node) {
+    if (param_current_node.Get_Input() <= 0) {
+        param_current_node.Set_Input(0);
+    }
+}
+
+void Layer::Activate_Neural_Node_By_Sigmoid(Neural_Node& param_current_node) {
+
+    float current_sigmoid_value = (1 / (1 + exp(-param_current_node.Get_Input())));
+
+    param_current_node.Set_Input(current_sigmoid_value);
+  
+}
+
 
 float Layer::Feed_Forward_Pass() {
     float prediction = this->Dot_Product(this->neuralNodes, this->weights) + this->bias;

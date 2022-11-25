@@ -12,6 +12,6 @@ int main()
 
 	Layer layer(3);
 
-	cout << " TEsting";
+
 	return 0;
 }

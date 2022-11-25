@@ -5,6 +5,7 @@
 #include <Neural_Node.h>
 #include <vector>
 #include <random>
+#include <Enums.h>
 
 using namespace Utilities;
 using namespace std;
@@ -107,6 +108,31 @@ namespace Perception {
 					   Performs a Dot product operation on the incoming weights and parameters
 					*/
 					float Dot_Product(vector<Neural_Node> param_inputs, vector<float> param_weights);
+
+					/*
+					  Activates the current node 
+					*/
+					void Activate_Neural_Nodes();
+
+					/*
+					  Activates the current node by a specifict activation method
+					*/
+					void Activate_Neural_Node_By( Utilities::Activation_Method method, Neural_Node& param_current_node);
+
+					/*
+					  Activates the current node by a specific by Rectified Linear Unit
+					*/
+					void Activate_Neural_Node_By_ReLu(Neural_Node& param_current_node);
+
+					/*
+					  Activates the current node by a Sigmoid
+					*/
+					void Activate_Neural_Node_By_Sigmoid(Neural_Node& param_current_node);
+					
+					/*
+					  Activates the current node by a Softmax
+					*/
+					void Activate_Neural_Node_By_Softmax(Neural_Node& param_current_node);
 
 					/*
 					  Passes the full matrix multiplacation value of the this layer to the

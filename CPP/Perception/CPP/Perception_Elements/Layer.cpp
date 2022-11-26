@@ -111,26 +111,24 @@ float Layer::Dot_Product(vector<Neural_Node> param_inputs, vector<float> param_w
     return results;
 }
 
+// able to call this method and defaults to ReLu for now 
+// 11-26-2022
 void Layer::Activate_Neural_Nodes() {
+    this->Activate_Neural_Node_By(Neural_Node_Activation_Method::ReLu);
+}
+
+// allows you to call the method with an explicit method
+void Layer::Activate_Neural_Node_By(Utilities::Neural_Node_Activation_Method param_method) {
     for (int index = 0; index < this->Get_Node_Count(); index++) {
-        this->Activate_Neural_Node_By(Neural_Node_Activation_Method::ReLu,
-        this->neuralNodes[index]
-            );
+        if (param_method == Neural_Node_Activation_Method::ReLu) {
+            this->Activate_Neural_Node_By_ReLu(this->neuralNodes[index]);
+        }
+        else if (param_method == Neural_Node_Activation_Method::Sigmoid) {
+            this->Activate_Neural_Node_By_Sigmoid(this->neuralNodes[index]);
+        }
     }
 }
 
-void Layer::Activate_Neural_Node_By(Utilities::Neural_Node_Activation_Method method) {
-    for (int index = 0; index < this->Get_Node_Count(); index++) {
-        this->Activate_Neural_Node_By(method, this->neuralNodes[index]);
-    }
-}
-
-
-void Layer::Activate_Neural_Node_By(Utilities::Neural_Node_Activation_Method  method, Neural_Node &param_current_node) {
-    for (int index = 0; index < this->Get_Node_Count(); index++) {
-        this->Activate_Neural_Node_By(method, this->neuralNodes[index]);
-    }
-}
 
 void Layer::Activate_Neural_Node_By_ReLu(Neural_Node& param_current_node) {
     if (param_current_node.Get_Input() <= 0) {
@@ -145,6 +143,24 @@ void Layer::Activate_Neural_Node_By_Sigmoid(Neural_Node& param_current_node) {
     param_current_node.Set_Input(current_sigmoid_value);
   
 }
+
+void Layer::Calculate_Loss() {
+        this->Calculate_Loss_By(Loss_Calculation_Method::CrossEntropy);
+}
+     
+
+void Layer::Calculate_Loss_By(Utilities::Loss_Calculation_Method param_method) {
+    for (int index = 0; index < this->Get_Node_Count(); index++) {
+        if (param_method == Utilities::Loss_Calculation_Method::CrossEntropy) {
+            this->Calculate_Loss_By_Cross_Entropy(this->neuralNodes[index]);
+        }
+    }
+}
+
+void Layer::Calculate_Loss_By_Cross_Entropy(Neural_Node& param_current_node) {
+
+}
+
 
 
 float Layer::Feed_Forward_Pass() {

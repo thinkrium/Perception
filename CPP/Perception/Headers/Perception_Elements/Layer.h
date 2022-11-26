@@ -136,13 +136,13 @@ namespace Perception {
 					  Activates the current node by a specifict activation method 
 					  overloaded jsut sending method
 					*/
-					void Activate_Neural_Node_By(Utilities::Neural_Node_Activation_Method  method);
+					void Activate_Neural_Node_By(Utilities::Neural_Node_Activation_Method  param_method);
 
-					/*
-					  Activates the current node by a specifict activation method
-					  overloaded sends method and neural node
-					*/
-					void Activate_Neural_Node_By( Utilities::Neural_Node_Activation_Method  method, Neural_Node& param_current_node);
+					///*
+					//  Activates the current node by a specifict activation method
+					//  overloaded sends method and neural node
+					//*/
+					//void Activate_Neural_Node_By( Utilities::Neural_Node_Activation_Method  param_method, Neural_Node& param_current_node);
 
 					/*
 					  Activates the current node by a specific by Rectified Linear Unit
@@ -153,6 +153,22 @@ namespace Perception {
 					  Activates the current node by a Sigmoid
 					*/
 					void Activate_Neural_Node_By_Sigmoid(Neural_Node& param_current_node);
+
+					/*
+					Calculating Loss for each Node
+					*/
+					void Calculate_Loss();
+
+					/*
+					Calculating Loss for each Node with method option
+					*/
+					void Calculate_Loss_By(Utilities::Loss_Calculation_Method param_method);
+
+					/*
+					Calculating Loss for each Node with method option and overloaded neural_node
+					*/
+					void Calculate_Loss_By_Cross_Entropy(Neural_Node& param_current_node);
+
 					/*
 					  Passes the full matrix multiplacation value of the this layer to the
 					  next

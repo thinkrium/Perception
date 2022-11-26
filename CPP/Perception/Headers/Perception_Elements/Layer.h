@@ -54,6 +54,21 @@ namespace Perception {
 					int Get_Node_Count();
 
 					/*
+					    Gets the list of neural nodes for the layer
+					*/
+					vector<Neural_Node> Get_Neural_Nodes();
+
+					/*
+					   Gets the list of weights for the layer
+					*/
+					vector<float> Get_Weights();
+
+					/*
+					  Gets the bias for the layer
+					*/
+					float Get_Bias();
+
+					/*
 					   Initializes the all new nodes for this layer by the size of the previously defined
 					   node count
 					   and initializes their value with random number between -1 and 1
@@ -100,8 +115,11 @@ namespace Perception {
 					/*
 					* Initializes the bias of the output
 					*/
-					void Initialize_Bias(float param_bias);
+					void Initialize_Bias( );
 
+					/*
+					 Generates a random real number between -1 and 1
+					*/
 					float Generate_Random_Numerical_Value();
 
 					/*
@@ -128,12 +146,6 @@ namespace Perception {
 					  Activates the current node by a Sigmoid
 					*/
 					void Activate_Neural_Node_By_Sigmoid(Neural_Node& param_current_node);
-					
-					/*
-					  Activates the current node by a Softmax
-					*/
-					void Activate_Neural_Node_By_Softmax(Neural_Node& param_current_node);
-
 					/*
 					  Passes the full matrix multiplacation value of the this layer to the
 					  next

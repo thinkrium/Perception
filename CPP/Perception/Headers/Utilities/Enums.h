@@ -1,9 +1,16 @@
 
 namespace Utilities {
-	enum  Activation_Method
+	enum  Neural_Node_Activation_Method
 	{
 		ReLu,
 		Softmax,
 		Sigmoid
 	};
+
+	enum Loss_Calculation_Method {
+		CrossEntropy
+	};
+
+
+
 }

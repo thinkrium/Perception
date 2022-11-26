@@ -128,14 +128,21 @@ namespace Perception {
 					float Dot_Product(vector<Neural_Node> param_inputs, vector<float> param_weights);
 
 					/*
-					  Activates the current node 
+					  Activates the current node, defaults to Rectified Linear Unit 
 					*/
 					void Activate_Neural_Nodes();
 
 					/*
-					  Activates the current node by a specifict activation method
+					  Activates the current node by a specifict activation method 
+					  overloaded jsut sending method
 					*/
-					void Activate_Neural_Node_By( Utilities::Activation_Method method, Neural_Node& param_current_node);
+					void Activate_Neural_Node_By(Utilities::Neural_Node_Activation_Method  method);
+
+					/*
+					  Activates the current node by a specifict activation method
+					  overloaded sends method and neural node
+					*/
+					void Activate_Neural_Node_By( Utilities::Neural_Node_Activation_Method  method, Neural_Node& param_current_node);
 
 					/*
 					  Activates the current node by a specific by Rectified Linear Unit

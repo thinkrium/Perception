@@ -113,13 +113,20 @@ float Layer::Dot_Product(vector<Neural_Node> param_inputs, vector<float> param_w
 
 void Layer::Activate_Neural_Nodes() {
     for (int index = 0; index < this->Get_Node_Count(); index++) {
-        this->Activate_Neural_Node_By(Activation_Method::ReLu,
+        this->Activate_Neural_Node_By(Neural_Node_Activation_Method::ReLu,
         this->neuralNodes[index]
             );
     }
 }
 
-void Layer::Activate_Neural_Node_By(Utilities::Activation_Method method, Neural_Node &param_current_node) {
+void Layer::Activate_Neural_Node_By(Utilities::Neural_Node_Activation_Method method) {
+    for (int index = 0; index < this->Get_Node_Count(); index++) {
+        this->Activate_Neural_Node_By(method, this->neuralNodes[index]);
+    }
+}
+
+
+void Layer::Activate_Neural_Node_By(Utilities::Neural_Node_Activation_Method  method, Neural_Node &param_current_node) {
     for (int index = 0; index < this->Get_Node_Count(); index++) {
         this->Activate_Neural_Node_By(method, this->neuralNodes[index]);
     }

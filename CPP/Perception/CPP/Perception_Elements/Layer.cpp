@@ -152,13 +152,14 @@ void Layer::Calculate_Loss() {
 void Layer::Calculate_Loss_By(Utilities::Loss_Calculation_Method param_method) {
     for (int index = 0; index < this->Get_Node_Count(); index++) {
         if (param_method == Utilities::Loss_Calculation_Method::CrossEntropy) {
-            this->Calculate_Loss_By_Cross_Entropy(this->neuralNodes[index]);
+            this->Calculate_Loss_By_Cross_Entropy(this->neuralNodes[index], index);
         }
     }
 }
 
-void Layer::Calculate_Loss_By_Cross_Entropy(Neural_Node& param_current_node) {
-
+void Layer::Calculate_Loss_By_Cross_Entropy(Neural_Node& param_current_node, int param_index) {
+    float loss = -log(param_current_node.Get_Input());
+    losses.push_back(loss);
 }
 
 

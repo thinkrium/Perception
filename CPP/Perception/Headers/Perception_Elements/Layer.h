@@ -156,18 +156,21 @@ namespace Perception {
 
 					/*
 					Calculating Loss for each Node
+					cant happen without predicted value
 					*/
 					void Calculate_Loss();
 
 					/*
 					Calculating Loss for each Node with method option
+					cant happen without predicted value
 					*/
 					void Calculate_Loss_By(Utilities::Loss_Calculation_Method param_method);
 
 					/*
 					Calculating Loss for each Node with method option and overloaded neural_node
+					cant happen without predicted value
 					*/
-					void Calculate_Loss_By_Cross_Entropy(Neural_Node& param_current_node);
+					void Calculate_Loss_By_Cross_Entropy(Neural_Node& param_current_node, int param_index);
 
 					/*
 					  Passes the full matrix multiplacation value of the this layer to the
@@ -193,6 +196,11 @@ namespace Perception {
 					  The Vector/list of weights {prediction importance}
 					*/
 					vector<float> weights;
+
+					/*
+					  the vector/list of losses on the output layer
+					*/
+					vector<float> losses;
 
 					/*
 					  The bias of the predictoin

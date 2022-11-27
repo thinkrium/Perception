@@ -41,8 +41,12 @@ target_include_directories(${Project_Test_Name} PUBLIC
 
 target_link_libraries(${Project_Test_Name} gtest_main)
 
-# TODO: Add tests and install targets if needed.
- 
 enable_testing()
+# TODO: Add tests and install targets if needed.
+
+
+include(GoogleTest)
+gtest_discover_tests(${Project_Test_Name} ) 
+
 
 add_test(NAME ${Project_Test_Name} COMMAND ${Project_Test_Name} )

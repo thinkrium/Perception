@@ -111,6 +111,10 @@ float Layer::Dot_Product(vector<Neural_Node> param_inputs, vector<float> param_w
     return results;
 }
 
+float Layer::Add_Bias_To_Prediction(float param_prediction) {
+    return param_prediction + this->bias;
+}
+
 // able to call this method and defaults to ReLu for now 
 // 11-26-2022
 void Layer::Activate_Neural_Nodes() {
@@ -165,7 +169,8 @@ void Layer::Calculate_Loss_By_Cross_Entropy(Neural_Node& param_current_node, int
 
 
 float Layer::Feed_Forward_Pass() {
-    float prediction = this->Dot_Product(this->neuralNodes, this->weights) + this->bias;
+    float prediction = this->Add_Bias_To_Prediction(
+        this->Dot_Product(this->neuralNodes, this->weights));
     return Test_Return_Data;
 }
  

@@ -128,6 +128,11 @@ namespace Perception {
 					float Dot_Product(vector<Neural_Node> param_inputs, vector<float> param_weights);
 
 					/*
+					* Determines the trust of the prediction by adding abias to the prediction
+					*/
+					float Add_Bias_To_Prediction(float param_prediction);
+
+					/*
 					  Activates the current node, defaults to Rectified Linear Unit 
 					*/
 					void Activate_Neural_Nodes();

@@ -19,7 +19,7 @@ TEST(Perception_Test, Test_Layer_Node_Count_From_Constructor) {
 /// </summary>
 TEST(Perception_Test, Test_Layer_Node_Count_From_Method) {
     int test_node_count = 3;
-    Layer test_layer;
+    Layer test_layer(test_node_count);
     test_layer.Initialize_Nodes_By_Count(3);
     EXPECT_EQ(test_node_count, test_layer.Get_Node_Count());
 }
@@ -50,8 +50,13 @@ TEST(Perception_Test, Test_Random_Value_In_Range) {
 /// <param name=""></param>
 TEST(Perception_Test, Test_Layer_Dot_Product) {
     Layer test_layer;
-    vector<float> test_inputs = { 1,2,3,4 };
+    Neural_Node node1(1);
+    Neural_Node node2(2);
+    Neural_Node node3(3);
+    Neural_Node node4(4);
+    vector<Neural_Node> test_inputs = { node1, node2, node3, node4 };
     vector<float> test_weights = { 1,2,3,4 };
 
-//    EXPECT_EQ(test_layer.Dot_Product(test_inputs, test_weights), 39);
+    EXPECT_EQ(test_layer.Dot_Product(test_inputs, test_weights), 30);
+
 }

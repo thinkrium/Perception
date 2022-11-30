@@ -20,11 +20,20 @@ namespace Perception {
 
 					/*************************************************************************************************************
 					 *************************************************************************************************************
-					   NOTE: THERE ARE AS MANY WEIGHTS AS THERE ARE INPUTS IN A LAYER SO THE SIZE OF THE NEURAL NODE VECTOR
-							 SHOULD BE THE SAME
+					   NOTE: THERE ARE AS MANY WEIGHTS AS THERE ARE OUTPUTS FROM THE PREVIOUS LAYER TO THE CURRENT LAYER
 
+                             AND EACH CURRENT LAYERS INPUT HAS ITS OWN WEIGHT FROM THE PREVIOUS LAYER
 
-							 AND FOR EACH OUTPUT OF THE WHOLE LAYER THERE SHOULD BE 1 BIAS.
+							 SO
+							 L = LAYER
+							 I = INPUT
+							 W = WEIGHT
+							 B = BIAS
+							 O = OUTPUT
+							 N = NODE
+
+							 THERE IS 1 BIAS PER NODE SO THE PREVIOUS LAYER IS MULTIPLIED AND ADDED AND THEN BROUGHT IN AS INPUT TO
+							 THE CURRENT NODE WHICH HAS A BIAS TO ITS RELIABILITY.
 
 							 ALL THIS LAYERS INPUTS AND WEIGHTS ARE MULTIPLIED AND A BIAS IS ADDED TO THAT FOR EACH OUTPUT TO
 							 THE NEXT LAYERS INPUT
@@ -40,13 +49,13 @@ namespace Perception {
 					/*
 					  Initializes an Layer of Neural Nodes by the count of param_node_count
 					*/
-					Layer(int param_node_count);
+					Layer(int param_previous_layer_node_count, int param_current_layer_node_count);
 
 					/*
 					  Sets the node count
 					  param name="param_node_count"
 					*/
-					void Set_Node_Count(int param_node_count);
+					void Set_Node_Count(int param_previous_layer_node_count);
 
 					/*
 					   Initializes the all new nodes for this layer and initializes their value with random number between -1 and 1
@@ -58,6 +67,10 @@ namespace Perception {
 					*/
 					vector<Neural_Node> Get_Neural_Nodes();
 
+					/*
+					* Sets the weight count for the incoming weights
+					*/
+					void Set_Weight_Count(int param_current_layer_node_count);
 					/*
 					   Gets the list of weights for the layer
 					*/
@@ -196,6 +209,11 @@ namespace Perception {
 					  The Vector/list of Neural Nodes
 					*/
 					vector<Neural_Node> neuralNodes;
+
+					/*
+					   The number of Weights in this layer
+					*/
+					int weightCount;
 
 					/*
 					  The Vector/list of weights {prediction importance}

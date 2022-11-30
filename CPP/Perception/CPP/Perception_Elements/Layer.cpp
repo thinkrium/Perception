@@ -11,15 +11,16 @@ Layer::Layer()
 }
 
 
-Layer::Layer(int param_node_count) {
-    this->neuralNodeCount = param_node_count;
+Layer::Layer(int param_previous_layer_node_count, int param_current_layer_node_count) {
+    this->neuralNodeCount =  param_previous_layer_node_count;
+    this->weightCount = param_current_layer_node_count;
     this->Initialize_Layer_Nodes();
     this->Initialize_Layer_Weights();
     this->Initialize_Bias();
 }
 
-void Layer::Set_Node_Count(int param_node_count) { 
-    this->neuralNodeCount = param_node_count;
+void Layer::Set_Node_Count(int param_previous_layer_node_count) {
+    this->neuralNodeCount = param_previous_layer_node_count;
 }
 
 int Layer::Get_Node_Count() {
@@ -28,6 +29,10 @@ int Layer::Get_Node_Count() {
 
 vector<Neural_Node> Layer::Get_Neural_Nodes() {
     return this->neuralNodes;
+}
+
+void Layer::Set_Weight_Count(int param_current_layer_node_count) {
+    this->weightCount = param_current_layer_node_count;
 }
 
 vector<float> Layer::Get_Weights() {
@@ -68,15 +73,15 @@ void Layer::Initialize_Nodes_By_Count(int param_node_count) {
 }
 
 void Layer::Initialize_Weights_By_Count() {
-    for (int index = 0; index < this->neuralNodeCount; index++) {
+    for (int index = 0; index < this->weightCount; index++) {
         weights.push_back(
             this->Generate_Random_Numerical_Value()
         );
     }
 }
 
-void Layer::Initialize_Weights_By_Count(int param_node_count) {
-    for (int index = 0; index < param_node_count; index++) {
+void Layer::Initialize_Weights_By_Count(int param_current_layer_node_count) {
+    for (int index = 0; index < param_current_layer_node_count; index++) {
         weights.push_back(            
             this->Generate_Random_Numerical_Value()   
         );

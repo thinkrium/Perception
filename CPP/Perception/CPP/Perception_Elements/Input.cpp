@@ -15,6 +15,7 @@ Input::Input()
 /// <param name="param_value">float</param>
 Input::Input(float param_value)
 {
+	this->Set_Value(param_value);
 }
 
 /// <summary>
@@ -22,7 +23,7 @@ Input::Input(float param_value)
 /// </summary>
 /// <param name="param_value">float</param>
 void Input::Set_Value(float param_value) {
-
+	this->value = param_value;
 }
 
 /// <summary>
@@ -30,7 +31,7 @@ void Input::Set_Value(float param_value) {
 /// </summary>
 /// <returns></returns>
 float Input::Get_Value() {
-	return Test_Return_Data;
+	return this->value;
 }
 
 /// <summary>

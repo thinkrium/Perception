@@ -11,16 +11,16 @@ Layer::Layer()
 }
 
 
-Layer::Layer(int param_previous_layer_node_count, int param_current_layer_node_count) {
-    this->neuralNodeCount =  param_previous_layer_node_count;
-    this->weightCount = param_current_layer_node_count;
+Layer::Layer(int param_node_count) {
+    this->Set_Node_Count (param_node_count);
+    this->Set_Weight_Count(param_node_count);
     this->Initialize_Layer_Nodes();
     this->Initialize_Layer_Weights();
     this->Initialize_Bias();
 }
 
-void Layer::Set_Node_Count(int param_previous_layer_node_count) {
-    this->neuralNodeCount = param_previous_layer_node_count;
+void Layer::Set_Node_Count(int param_node_count) {
+    this->neuralNodeCount = param_node_count;
 }
 
 int Layer::Get_Node_Count() {
@@ -31,16 +31,20 @@ vector<Neural_Node> Layer::Get_Neural_Nodes() {
     return this->neuralNodes;
 }
 
-void Layer::Set_Weight_Count(int param_current_layer_node_count) {
-    this->weightCount = param_current_layer_node_count;
+void Layer::Set_Weight_Count(int param_node_count) {
+    this->weightCount = param_node_count;
 }
 
-vector<float> Layer::Get_Weights() {
+int Layer::Get_Weight_Count() {
+    return this->weightCount;
+}
+
+vector<vector<float>> Layer::Get_Weights() {
     return this->weights;
 }
 
-float Layer::Get_Bias() {
-    return this->bias;
+vector<float> Layer::Get_Bias() {
+    return this->biases;
 }
 
 void Layer::Initialize_Layer_Nodes() {
@@ -73,23 +77,37 @@ void Layer::Initialize_Nodes_By_Count(int param_node_count) {
 }
 
 void Layer::Initialize_Weights_By_Count() {
-    for (int index = 0; index < this->weightCount; index++) {
-        weights.push_back(
-            this->Generate_Random_Numerical_Value()
-        );
+    // create a temp matrix of weights to avoid the new * operator and protect memory
+    vector<vector<float>> weight_matrix(this->neuralNodeCount, std::vector<float>(this->neuralNodeCount, 0));
+
+    this->weights = weight_matrix;
+
+    for (int node_index = 0; node_index < this->neuralNodeCount; node_index++) {
+        this->weights[node_index] = vector<float>(this->neuralNodeCount);
+        for (int weight_index = 0; weight_index < this->weightCount; weight_index++) {
+             this->weights[node_index][weight_index] = this->Generate_Random_Numerical_Value();
+        }
     }
 }
 
-void Layer::Initialize_Weights_By_Count(int param_current_layer_node_count) {
-    for (int index = 0; index < param_current_layer_node_count; index++) {
-        weights.push_back(            
-            this->Generate_Random_Numerical_Value()   
-        );
+void Layer::Initialize_Weights_By_Count(int param_node_count) {
+    // create a temp matrix of weights to avoid the new * operator and protect memory
+    vector<vector<float>> weight_matrix(this->neuralNodeCount, std::vector<float>(this->neuralNodeCount, 0));
+
+    this->weights = weight_matrix;
+
+    for (int node_index = 0; node_index < this->neuralNodeCount; node_index++) {
+        for (int weight_index = 0; weight_index < this->weightCount; weight_index++) {
+            weights[node_index][weight_index] = this->Generate_Random_Numerical_Value();
+        }
     }
 }
 
 void Layer::Initialize_Bias( ) {
-    this->bias = this->Generate_Random_Numerical_Value();
+    for (int node_index = 0; node_index < this->neuralNodeCount; node_index++) {
+
+        this->biases.push_back(this->Generate_Random_Numerical_Value());
+    }
 }
 
 float Layer::Generate_Random_Numerical_Value() {
@@ -110,14 +128,14 @@ float Layer::Generate_Random_Numerical_Value() {
 float Layer::Dot_Product(vector<Neural_Node> param_inputs, vector<float> param_weights) {
     float results = 0;
     for (int index = 0; index < param_inputs.size(); index++) {
-        results += param_inputs[index].Get_Input() * param_weights[index];
+        results += param_inputs[index].Get_Input().Get_Value() * param_weights[index];
     }
 
     return results;
 }
 
 float Layer::Add_Bias_To_Prediction(float param_prediction) {
-    return param_prediction + this->bias;
+    return Test_Return_Data;
 }
 
 // able to call this method and defaults to ReLu for now 
@@ -140,14 +158,14 @@ void Layer::Activate_Neural_Node_By(Utilities::Neural_Node_Activation_Method par
 
 
 void Layer::Activate_Neural_Node_By_ReLu(Neural_Node& param_current_node) {
-    if (param_current_node.Get_Input() <= 0) {
+    if (param_current_node.Get_Input().Get_Value() <= 0) {
         param_current_node.Set_Input(0);
     }
 }
 
 void Layer::Activate_Neural_Node_By_Sigmoid(Neural_Node& param_current_node) {
 
-    float current_sigmoid_value = (1 / (1 + exp(-param_current_node.Get_Input())));
+    float current_sigmoid_value = (1 / (1 + exp(-param_current_node.Get_Input().Get_Value())));
 
     param_current_node.Set_Input(current_sigmoid_value);
   
@@ -167,15 +185,15 @@ void Layer::Calculate_Loss_By(Utilities::Loss_Calculation_Method param_method) {
 }
 
 void Layer::Calculate_Loss_By_Cross_Entropy(Neural_Node& param_current_node, int param_index) {
-    float loss = -log(param_current_node.Get_Input());
+    float loss = -log(param_current_node.Get_Input().Get_Value());
     losses.push_back(loss);
 }
 
 
 
 float Layer::Feed_Forward_Pass() {
-    float prediction = this->Add_Bias_To_Prediction(
-        this->Dot_Product(this->neuralNodes, this->weights));
+  //  float prediction = this->Add_Bias_To_Prediction(
+//        this->Dot_Product(this->neuralNodes, this->weights));
     return Test_Return_Data;
 }
  

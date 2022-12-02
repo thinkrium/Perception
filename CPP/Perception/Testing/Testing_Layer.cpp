@@ -14,6 +14,13 @@ TEST(Perception_Test, Test_Layer_Node_Count_From_Constructor) {
     EXPECT_EQ(test_node_count, test_layer.Get_Node_Count());
 }
 
+TEST(Perception_Test, Test_Layer_Weight_Count_From_Constructor) {
+    int test_node_count = 3;
+    Layer test_layer(test_node_count);
+    EXPECT_EQ(test_node_count, test_layer.Get_Weight_Count());
+}
+
+
 /// <summary>
 /// Tests the Node count is correct
 /// </summary>
@@ -35,6 +42,17 @@ TEST(Perception_Test, Test_Setting_Node_Count_By_Method) {
 }
 
 /// <summary>
+/// Tests the Node count is correct
+/// </summary>
+TEST(Perception_Test, Test_Setting_Weight_Count_By_Method) {
+    int test_node_count = 3;
+    Layer test_layer;
+    test_layer.Set_Weight_Count(3);
+    EXPECT_EQ(test_node_count, test_layer.Get_Weight_Count());
+}
+
+
+/// <summary>
 /// Tests the random value generator
 /// </summary>
 TEST(Perception_Test, Test_Random_Value_In_Range) {
@@ -43,13 +61,15 @@ TEST(Perception_Test, Test_Random_Value_In_Range) {
     EXPECT_TRUE(((test_random_value >= -1) && (test_random_value <= 1))) << " by the value of " << test_random_value;
 }
 
+
+
 /// <summary>
 /// Tests the dot product from the layer
 /// </summary>
 /// <param name=""></param>
 /// <param name=""></param>
 TEST(Perception_Test, Test_Layer_Dot_Product) {
-    Layer test_layer;
+    Layer test_layer(4);
     Neural_Node node1(1);
     Neural_Node node2(2);
     Neural_Node node3(3);
@@ -57,6 +77,6 @@ TEST(Perception_Test, Test_Layer_Dot_Product) {
     vector<Neural_Node> test_inputs = { node1, node2, node3, node4 };
     vector<float> test_weights = { 1,2,3,4 };
 
-    EXPECT_EQ(test_layer.Dot_Product(test_inputs, test_weights), 30);
+    EXPECT_EQ(test_layer.Dot_Product(test_inputs, test_weights), 30);  
 
 }

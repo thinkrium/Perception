@@ -49,13 +49,13 @@ namespace Perception {
 					/*
 					  Initializes an Layer of Neural Nodes by the count of param_node_count
 					*/
-					Layer(int param_previous_layer_node_count, int param_current_layer_node_count);
+					Layer(int param_node_count);
 
 					/*
 					  Sets the node count
 					  param name="param_node_count"
 					*/
-					void Set_Node_Count(int param_previous_layer_node_count);
+					void Set_Node_Count(int param_node_count);
 
 					/*
 					   Initializes the all new nodes for this layer and initializes their value with random number between -1 and 1
@@ -70,16 +70,22 @@ namespace Perception {
 					/*
 					* Sets the weight count for the incoming weights
 					*/
-					void Set_Weight_Count(int param_current_layer_node_count);
+					void Set_Weight_Count(int param_node_count);
+
+					/*
+					   Initializes the all new nodes for this layer and initializes their value with random number between -1 and 1
+					*/
+					int Get_Weight_Count();
+
 					/*
 					   Gets the list of weights for the layer
 					*/
-					vector<float> Get_Weights();
+					vector<vector<float>> Get_Weights();
 
 					/*
 					  Gets the bias for the layer
 					*/
-					float Get_Bias();
+					vector<float> Get_Bias();
 
 					/*
 					   Initializes the all new nodes for this layer by the size of the previously defined
@@ -216,9 +222,10 @@ namespace Perception {
 					int weightCount;
 
 					/*
-					  The Vector/list of weights {prediction importance}
+					  The Vector/list of weights {prediction importance} is the weighted value of each of
+					  the previous llayers predictions for each current node
 					*/
-					vector<float> weights;
+					vector<vector<float>> weights;
 
 					/*
 					  the vector/list of losses on the output layer
@@ -228,7 +235,7 @@ namespace Perception {
 					/*
 					  The bias of the predictoin
 					*/
-					float bias;
+					vector<float> biases;
 
 			};
 		}

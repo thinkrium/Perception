@@ -89,15 +89,32 @@ TEST(Perception_Test, Test_Random_Value_In_Range) {
 /// </summary>
 /// <param name=""></param>
 /// <param name=""></param>
-TEST(Perception_Test, Test_Layer_Dot_Product) {
-    Layer test_layer(4);
+TEST(Perception_Test, Test_Layer_Prediction_without_bias) {
+    Layer test_layer;
     Neural_Node node1(1);
     Neural_Node node2(2);
     Neural_Node node3(3);
     Neural_Node node4(4);
     vector<Neural_Node> test_inputs = { node1, node2, node3, node4 };
-    vector<float> test_weights = { 1,2,3,4 };
+    vector<vector<float>> test_weights = {
+        {1,2,3,4},
+        {1,2,3,4},
+        {1,2,3,4},
+        {1,2,3,4},
+    };
 
-    EXPECT_EQ(test_layer.Dot_Product(test_inputs, test_weights), 30);  
+    vector<float> comparison = { 30, 30, 30, 30 };
+    test_layer.Dot_Product(test_inputs, test_weights);
+    EXPECT_EQ(test_layer.Get_Prediction_Without_Bias(), comparison);
+
+}
+
+TEST(Perception_Test, Test_Layer_Prediction_with_bias) {
+    Layer test_layer;
+    vector<float> test_predictions = { 30, 30, 30, 30 };
+    vector<float> test_biases = { 1, 1, 1, 1 };
+    vector<float> comparison = { 31, 31, 31, 31 };
+    test_layer.Add_Bias_To_Prediction(test_predictions, test_biases);
+    EXPECT_EQ(test_layer.Get_Prediction_With_Bias(), comparison);
 
 }

@@ -42,11 +42,7 @@ int Layer::Get_Weight_Count() {
 vector<vector<float>> Layer::Get_Weights() {
     return this->weights;
 }
-
-vector<float> Layer::Get_Bias() {
-    return this->biases;
-}
-
+ 
 void Layer::Initialize_Layer_Nodes() {
     this->Initialize_Nodes_By_Count();
 }
@@ -110,6 +106,10 @@ void Layer::Initialize_Bias( ) {
     }
 }
 
+vector<float> Layer::Get_Biases() {
+    return this->biases;
+}
+
 float Layer::Generate_Random_Numerical_Value() {
     
     random_device random_generator; // obtain a random number from hardware
@@ -124,18 +124,35 @@ float Layer::Generate_Random_Numerical_Value() {
 
     return random_number;
 }
-
-float Layer::Dot_Product(vector<Neural_Node> param_inputs, vector<float> param_weights) {
+void Layer::Dot_Product(vector<Neural_Node> param_inputs, vector<vector<float>> param_weights) {
+    vector<float> result_matrix;
     float results = 0;
-    for (int index = 0; index < param_inputs.size(); index++) {
-        results += param_inputs[index].Get_Input().Get_Value() * param_weights[index];
-    }
 
-    return results;
+    for (int weight_row_index = 0; weight_row_index < param_weights.size(); weight_row_index++) {
+         for (int neural_node_index = 0; neural_node_index < param_inputs.size(); neural_node_index++) {
+
+                results += param_inputs[neural_node_index].Get_Input().Get_Value() * param_weights[weight_row_index][neural_node_index];
+                 
+          }
+         this->predictions.push_back(results);
+         results = 0;
+  
+     }
 }
 
-float Layer::Add_Bias_To_Prediction(float param_prediction) {
-    return Test_Return_Data;
+vector<float> Layer::Get_Prediction_Without_Bias() {
+    return this->predictions;
+}
+
+vector<float> Layer::Get_Prediction_With_Bias() {
+    return this->predictions_with_bias;
+}
+
+void Layer::Add_Bias_To_Prediction(vector<float> param_prediction, vector<float> param_biases) {
+    for (int node_index = 0; node_index < param_prediction.size(); node_index++) {
+        float prediction_with_bias = param_prediction[node_index] + param_biases[node_index];
+        this->predictions_with_bias.push_back(prediction_with_bias);
+    }
 }
 
 // able to call this method and defaults to ReLu for now 

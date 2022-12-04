@@ -20,7 +20,9 @@ namespace Perception {
 
 					/*************************************************************************************************************
 					 *************************************************************************************************************
-					   NOTE: THERE ARE AS MANY WEIGHTS AS THERE ARE OUTPUTS FROM THE PREVIOUS LAYER TO THE CURRENT LAYER
+					   NOTE: 
+					         THERE ARE AS MANY WEIGHT COLUMNS AS THERE ARE OUTPUTS FROM THE PREVIOUS LAYER TO THE CURRENT LAYER
+							 THERE ARE AS MANY WEIGHT ROWS AS THERE ARE NODES IN THE CURRENT LAYER
 
                              AND EACH CURRENT LAYERS INPUT HAS ITS OWN WEIGHT FROM THE PREVIOUS LAYER
 
@@ -85,7 +87,7 @@ namespace Perception {
 					/*
 					  Gets the bias for the layer
 					*/
-					vector<float> Get_Bias();
+					vector<float> Get_Biases();
 
 					/*
 					   Initializes the all new nodes for this layer by the size of the previously defined
@@ -144,12 +146,22 @@ namespace Perception {
 					/*
 					   Performs a Dot product operation on the incoming weights and parameters
 					*/
-					float Dot_Product(vector<Neural_Node> param_inputs, vector<float> param_weights);
+					void Dot_Product(vector<Neural_Node> param_inputs, vector<vector<float>> param_weights);
+
+					/*
+					* returns the prediction without the bias
+					*/
+					vector<float> Get_Prediction_Without_Bias();
+
+					/*
+					 * returns the prediction with the bias
+					 */
+					vector<float> Get_Prediction_With_Bias();
 
 					/*
 					* Determines the trust of the prediction by adding abias to the prediction
 					*/
-					float Add_Bias_To_Prediction(float param_prediction);
+					void Add_Bias_To_Prediction(vector<float> param_prediction, vector<float> param_biases);
 
 					/*
 					  Activates the current node, defaults to Rectified Linear Unit 
@@ -161,13 +173,7 @@ namespace Perception {
 					  overloaded jsut sending method
 					*/
 					void Activate_Neural_Node_By(Utilities::Neural_Node_Activation_Method  param_method);
-
-					///*
-					//  Activates the current node by a specifict activation method
-					//  overloaded sends method and neural node
-					//*/
-					//void Activate_Neural_Node_By( Utilities::Neural_Node_Activation_Method  param_method, Neural_Node& param_current_node);
-
+					 
 					/*
 					  Activates the current node by a specific by Rectified Linear Unit
 					*/
@@ -226,6 +232,16 @@ namespace Perception {
 					  the previous llayers predictions for each current node
 					*/
 					vector<vector<float>> weights;
+					
+					/*
+					   The preditions without bias
+					*/
+					vector<float> predictions;
+
+					/*
+					   The preditions with bias
+					*/
+					vector<float> predictions_with_bias;
 
 					/*
 					  the vector/list of losses on the output layer

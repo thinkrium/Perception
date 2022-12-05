@@ -177,29 +177,28 @@ void Layer::Activate_Neural_Nodes() {
 
 // allows you to call the method with an explicit method
 void Layer::Activate_Neural_Node_By(Utilities::Neural_Node_Activation_Method param_method) {
-     for (int output_index = 0; output_index < this->Get_Outputs().size(); output_index++) {
+     for (int output_index = 0; output_index < this->Get_Prediction_With_Bias().size(); output_index++) {
         if (param_method == Neural_Node_Activation_Method::ReLu) {
-            this->Activate_Neural_Node_By_ReLu(this->neuralNodes[output_index]);
+            this->Activate_Neural_Node_By_ReLu(this->Get_Prediction_With_Bias()[output_index], output_index);
         }
         else if (param_method == Neural_Node_Activation_Method::Sigmoid) {
-            this->Activate_Neural_Node_By_Sigmoid(this->neuralNodes[output_index]);
+            this->Activate_Neural_Node_By_Sigmoid(this->Get_Prediction_With_Bias()[output_index], output_index);
         }
      }
 }
 
 
-void Layer::Activate_Neural_Node_By_ReLu(Neural_Node& param_current_node) {
-    if (param_current_node.Get_Input().Get_Value() <= 0) {
-        param_current_node.Set_Input(0);
+void Layer::Activate_Neural_Node_By_ReLu(float param_prediction_with_bias, float param_prediction_index) {
+    if ( this->Get_Prediction_With_Bias()[param_prediction_index] <= 0) {
+        this->Get_Outputs()[param_prediction_index] = 0 ;
     }
 }
 
-void Layer::Activate_Neural_Node_By_Sigmoid(Neural_Node& param_current_node) {
+void Layer::Activate_Neural_Node_By_Sigmoid(float param_prediction_with_bias, float param_prediction_index) {
 
-    float current_sigmoid_value = (1 / (1 + exp(-param_current_node.Get_Input().Get_Value())));
+    float current_sigmoid_value = (1 / (1 + exp(-this->Get_Prediction_With_Bias()[param_prediction_index])));
 
-    param_current_node.Set_Input(current_sigmoid_value);
-  
+    this->Get_Outputs()[param_prediction_index] = current_sigmoid_value;
 }
 
 void Layer::Calculate_Loss() {

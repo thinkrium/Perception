@@ -187,12 +187,12 @@ namespace Perception {
 					/*
 					  Activates the current node by a specific by Rectified Linear Unit
 					*/
-					void Activate_Neural_Node_By_ReLu(Neural_Node& param_current_node);
+					void Activate_Neural_Node_By_ReLu(float param_prediction_with_bias, float param_prediction_index);
 
 					/*
 					  Activates the current node by a Sigmoid
 					*/
-					void Activate_Neural_Node_By_Sigmoid(Neural_Node& param_current_node);
+					void Activate_Neural_Node_By_Sigmoid(float param_prediction_with_bias, float param_prediction_index);
 
 					/*
 					Calculating Loss for each Node

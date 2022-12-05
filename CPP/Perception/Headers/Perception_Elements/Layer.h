@@ -206,7 +206,8 @@ namespace Perception {
 					  Passes the full matrix multiplacation value of the this layer to the
 					  next
 					*/
-					float Feed_Forward_Pass();
+					vector<float> Feed_Forward_Pass();
+
 					/*Destructor*/
 					~Layer();
 

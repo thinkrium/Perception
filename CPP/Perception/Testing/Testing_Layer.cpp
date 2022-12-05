@@ -127,6 +127,6 @@ TEST(Perception_Test, Test_Layer_Activation_By_ReLu) {
     vector<float> comparison = { .4, .4, .4, .4 };
     test_layer.Add_Bias_To_Prediction(test_predictions, test_biases);
     test_layer.Activate_Neural_Nodes();
-    EXPECT_EQ(test_layer.Get_Neural_Nodes_Values(), comparison);
+    EXPECT_EQ(test_layer.Get_Outputs(), comparison);
 
 }

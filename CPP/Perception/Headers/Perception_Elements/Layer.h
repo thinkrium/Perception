@@ -144,6 +144,11 @@ namespace Perception {
 					void Initialize_Bias( );
 
 					/*
+					* Sets the size of the inputs and initializes the values to 0
+					*/
+					void Initialize_Outputs();
+
+					/*
 					 * Gets The outputs from the current layer 
 					 */
 					vector<float> Get_Outputs();

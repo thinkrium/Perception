@@ -17,6 +17,7 @@ Layer::Layer(int param_node_count) {
     this->Initialize_Layer_Nodes();
     this->Initialize_Layer_Weights();
     this->Initialize_Bias();
+    this->Initialize_Outputs();
 }
 
 void Layer::Set_Node_Count(int param_node_count) {
@@ -116,6 +117,10 @@ void Layer::Initialize_Bias( ) {
     }
 }
 
+void Layer::Initialize_Outputs() {
+    this->outputs = vector<float>(this->Get_Node_Count(), 0);
+}
+
 vector<float> Layer::Get_Biases() {
     return this->biases;
 }
@@ -190,7 +195,10 @@ void Layer::Activate_Neural_Node_By(Utilities::Neural_Node_Activation_Method par
 
 void Layer::Activate_Neural_Node_By_ReLu(float param_prediction_with_bias, float param_prediction_index) {
     if ( this->Get_Prediction_With_Bias()[param_prediction_index] <= 0) {
-        this->Get_Outputs()[param_prediction_index] = 0 ;
+        this->outputs[param_prediction_index] = 0 ;
+    }
+    else {
+        this->outputs[param_prediction_index] = param_prediction_with_bias;
     }
 }
 
@@ -198,7 +206,7 @@ void Layer::Activate_Neural_Node_By_Sigmoid(float param_prediction_with_bias, fl
 
     float current_sigmoid_value = (1 / (1 + exp(-this->Get_Prediction_With_Bias()[param_prediction_index])));
 
-    this->Get_Outputs()[param_prediction_index] = current_sigmoid_value;
+    this->outputs[param_prediction_index] = current_sigmoid_value;
 }
 
 void Layer::Calculate_Loss() {

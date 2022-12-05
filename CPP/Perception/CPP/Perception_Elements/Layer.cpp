@@ -31,6 +31,16 @@ vector<Neural_Node> Layer::Get_Neural_Nodes() {
     return this->neuralNodes;
 }
 
+vector<float> Layer::Get_Neural_Nodes_Values() {
+    vector<float> node_values;
+
+    for (int node_value_index = 0; node_value_index < this->Get_Node_Count(); node_value_index++) {
+        node_values.push_back(this->neuralNodes[node_value_index].Get_Input().Get_Value());
+    }
+
+    return node_values;
+}
+
 void Layer::Set_Weight_Count(int param_node_count) {
     this->weightCount = param_node_count;
 }
@@ -110,6 +120,10 @@ vector<float> Layer::Get_Biases() {
     return this->biases;
 }
 
+vector<float> Layer::Get_Outputs() {
+    return this->outputs;
+}
+
 float Layer::Generate_Random_Numerical_Value() {
     
     random_device random_generator; // obtain a random number from hardware
@@ -163,14 +177,14 @@ void Layer::Activate_Neural_Nodes() {
 
 // allows you to call the method with an explicit method
 void Layer::Activate_Neural_Node_By(Utilities::Neural_Node_Activation_Method param_method) {
-    for (int index = 0; index < this->Get_Node_Count(); index++) {
+     for (int output_index = 0; output_index < this->Get_Outputs().size(); output_index++) {
         if (param_method == Neural_Node_Activation_Method::ReLu) {
-            this->Activate_Neural_Node_By_ReLu(this->neuralNodes[index]);
+            this->Activate_Neural_Node_By_ReLu(this->neuralNodes[output_index]);
         }
         else if (param_method == Neural_Node_Activation_Method::Sigmoid) {
-            this->Activate_Neural_Node_By_Sigmoid(this->neuralNodes[index]);
+            this->Activate_Neural_Node_By_Sigmoid(this->neuralNodes[output_index]);
         }
-    }
+     }
 }
 
 
@@ -210,14 +224,14 @@ void Layer::Calculate_Loss_By_Cross_Entropy(Neural_Node& param_current_node, int
 
 vector<float> Layer::Feed_Forward_Pass() {
 
-    this->Dot_Product(this->neuralNodes, this->weights);
-    this->Add_Bias_To_Prediction(
-        this->predictions,
-        this->biases
-    );
-   
+    //this->Dot_Product(this->neuralNodes, this->weights);
+    //this->Add_Bias_To_Prediction(
+    //    this->predictions,
+    //    this->biases
+    //);
+    //this->Activate_Neural_Nodes();
 
-  return {1,1};
+    return this->Get_Outputs();
 }
  
 Layer::~Layer()

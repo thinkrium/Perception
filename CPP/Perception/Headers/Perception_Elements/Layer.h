@@ -70,6 +70,11 @@ namespace Perception {
 					vector<Neural_Node> Get_Neural_Nodes();
 
 					/*
+						Gets the list of neural nodes for the layer
+					*/
+					vector<float> Get_Neural_Nodes_Values();
+
+					/*
 					* Sets the weight count for the incoming weights
 					*/
 					void Set_Weight_Count(int param_node_count);
@@ -137,6 +142,11 @@ namespace Perception {
 					* Initializes the bias of the output
 					*/
 					void Initialize_Bias( );
+
+					/*
+					 * Gets The outputs from the current layer 
+					 */
+					vector<float> Get_Outputs();
 
 					/*
 					 Generates a random real number between -1 and 1
@@ -253,6 +263,11 @@ namespace Perception {
 					  The bias of the predictoin
 					*/
 					vector<float> biases;
+
+					/*
+					* The outputs after prediction, bias, and activation
+					*/
+					vector<float> outputs;
 
 			};
 		}

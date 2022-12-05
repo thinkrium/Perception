@@ -118,3 +118,15 @@ TEST(Perception_Test, Test_Layer_Prediction_with_bias) {
     EXPECT_EQ(test_layer.Get_Prediction_With_Bias(), comparison);
 
 }
+
+
+TEST(Perception_Test, Test_Layer_Activation_By_ReLu) {
+    Layer test_layer(4);
+    vector<float> test_predictions = { .30, .30, .30, .30 };
+    vector<float> test_biases = { .1, .1, .1, .1 };
+    vector<float> comparison = { .4, .4, .4, .4 };
+    test_layer.Add_Bias_To_Prediction(test_predictions, test_biases);
+    test_layer.Activate_Neural_Nodes();
+    EXPECT_EQ(test_layer.Get_Neural_Nodes_Values(), comparison);
+
+}

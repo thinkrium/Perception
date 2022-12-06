@@ -231,12 +231,12 @@ void Layer::Calculate_Loss_By_Cross_Entropy(Neural_Node& param_current_node, int
 
 vector<float> Layer::Feed_Forward_Pass() {
 
-    //this->Dot_Product(this->neuralNodes, this->weights);
-    //this->Add_Bias_To_Prediction(
-    //    this->predictions,
-    //    this->biases
-    //);
-    //this->Activate_Neural_Nodes();
+    this->Dot_Product(this->neuralNodes, this->weights);
+    this->Add_Bias_To_Prediction(
+        this->predictions,
+        this->biases
+    );
+    this->Activate_Neural_Nodes();
 
     return this->Get_Outputs();
 }

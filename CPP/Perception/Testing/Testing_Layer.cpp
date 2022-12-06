@@ -120,7 +120,45 @@ TEST(Perception_Test, Test_Layer_Prediction_with_bias) {
 }
 
 
-TEST(Perception_Test, Test_Layer_Activation_By_ReLu) {
+TEST(Perception_Test, Test_Layer_Activation_By_ReLu_GT_zero) {
+    Layer test_layer(4);
+    vector<float> test_predictions = { .30, .30, .30, .30 };
+    vector<float> test_biases = { .1, .1, .1, .1 };
+    vector<float> comparison = { .4, .4, .4, .4 };
+    test_layer.Add_Bias_To_Prediction(test_predictions, test_biases);
+    test_layer.Activate_Neural_Nodes();
+    EXPECT_EQ(test_layer.Get_Outputs(), comparison);
+
+}
+
+TEST(Perception_Test, Test_Layer_Activation_By_ReLu_EQ_zero) {
+    Layer test_layer(4);
+    vector<float> test_predictions = { -.30, -.30, -.30, -.30 };
+    vector<float> test_biases = { -.1, -.1, -.1, -.1 };
+    vector<float> comparison = { 0, 0, 0, 0 };
+    test_layer.Add_Bias_To_Prediction(test_predictions, test_biases);
+    test_layer.Activate_Neural_Nodes();
+    EXPECT_EQ(test_layer.Get_Outputs(), comparison);
+
+}
+
+
+TEST(Perception_Test, Test_Layer_Activation_By_Sigmoid) {
+
+    float sigmoid_value =  1 / (1 + exp(-.4)) ;
+    Layer test_layer(4);
+    vector<float> test_predictions = { .30, .30, .30, .30 };
+    vector<float> test_biases = { .1, .1, .1, .1 };
+
+    vector<float> comparison = { sigmoid_value, sigmoid_value, sigmoid_value, sigmoid_value };
+    test_layer.Add_Bias_To_Prediction(test_predictions, test_biases);
+    test_layer.Activate_Neural_Node_By(Utilities::Neural_Node_Activation_Method::Sigmoid);
+    EXPECT_EQ(test_layer.Get_Outputs(), comparison);
+
+}
+
+
+TEST(Perception_Test, Test_Layer_Forward_Pass) {
     Layer test_layer(4);
     vector<float> test_predictions = { .30, .30, .30, .30 };
     vector<float> test_biases = { .1, .1, .1, .1 };

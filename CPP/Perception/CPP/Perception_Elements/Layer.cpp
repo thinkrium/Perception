@@ -18,6 +18,7 @@ Layer::Layer(int param_node_count) {
     this->Initialize_Layer_Weights();
     this->Initialize_Bias();
     this->Initialize_Outputs();
+    this->Initialize_Losses();
 }
 
 void Layer::Set_Node_Count(int param_node_count) {
@@ -129,6 +130,14 @@ vector<float> Layer::Get_Outputs() {
     return this->outputs;
 }
 
+vector<float> Layer::Get_Losses() {
+    return this->losses;
+}
+
+void Layer::Initialize_Losses() {
+    this->losses = vector<float>(this->Get_Node_Count(), -1);
+}
+
 float Layer::Generate_Random_Numerical_Value() {
     
     random_device random_generator; // obtain a random number from hardware
@@ -144,7 +153,6 @@ float Layer::Generate_Random_Numerical_Value() {
     return random_number;
 }
 void Layer::Dot_Product(vector<Neural_Node> param_inputs, vector<vector<float>> param_weights) {
-    vector<float> result_matrix;
     float results = 0;
 
     for (int weight_row_index = 0; weight_row_index < param_weights.size(); weight_row_index++) {
@@ -174,20 +182,34 @@ void Layer::Add_Bias_To_Prediction(vector<float> param_prediction, vector<float>
     }
 }
 
+void Layer::Set_Layers_Exponential_Sum() {
+    this->prediction_with_bias_exponential_sum = 0;
+    for (int exponential_sum_index = 0; exponential_sum_index < this->outputs.size(); exponential_sum_index++) {
+        this->prediction_with_bias_exponential_sum += exp(this->outputs[exponential_sum_index]);
+    }
+}
+
 // able to call this method and defaults to ReLu for now 
 // 11-26-2022
 void Layer::Activate_Neural_Nodes() {
-    this->Activate_Neural_Node_By(Neural_Node_Activation_Method::ReLu);
+    this->Activate_Neural_Nodes_By(Neural_Node_Activation_Method::ReLu);
 }
 
 // allows you to call the method with an explicit method
-void Layer::Activate_Neural_Node_By(Utilities::Neural_Node_Activation_Method param_method) {
+void Layer::Activate_Neural_Nodes_By(Utilities::Neural_Node_Activation_Method param_method) {
+     if (param_method == Neural_Node_Activation_Method::Softmax) {
+         this->Set_Layers_Exponential_Sum();
+     }
+
      for (int output_index = 0; output_index < this->Get_Prediction_With_Bias().size(); output_index++) {
         if (param_method == Neural_Node_Activation_Method::ReLu) {
             this->Activate_Neural_Node_By_ReLu(this->Get_Prediction_With_Bias()[output_index], output_index);
         }
         else if (param_method == Neural_Node_Activation_Method::Sigmoid) {
             this->Activate_Neural_Node_By_Sigmoid(this->Get_Prediction_With_Bias()[output_index], output_index);
+        }
+        else if (param_method == Neural_Node_Activation_Method::Softmax) {
+            this->Activate_Neural_Node_By_Softmax(this->Get_Prediction_With_Bias()[output_index], output_index);
         }
      }
 }
@@ -209,24 +231,29 @@ void Layer::Activate_Neural_Node_By_Sigmoid(float param_prediction_with_bias, fl
     this->outputs[param_prediction_index] = current_sigmoid_value;
 }
 
+void Layer::Activate_Neural_Node_By_Softmax(float param_prediction_with_bias, float param_prediction_index) {
+    float normalized_exponential_sum = exp(param_prediction_with_bias) / this->prediction_with_bias_exponential_sum;
+
+    this->outputs[param_prediction_with_bias] = normalized_exponential_sum;
+}
+
 void Layer::Calculate_Loss() {
         this->Calculate_Loss_By(Loss_Calculation_Method::CrossEntropy);
 }
      
 
 void Layer::Calculate_Loss_By(Utilities::Loss_Calculation_Method param_method) {
-    for (int index = 0; index < this->Get_Node_Count(); index++) {
+    for (int losses_index = 0; losses_index < this->outputs.size(); losses_index++) {
         if (param_method == Utilities::Loss_Calculation_Method::CrossEntropy) {
-            this->Calculate_Loss_By_Cross_Entropy(this->neuralNodes[index], index);
+            this->Calculate_Loss_By_Cross_Entropy(this->outputs[losses_index], losses_index);
         }
     }
 }
 
-void Layer::Calculate_Loss_By_Cross_Entropy(Neural_Node& param_current_node, int param_index) {
-    float loss = -log(param_current_node.Get_Input().Get_Value());
-    losses.push_back(loss);
+void Layer::Calculate_Loss_By_Cross_Entropy(float param_output, int param_index) {
+    float loss = -log(param_output);
+    losses[param_index] = loss;
 }
-
 
 
 vector<float> Layer::Feed_Forward_Pass() {

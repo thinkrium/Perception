@@ -154,6 +154,18 @@ namespace Perception {
 					vector<float> Get_Outputs();
 
 					/*
+					*  Initializes the losslayer to the size of node count to
+					*  an initial value of negativ 1 so that it can be iteratedt
+					*  through later by index
+					*/
+					void Initialize_Losses();
+
+					/*
+					*  Returns the losses created in the final layer
+					*/
+					vector<float> Get_Losses();
+
+					/*
 					 Generates a random real number between -1 and 1
 					*/
 					float Generate_Random_Numerical_Value();
@@ -184,10 +196,15 @@ namespace Perception {
 					void Activate_Neural_Nodes();
 
 					/*
+					* Iterates through the layers nodes predictions and adds to gether the values of the
+					* nodes value
+					*/
+					void Set_Layers_Exponential_Sum();
+					/*
 					  Activates the current node by a specifict activation method 
 					  overloaded jsut sending method
 					*/
-					void Activate_Neural_Node_By(Utilities::Neural_Node_Activation_Method  param_method);
+					void Activate_Neural_Nodes_By(Utilities::Neural_Node_Activation_Method  param_method);
 					 
 					/*
 					  Activates the current node by a specific by Rectified Linear Unit
@@ -198,6 +215,11 @@ namespace Perception {
 					  Activates the current node by a Sigmoid
 					*/
 					void Activate_Neural_Node_By_Sigmoid(float param_prediction_with_bias, float param_prediction_index);
+
+					/*
+                      Activates the current node by a Sigmoid
+                    */
+					void Activate_Neural_Node_By_Softmax(float param_prediction_with_bias, float param_prediction_index);
 
 					/*
 					Calculating Loss for each Node
@@ -215,7 +237,7 @@ namespace Perception {
 					Calculating Loss for each Node with method option and overloaded neural_node
 					cant happen without predicted value
 					*/
-					void Calculate_Loss_By_Cross_Entropy(Neural_Node& param_current_node, int param_index);
+					void Calculate_Loss_By_Cross_Entropy(float param_output, int param_index);
 
 					/*
 					  Passes the full matrix multiplacation value of the this layer to the
@@ -258,6 +280,11 @@ namespace Perception {
 					   The preditions with bias
 					*/
 					vector<float> predictions_with_bias;
+
+					/*
+					*  The exponential sum of the layers predictions
+					*/
+					float prediction_with_bias_exponential_sum;
 
 					/*
 					  the vector/list of losses on the output layer

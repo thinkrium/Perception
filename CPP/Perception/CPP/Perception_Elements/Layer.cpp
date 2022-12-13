@@ -179,13 +179,14 @@ void Layer::Add_Bias_To_Prediction(vector<float> param_prediction, vector<float>
     for (int node_index = 0; node_index < param_prediction.size(); node_index++) {
         float prediction_with_bias = param_prediction[node_index] + param_biases[node_index];
         this->predictions_with_bias.push_back(prediction_with_bias);
+
     }
 }
 
 void Layer::Set_Layers_Exponential_Sum() {
     this->prediction_with_bias_exponential_sum = 0;
-    for (int exponential_sum_index = 0; exponential_sum_index < this->outputs.size(); exponential_sum_index++) {
-        this->prediction_with_bias_exponential_sum += exp(this->outputs[exponential_sum_index]);
+    for (int exponential_sum_index = 0; exponential_sum_index < this->Get_Prediction_With_Bias().size(); exponential_sum_index++) {
+        this->prediction_with_bias_exponential_sum += exp(this->Get_Prediction_With_Bias()[exponential_sum_index]);
     }
 }
 
@@ -197,7 +198,8 @@ void Layer::Activate_Neural_Nodes() {
 
 // allows you to call the method with an explicit method
 void Layer::Activate_Neural_Nodes_By(Utilities::Neural_Node_Activation_Method param_method) {
-     if (param_method == Neural_Node_Activation_Method::Softmax) {
+    cout << "ACTIVATING: " << endl;
+    if (param_method == Neural_Node_Activation_Method::Softmax) {
          this->Set_Layers_Exponential_Sum();
      }
 
@@ -232,9 +234,10 @@ void Layer::Activate_Neural_Node_By_Sigmoid(float param_prediction_with_bias, fl
 }
 
 void Layer::Activate_Neural_Node_By_Softmax(float param_prediction_with_bias, float param_prediction_index) {
-    float normalized_exponential_sum = exp(param_prediction_with_bias) / this->prediction_with_bias_exponential_sum;
 
-    this->outputs[param_prediction_with_bias] = normalized_exponential_sum;
+    float normalized_exponential_sum = exp(this->Get_Prediction_With_Bias()[param_prediction_index]) / this->prediction_with_bias_exponential_sum;
+
+    this->outputs[param_prediction_index] = normalized_exponential_sum;
 }
 
 void Layer::Calculate_Loss() {
@@ -251,8 +254,9 @@ void Layer::Calculate_Loss_By(Utilities::Loss_Calculation_Method param_method) {
 }
 
 void Layer::Calculate_Loss_By_Cross_Entropy(float param_output, int param_index) {
+
     float loss = -log(param_output);
-    losses[param_index] = loss;
+    this->losses[param_index] = loss;
 }
 
 

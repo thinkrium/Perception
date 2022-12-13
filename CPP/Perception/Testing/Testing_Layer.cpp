@@ -176,7 +176,8 @@ TEST(Perception_Test, Test_Output_Loss) {
     vector<float> test_biases = { .1, .1, .1, .1 };
     vector<float> comparison = { .4, .4, .4, .4 };
     test_layer.Add_Bias_To_Prediction(test_predictions, test_biases);
-    test_layer.Activate_Neural_Nodes_By(Neural_Node_Activation_Method::Softmax);
+    test_layer.Activate_Neural_Nodes_By(Utilities::Neural_Node_Activation_Method::Softmax);
+    EXPECT_EQ(test_layer.Get_Outputs(), comparison);
     test_layer.Calculate_Loss();
     EXPECT_EQ(test_layer.Get_Losses(), comparison);
 

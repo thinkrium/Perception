@@ -1,7 +1,6 @@
 #include <Layer.h>
-// tempoorary test for random # generation value
-#include <iostream>
 #include <cmath>
+#include <Perception_Logger.h>
 
 using namespace std;
 using namespace Perception::Layer::Element;
@@ -12,6 +11,9 @@ Layer::Layer()
 
 
 Layer::Layer(int param_node_count) {
+    Perception_Logger logger;
+    logger.Info();
+
     this->Set_Node_Count (param_node_count);
     this->Set_Weight_Count(param_node_count);
     this->Initialize_Layer_Nodes();
@@ -198,7 +200,6 @@ void Layer::Activate_Neural_Nodes() {
 
 // allows you to call the method with an explicit method
 void Layer::Activate_Neural_Nodes_By(Utilities::Neural_Node_Activation_Method param_method) {
-    cout << "ACTIVATING: " << endl;
     if (param_method == Neural_Node_Activation_Method::Softmax) {
          this->Set_Layers_Exponential_Sum();
      }

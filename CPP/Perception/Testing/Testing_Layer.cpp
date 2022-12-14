@@ -157,30 +157,53 @@ TEST(Perception_Test, Test_Layer_Activation_By_Sigmoid) {
 
 }
 
+TEST(Perception_Test, Test_Layer_Activation_By_Softmax) {
 
-TEST(Perception_Test, Test_Layer_Forward_Pass) {
+    float sum_of_exponents = exp(.4) + exp(.4) + exp(.4) + exp(.4);
+    float activated_node_value1 = exp(.4);
+    float activated_node_value2 = exp(.4);
+    float activated_node_value3 = exp(.4);
+    float activated_node_value4 = exp(.4);
     Layer test_layer(4);
-    vector<float> test_predictions = { .30, .30, .30, .30 };
+    vector<float> test_predictions = { .3, .3, .3, .3 };
     vector<float> test_biases = { .1, .1, .1, .1 };
-    vector<float> comparison = { .4, .4, .4, .4 };
-    test_layer.Add_Bias_To_Prediction(test_predictions, test_biases);
-    test_layer.Activate_Neural_Nodes();
-    EXPECT_EQ(test_layer.Get_Outputs(), comparison);
 
-}
-
-
-TEST(Perception_Test, Test_Output_Loss) {
-    Layer test_layer(4);
-    vector<float> test_predictions = { .30, .30, .30, .30 };
-    vector<float> test_biases = { .1, .1, .1, .1 };
-    vector<float> comparison = { .4, .4, .4, .4 };
+    vector<float> comparison = { 
+        (activated_node_value1 / sum_of_exponents), 
+        (activated_node_value2 / sum_of_exponents),
+        (activated_node_value3 / sum_of_exponents),
+        (activated_node_value4 / sum_of_exponents)
+    };
     test_layer.Add_Bias_To_Prediction(test_predictions, test_biases);
     test_layer.Activate_Neural_Nodes_By(Utilities::Neural_Node_Activation_Method::Softmax);
     EXPECT_EQ(test_layer.Get_Outputs(), comparison);
-    test_layer.Calculate_Loss();
-    EXPECT_EQ(test_layer.Get_Losses(), comparison);
 
 }
 
+
+//TEST(Perception_Test, Test_Layer_Forward_Pass) {
+//    Layer test_layer(4);
+//    vector<float> test_predictions = { .30, .30, .30, .30 };
+//    vector<float> test_biases = { .1, .1, .1, .1 };
+//    vector<float> comparison = { .4, .4, .4, .4 };
+//    test_layer.Add_Bias_To_Prediction(test_predictions, test_biases);
+//    test_layer.Activate_Neural_Nodes();
+//    EXPECT_EQ(test_layer.Get_Outputs(), comparison);
+//
+//}
+//
+//
+//TEST(Perception_Test, Test_Output_Loss) {
+//    Layer test_layer(4);
+//    vector<float> test_predictions = { .30, .30, .30, .30 };
+//    vector<float> test_biases = { .1, .1, .1, .1 };
+//    vector<float> comparison = { .4, .4, .4, .4 };
+//    test_layer.Add_Bias_To_Prediction(test_predictions, test_biases);
+//    test_layer.Activate_Neural_Nodes_By(Utilities::Neural_Node_Activation_Method::Softmax);
+//    EXPECT_EQ(test_layer.Get_Outputs(), comparison);
+//    test_layer.Calculate_Loss();
+//    EXPECT_EQ(test_layer.Get_Losses(), comparison);
+//
+//}
+//
  

@@ -30,9 +30,36 @@ Perception_Logger::Perception_Logger() {
       this->Message(param_message, Logging_Level::Fatal);
   }
 
-void Perception_Logger::Message(string param_message, Logging_Level param_logging_level) {
-    cout << param_message << endl;
-    if (this->toFile) {
-        this->file << param_message << endl;
-    }
-}
+  string Perception_Logger::Log_Level_To_String(Logging_Level param_logging_level) {
+      switch (param_logging_level) {
+          case Logging_Level::Trace:
+              return "Trace";
+              break;
+          case Logging_Level::Debug:
+              return "Debug";
+              break;
+          case Logging_Level::Info:
+              return "Info";
+              break;
+          case Logging_Level::Warning:
+              return "Warning";
+              break;
+          case Logging_Level::Error:
+              return "Error";
+              break;
+          case Logging_Level::Fatal:
+              return "Fatal";
+              break;
+          default:
+              return "That is not a Log Level!";
+      }
+  }
+
+  void Perception_Logger::Message(string param_message, Logging_Level param_logging_level) {
+        time_t result = std::time(nullptr);
+        string time_stamp = asctime(std::localtime(&result));
+        string time_stamped_message ="Log Level: " + this->Log_Level_To_String(param_logging_level ) + " - [" + time_stamp + "] " + param_message;
+        if (this->toFile) {
+            this->file << time_stamped_message << endl;
+        }
+  }

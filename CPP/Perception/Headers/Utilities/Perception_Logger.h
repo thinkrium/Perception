@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <ctime>
 #include <Enums.h>
 
 using namespace std;
@@ -19,6 +20,7 @@ namespace Utilities {
 			  void Fatal(string param_message);
 			  void Message(string param_message, Logging_Level param_logging_level);
 	    private:
+			string Log_Level_To_String(Logging_Level param_logging_level);
 			fstream file;
 			string fileName;
 			bool toFile;

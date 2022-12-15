@@ -11,6 +11,15 @@ namespace Utilities {
 		CrossEntropy
 	};
 
+	enum Logging_Level {
+		Trace,
+		Debug,
+		Info,
+		Warning,
+		Error,
+		Fatal
+	};
+
 
 
 }

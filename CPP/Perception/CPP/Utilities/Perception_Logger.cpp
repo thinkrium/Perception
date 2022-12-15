@@ -56,9 +56,13 @@ Perception_Logger::Perception_Logger() {
   }
 
   void Perception_Logger::Message(string param_message, Logging_Level param_logging_level) {
-        time_t result = std::time(nullptr);
-        string time_stamp = asctime(std::localtime(&result));
-        string time_stamped_message ="Log Level: " + this->Log_Level_To_String(param_logging_level ) + " - [" + time_stamp + "] " + param_message;
+      auto tt = time(nullptr);
+      auto* ti = localtime(&tt);
+      std::stringstream time_stamp;
+      time_stamp << std::put_time(ti, "%c");
+        string time_stamped_message ="Log Level: " + this->Log_Level_To_String(param_logging_level ) + " - [" + time_stamp.str() + "] " + param_message;
+
+        cout << time_stamped_message << endl;
         if (this->toFile) {
             this->file << time_stamped_message << endl;
         }

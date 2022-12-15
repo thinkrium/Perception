@@ -1,3 +1,6 @@
+#ifndef ENUMS_H
+#define ENUMS_H
+
 
 namespace Utilities {
 	enum  Neural_Node_Activation_Method
@@ -23,3 +26,6 @@ namespace Utilities {
 
 
 }
+
+
+#endif // !ENUMS_H

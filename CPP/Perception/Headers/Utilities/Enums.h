@@ -7,6 +7,7 @@ namespace Utilities {
 	{
 		ReLu,
 		Softmax,
+		Softplus,
 		Sigmoid
 	};
 

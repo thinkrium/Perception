@@ -5,6 +5,7 @@
 using namespace std;
 using namespace Perception::Layer::Element;
 
+
 Layer::Layer()
 {
 }
@@ -154,6 +155,17 @@ float Layer::Generate_Random_Numerical_Value() {
 
     return random_number;
 }
+
+float Layer::Limit_Precision(float param_value_to_limit) {
+    float ten = 10;
+    float precision_limit_amount = 5;
+    float step_1 = param_value_to_limit * precision_limit_amount * ten;
+    int step_2   = floor(step_1);
+    float step_3 = step_2 * precision_limit_amount;
+
+    return step_3;
+}
+
 void Layer::Dot_Product(vector<Neural_Node> param_inputs, vector<vector<float>> param_weights) {
     float results = 0;
 
@@ -214,6 +226,9 @@ void Layer::Activate_Neural_Nodes_By(Utilities::Neural_Node_Activation_Method pa
         else if (param_method == Neural_Node_Activation_Method::Softmax) {
             this->Activate_Neural_Node_By_Softmax(this->Get_Prediction_With_Bias()[output_index], output_index);
         }
+        else if (param_method == Neural_Node_Activation_Method::Softplus) {
+            this->Activate_Neural_Node_By_Softplus(this->Get_Prediction_With_Bias()[output_index], output_index);
+        }
      }
 }
 
@@ -239,6 +254,12 @@ void Layer::Activate_Neural_Node_By_Softmax(float param_prediction_with_bias, fl
     float normalized_exponential_sum = exp(this->Get_Prediction_With_Bias()[param_prediction_index]) / this->prediction_with_bias_exponential_sum;
 
     this->outputs[param_prediction_index] = normalized_exponential_sum;
+}
+
+void Layer::Activate_Neural_Node_By_Softplus(float param_prediction_with_bias, float param_prediction_index) {
+    float current_softplus_value = log(1 + exp(param_prediction_with_bias));
+
+    this->outputs[param_prediction_index] = current_softplus_value;
 }
 
 void Layer::Calculate_Loss() {

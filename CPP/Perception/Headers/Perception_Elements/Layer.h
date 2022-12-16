@@ -169,6 +169,11 @@ namespace Perception {
 					 Generates a random real number between -1 and 1
 					*/
 					float Generate_Random_Numerical_Value();
+					 
+					/*
+					   Washes the value of the float to give a precision of expected amount
+					*/
+					float Limit_Precision(float param_value_to_limit);
 
 					/*
 					   Performs a Dot product operation on the incoming weights and parameters
@@ -217,9 +222,14 @@ namespace Perception {
 					void Activate_Neural_Node_By_Sigmoid(float param_prediction_with_bias, float param_prediction_index);
 
 					/*
-                      Activates the current node by a Sigmoid
+                      Activates the current node by a Softmax
                     */
 					void Activate_Neural_Node_By_Softmax(float param_prediction_with_bias, float param_prediction_index);
+
+					/*
+ 					  Activates the current node by a Softmax
+                     */
+					void Activate_Neural_Node_By_Softplus(float param_prediction_with_bias, float param_prediction_index);
 
 					/*
 					Calculating Loss for each Node

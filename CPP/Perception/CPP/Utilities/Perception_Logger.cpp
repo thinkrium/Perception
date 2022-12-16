@@ -2,6 +2,15 @@
 
 using namespace Utilities;
 
+#define RESET   "\033[0m"
+#define RED     "\033[31m"      /* Red */
+#define GREEN   "\033[32m"      /* Green */
+#define YELLOW  "\033[33m"      /* Yellow */
+#define BLUE    "\033[34m"      /* Blue */
+#define MAGENTA "\033[35m"      /* Magenta */
+#define CYAN    "\033[36m"      /* Cyan */
+#define WHITE   "\033[37m"      /* White */
+
 Perception_Logger::Perception_Logger() {
 
     this->toFile = false;
@@ -28,6 +37,31 @@ Perception_Logger::Perception_Logger() {
 
   void Perception_Logger::Fatal(string param_message) {
       this->Message(param_message, Logging_Level::Fatal);
+  }
+
+  string Perception_Logger::Determine_Log_Level_Color(Logging_Level param_logging_level) {
+      switch (param_logging_level) {
+      case Logging_Level::Trace:
+          return  RESET;
+          break;
+      case Logging_Level::Debug:
+          return YELLOW;
+          break;
+      case Logging_Level::Info:
+          return RESET;
+          break;
+      case Logging_Level::Warning:
+          return YELLOW;
+          break;
+      case Logging_Level::Error:
+          return RED;
+          break;
+      case Logging_Level::Fatal:
+          return MAGENTA;
+          break;
+      default:
+          return "That is not a Log Level!";
+      }
   }
 
   string Perception_Logger::Log_Level_To_String(Logging_Level param_logging_level) {
@@ -60,7 +94,7 @@ Perception_Logger::Perception_Logger() {
       auto* ti = localtime(&tt);
       std::stringstream time_stamp;
       time_stamp << std::put_time(ti, "%c");
-        string time_stamped_message ="Log Level: " + this->Log_Level_To_String(param_logging_level ) + " - [" + time_stamp.str() + "] " + param_message;
+        string time_stamped_message = this->Determine_Log_Level_Color(param_logging_level) + "Log Level: " + this->Log_Level_To_String(param_logging_level ) + RESET + " - [" + time_stamp.str() + "] " + param_message;
 
         cout << time_stamped_message << endl;
         if (this->toFile) {

@@ -12,7 +12,7 @@ Layer::Layer()
 
 Layer::Layer(int param_node_count) {
     Perception_Logger logger;
-    logger.Info("This is  a test!");
+    logger.Fatal("This is  a test!");
 
     this->Set_Node_Count (param_node_count);
     this->Set_Weight_Count(param_node_count);

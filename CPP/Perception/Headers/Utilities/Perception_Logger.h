@@ -22,6 +22,7 @@ namespace Utilities {
 			  void Message(string param_message, Logging_Level param_logging_level);
 	    private:
 			string Log_Level_To_String(Logging_Level param_logging_level);
+			string Determine_Log_Level_Color(Logging_Level param_logging_level);
 			fstream file;
 			string fileName;
 			bool toFile;

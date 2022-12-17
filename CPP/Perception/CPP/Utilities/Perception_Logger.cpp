@@ -101,3 +101,5 @@ Perception_Logger::Perception_Logger() {
             this->file << time_stamped_message << endl;
         }
   }
+
+  Perception_Logger::~Perception_Logger() {}

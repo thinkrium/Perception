@@ -122,9 +122,9 @@ TEST(Perception_Test, Test_Layer_Prediction_with_bias) {
 
 TEST(Perception_Test, Test_Layer_Activation_By_ReLu_GT_zero) {
     Layer test_layer(4);
-    vector<float> test_predictions = { .30, .30, .30, .30 };
+    vector<float> test_predictions = { .20, .30, .40, .50 };
     vector<float> test_biases = { .1, .1, .1, .1 };
-    vector<float> comparison = { .4, .4, .4, .4 };
+    vector<float> comparison = { .3, .4, .5, .6 };
     test_layer.Add_Bias_To_Prediction(test_predictions, test_biases);
     test_layer.Activate_Neural_Nodes();
     EXPECT_EQ(test_layer.Get_Outputs(), comparison);

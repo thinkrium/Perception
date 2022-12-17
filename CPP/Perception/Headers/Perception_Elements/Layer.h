@@ -6,6 +6,7 @@
 #include <vector>
 #include <random>
 #include <Enums.h>
+#include <Perception_Logger.h>
 
 using namespace Utilities;
 using namespace std;
@@ -310,6 +311,11 @@ namespace Perception {
 					* The outputs after prediction, bias, and activation
 					*/
 					vector<float> outputs;
+
+					/*
+					* Logger - might change approach
+					*/
+					Perception_Logger logger;
 
 			};
 		}

@@ -8,13 +8,12 @@ using namespace Perception::Layer::Element;
 
 Layer::Layer()
 {
+ 
 }
 
 
 Layer::Layer(int param_node_count) {
-    Perception_Logger logger;
-    logger.Fatal("This is  a test!");
-
+    
     this->Set_Node_Count (param_node_count);
     this->Set_Weight_Count(param_node_count);
     this->Initialize_Layer_Nodes();
@@ -152,17 +151,17 @@ float Layer::Generate_Random_Numerical_Value() {
     float random_number = distributor(generator) ;
 
     random_number /= 100;
-
-    return random_number;
+     
+    return this->Limit_Precision(random_number); 
 }
 
 float Layer::Limit_Precision(float param_value_to_limit) {
     float ten = 10;
-    float precision_limit_amount = 5;
-    float step_1 = param_value_to_limit * precision_limit_amount * ten;
+    float precision_limit_amount = 2;
+    float precision_multiplier = pow(ten, precision_limit_amount);
+    float step_1 = param_value_to_limit * precision_multiplier;
     int step_2   = floor(step_1);
-    float step_3 = step_2 * precision_limit_amount;
-
+    float step_3 = step_2 / precision_multiplier;
     return step_3;
 }
 

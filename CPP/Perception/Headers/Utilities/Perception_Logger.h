@@ -20,6 +20,7 @@ namespace Utilities {
 			  void Error(string param_message);
 			  void Fatal(string param_message);
 			  void Message(string param_message, Logging_Level param_logging_level);
+			  ~Perception_Logger();
 	    private:
 			string Log_Level_To_String(Logging_Level param_logging_level);
 			string Determine_Log_Level_Color(Logging_Level param_logging_level);

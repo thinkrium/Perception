@@ -18,15 +18,9 @@ namespace Perception {
 
 		private:
 			vector<int> oneHotEncodingExpectation;
+
 		};
 
-		Expected_Results::Expected_Results()
-		{
-		}
-
-		Expected_Results::~Expected_Results()
-		{
-		}
     }
 }
 #endif // EXPECTED_RESULTS_H

@@ -1,0 +1,7 @@
+STEPS:
+1: Initialize weights, inputs, biases // working
+2: add the layers inputs * weights + biases // working
+3: Activate nodes // working
+4: pass the output forward // working
+5: calculate loss against expectation --
+6: send it back to correct weights and biases through gradient decent

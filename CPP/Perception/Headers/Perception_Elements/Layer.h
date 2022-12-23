@@ -192,6 +192,23 @@ namespace Perception {
 					vector<float> Get_Prediction_With_Bias();
 
 					/*
+					*  If the -log loss algorithm sees a 0 then it will
+					*  return infinity which is a fail
+					* 
+					*  clip it to avoid that infinity
+					*/
+					float Clip_Output_For_Loss(float param_output);
+					/*
+						 Set the expected Results
+					*/
+					void Set_Expected_Results(vector<int> param_expected_results);
+
+					/*
+					   get the expected Results
+					*/
+					vector<int> Get_Expected_Results();
+
+					/*
 					* Determines the trust of the prediction by adding abias to the prediction
 					*/
 					void Add_Bias_To_Prediction(vector<float> param_prediction, vector<float> param_biases);
@@ -311,6 +328,11 @@ namespace Perception {
 					* The outputs after prediction, bias, and activation
 					*/
 					vector<float> outputs;
+
+					/*
+					  The anticipated results to calculate loss against
+					*/
+					vector<int> expected_results;
 
 					/*
 					* Logger - might change approach

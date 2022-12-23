@@ -261,15 +261,30 @@ void Layer::Activate_Neural_Node_By_Softplus(float param_prediction_with_bias, f
     this->outputs[param_prediction_index] = current_softplus_value;
 }
 
+void Layer::Set_Expected_Results(vector<int> param_expected_results) {
+    this->expected_results = param_expected_results;
+}
+
+vector<int> Layer::Get_Expected_Results() {
+    return this->expected_results;
+}
+
 void Layer::Calculate_Loss() {
         this->Calculate_Loss_By(Loss_Calculation_Method::CrossEntropy);
 }
      
 
 void Layer::Calculate_Loss_By(Utilities::Loss_Calculation_Method param_method) {
+    if (this->Get_Expected_Results().size() == 0) {
+        logger.Error("There are no expected results to compare losses against");
+        return;
+    }
+
     for (int losses_index = 0; losses_index < this->outputs.size(); losses_index++) {
-        if (param_method == Utilities::Loss_Calculation_Method::CrossEntropy) {
-            this->Calculate_Loss_By_Cross_Entropy(this->outputs[losses_index], losses_index);
+        if (this->Get_Expected_Results()[losses_index] == 1) {
+            if (param_method == Utilities::Loss_Calculation_Method::CrossEntropy) {
+                this->Calculate_Loss_By_Cross_Entropy(this->outputs[losses_index], losses_index);
+            }
         }
     }
 }

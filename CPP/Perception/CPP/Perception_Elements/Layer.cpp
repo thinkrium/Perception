@@ -269,6 +269,21 @@ vector<int> Layer::Get_Expected_Results() {
     return this->expected_results;
 }
 
+float Layer::Clip_Output_For_Negative_Log_Loss(float param_output) {
+    float output_lowest_value = 0.0000001;
+    float output_highest_value = 1 - output_lowest_value;
+
+    if (param_output < output_lowest_value) {
+        return output_lowest_value;
+    }
+    else if (param_output > output_highest_value) {
+        return output_highest_value;
+    }
+    else {
+        return param_output;
+    }
+}
+
 void Layer::Calculate_Loss() {
         this->Calculate_Loss_By(Loss_Calculation_Method::CrossEntropy);
 }
@@ -283,7 +298,7 @@ void Layer::Calculate_Loss_By(Utilities::Loss_Calculation_Method param_method) {
     for (int losses_index = 0; losses_index < this->outputs.size(); losses_index++) {
         if (this->Get_Expected_Results()[losses_index] == 1) {
             if (param_method == Utilities::Loss_Calculation_Method::CrossEntropy) {
-                this->Calculate_Loss_By_Cross_Entropy(this->outputs[losses_index], losses_index);
+                this->Calculate_Loss_By_Cross_Entropy(this->Clip_Output_For_Negative_Log_Loss(this->outputs[losses_index]), losses_index);
             }
         }
     }

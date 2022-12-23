@@ -197,7 +197,8 @@ namespace Perception {
 					* 
 					*  clip it to avoid that infinity
 					*/
-					float Clip_Output_For_Loss(float param_output);
+					float Clip_Output_For_Negative_Log_Loss(float param_output);
+
 					/*
 						 Set the expected Results
 					*/

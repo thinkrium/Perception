@@ -216,10 +216,14 @@ TEST(Perception_Test, Test_Output_Loss) {
     Layer test_layer(4);
     vector<float> test_predictions = { .30, .30, .30, .30 };
     vector<float> test_biases = { .1, .1, .1, .1 };
+    vector<int> test_expected_results = { 0, 1, 0, 0 };
     vector<float> comparison = { .4, .4, .4, .4 };
+
     test_layer.Add_Bias_To_Prediction(test_predictions, test_biases);
     test_layer.Activate_Neural_Nodes_By(Utilities::Neural_Node_Activation_Method::Softmax);
+    test_layer.Set_Expected_Results(test_expected_results);
     EXPECT_EQ(test_layer.Get_Outputs(), comparison);
+
     test_layer.Calculate_Loss();
     EXPECT_EQ(test_layer.Get_Losses(), comparison);
 

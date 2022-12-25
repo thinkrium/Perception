@@ -68,12 +68,12 @@ namespace Perception {
 					/*
 					    Gets the list of neural nodes for the layer
 					*/
-					vector<Neural_Node> Get_Neural_Nodes();
+					vector<vector<Neural_Node>> Get_Neural_Nodes();
 
 					/*
 						Gets the list of neural nodes for the layer
 					*/
-					vector<float> Get_Neural_Nodes_Values();
+					vector<vector<float>> Get_Neural_Nodes_Values();
 
 					/*
 					* Sets the weight count for the incoming weights
@@ -179,7 +179,7 @@ namespace Perception {
 					/*
 					   Performs a Dot product operation on the incoming weights and parameters
 					*/
-					void Dot_Product(vector<Neural_Node> param_inputs, vector<vector<float>> param_weights);
+					void Dot_Product(vector<vector<Neural_Node>> param_inputs, vector<vector<float>> param_weights);
 
 					/*
 					* returns the prediction without the bias
@@ -287,7 +287,7 @@ namespace Perception {
 					/*
 					  The Vector/list of Neural Nodes
 					*/
-					vector<Neural_Node> neuralNodes;
+					vector<vector<Neural_Node>> neuralNodes;
 
 					/*
 					   The number of Weights in this layer

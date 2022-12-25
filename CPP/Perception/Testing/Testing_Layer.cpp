@@ -95,7 +95,13 @@ TEST(Perception_Test, Test_Layer_Prediction_without_bias) {
     Neural_Node node2(2);
     Neural_Node node3(3);
     Neural_Node node4(4);
-    vector<Neural_Node> test_inputs = { node1, node2, node3, node4 };
+    vector<vector<Neural_Node>> test_inputs = { 
+        { node1, node2, node3, node4 },
+        { node1, node2, node3, node4 },
+        { node1, node2, node3, node4 },
+        { node1, node2, node3, node4 }
+    };
+
     vector<vector<float>> test_weights = {
         {1,2,3,4},
         {1,2,3,4},

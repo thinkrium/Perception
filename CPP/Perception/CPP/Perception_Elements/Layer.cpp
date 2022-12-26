@@ -20,6 +20,7 @@ Layer::Layer(int param_node_count) {
     this->Initialize_Layer_Weights();
     this->Initialize_Bias();
     this->Initialize_Predictions();
+    this->Initialize_Predictions_With_Biases();
     this->Initialize_Outputs();
     this->Initialize_Losses();
 }
@@ -146,6 +147,19 @@ void Layer::Initialize_Predictions_By_Count(int param_node_count) {
 
 }
 
+void Layer::Initialize_Predictions_With_Biases() {
+    this->Initialize_Predictions_With_Biases_By_Count(this->Get_Node_Count());
+
+}
+
+void Layer::Initialize_Predictions_With_Biases_By_Count(int param_node_count) {
+    vector<vector<float>> prediction_matrix(param_node_count, vector<float>(param_node_count, 0));
+
+    this->predictions_with_bias = prediction_matrix;
+
+}
+
+
 void Layer::Initialize_Outputs() {
     this->Initialize_Outputs_By_Count(this->Get_Node_Count());
 }
@@ -242,7 +256,7 @@ void Layer::Add_Bias_To_Prediction(vector<vector<float>> param_prediction, vecto
     for (int node_row_index = 0; node_row_index < param_prediction.size(); node_row_index++) {
         for (int node_column_index = 0; node_column_index < param_prediction[node_row_index].size(); node_column_index++) {
             float prediction_with_bias = param_prediction[node_row_index][node_column_index] + param_biases[node_column_index];
-            this->predictions_with_bias[node_row_index].push_back(prediction_with_bias);
+            this->predictions_with_bias[node_row_index][node_column_index] = prediction_with_bias ;
         }
     }
 }

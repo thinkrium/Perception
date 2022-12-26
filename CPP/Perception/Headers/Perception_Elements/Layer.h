@@ -138,6 +138,16 @@ namespace Perception {
 					void Initialize_Predictions_By_Count(int param_node_count);
 
 					/*
+					* Sets the size of the predictions with Biases and initializes them with some value to populate later
+					*/
+					void Initialize_Predictions_With_Biases();
+
+					/*
+					* Sets the size of the predictions with Biases and initializes them with some value to populate later
+					*/
+					void Initialize_Predictions_With_Biases_By_Count(int param_node_count);
+
+					/*
 					Initializes the all new weights for this layer by the size of the internal objects node_count
 					and initializes their value with random number between -1 and 1
 					*/

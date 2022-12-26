@@ -128,17 +128,18 @@ TEST(Perception_Test, Test_Layer_Prediction_without_bias) {
     test_layer.Dot_Product(test_inputs, test_weights);
     EXPECT_EQ(test_layer.Get_Prediction_Without_Bias(), comparison);
 }
-//
-//TEST(Perception_Test, Test_Layer_Prediction_with_bias) {
-//    Layer test_layer;
-//    vector<vector<float>> test_predictions = {{ 30, 30, 30, 30 }};
-//    vector<float> test_biases = { 1, 1, 1, 1 };
-//    vector<float> comparison = { 31, 31, 31, 31 };
-//    test_layer.Add_Bias_To_Prediction(test_predictions, test_biases);
-//    EXPECT_EQ(test_layer.Get_Prediction_With_Bias(), comparison);
-//
-//}
-//
+
+TEST(Perception_Test, Test_Layer_Prediction_with_bias) {
+    Layer test_layer(1);
+    vector<vector<float>> test_predictions = { { 30, 30, 30, 30 } };
+    vector<float> test_biases = { 1, 1, 1, 1 };
+    vector<float> comparison = {{ 31, 31, 31, 31 }};
+    test_layer.Add_Bias_To_Prediction(test_predictions, test_biases);
+    test_layer.Get_Prediction_With_Bias();
+    //EXPECT_EQ(test_layer.Get_Prediction_With_Bias(), comparison);
+
+}
+
 //
 //TEST(Perception_Test, Test_Layer_Activation_By_ReLu_GT_zero) {
 //    Layer test_layer(4);

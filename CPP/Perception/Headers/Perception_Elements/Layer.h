@@ -128,6 +128,16 @@ namespace Perception {
 					void Initialize_Weights_By_Count();
 
 					/*
+					* Sets the size of the predictions and initializes them with some value to populate later
+					*/
+					void Initialize_Predictions();
+
+					/*
+					* Sets the size of the predictions and initializes them with some value to populate later
+					*/
+					void Initialize_Predictions_By_Count(int param_node_count);
+
+					/*
 					Initializes the all new weights for this layer by the size of the internal objects node_count
 					and initializes their value with random number between -1 and 1
 					*/
@@ -150,9 +160,15 @@ namespace Perception {
 					void Initialize_Outputs();
 
 					/*
+					* Sets the size of the inputs and initializes the values to 0
+					*/
+					void Initialize_Outputs_By_Count(int param_node_count);
+
+
+					/*
 					 * Gets The outputs from the current layer 
 					 */
-					vector<float> Get_Outputs();
+					vector<vector<float>> Get_Outputs();
 
 					/*
 					*  Initializes the losslayer to the size of node count to
@@ -184,12 +200,12 @@ namespace Perception {
 					/*
 					* returns the prediction without the bias
 					*/
-					vector<float> Get_Prediction_Without_Bias();
+					vector<vector<float>> Get_Prediction_Without_Bias();
 
 					/*
 					 * returns the prediction with the bias
 					 */
-					vector<float> Get_Prediction_With_Bias();
+					vector<vector<float>> Get_Prediction_With_Bias();
 
 					/*
 					*  If the -log loss algorithm sees a 0 then it will
@@ -212,7 +228,7 @@ namespace Perception {
 					/*
 					* Determines the trust of the prediction by adding abias to the prediction
 					*/
-					void Add_Bias_To_Prediction(vector<float> param_prediction, vector<float> param_biases);
+					void Add_Bias_To_Prediction(vector<vector<float>> param_prediction, vector<float> param_biases);
 
 					/*
 					  Activates the current node, defaults to Rectified Linear Unit 
@@ -233,22 +249,22 @@ namespace Perception {
 					/*
 					  Activates the current node by a specific by Rectified Linear Unit
 					*/
-					void Activate_Neural_Node_By_ReLu(float param_prediction_with_bias, float param_prediction_index);
+					void Activate_Neural_Node_By_ReLu(float param_prediction_with_bias, float param_prediction_row_index, float param_prediction_columnn_index);
 
 					/*
 					  Activates the current node by a Sigmoid
 					*/
-					void Activate_Neural_Node_By_Sigmoid(float param_prediction_with_bias, float param_prediction_index);
+					void Activate_Neural_Node_By_Sigmoid(float param_prediction_with_bias, float param_prediction_row_index, float param_prediction_columnn_index);
 
 					/*
                       Activates the current node by a Softmax
                     */
-					void Activate_Neural_Node_By_Softmax(float param_prediction_with_bias, float param_prediction_index);
+					void Activate_Neural_Node_By_Softmax(float param_prediction_with_bias, float param_prediction_row_index, float param_prediction_columnn_index);
 
 					/*
  					  Activates the current node by a Softmax
                      */
-					void Activate_Neural_Node_By_Softplus(float param_prediction_with_bias, float param_prediction_index);
+					void Activate_Neural_Node_By_Softplus(float param_prediction_with_bias, float param_prediction_row_index, float param_prediction_columnn_index);
 
 					/*
 					Calculating Loss for each Node
@@ -272,7 +288,7 @@ namespace Perception {
 					  Passes the full matrix multiplacation value of the this layer to the
 					  next
 					*/
-					vector<float> Feed_Forward_Pass();
+					vector<vector<float>> Feed_Forward_Pass();
 
 					/*Destructor*/
 					~Layer();
@@ -303,12 +319,12 @@ namespace Perception {
 					/*
 					   The preditions without bias
 					*/
-					vector<float> predictions;
+					vector<vector<float>> predictions;
 
 					/*
 					   The preditions with bias
 					*/
-					vector<float> predictions_with_bias;
+					vector<vector<float>> predictions_with_bias;
 
 					/*
 					*  The exponential sum of the layers predictions
@@ -328,7 +344,7 @@ namespace Perception {
 					/*
 					* The outputs after prediction, bias, and activation
 					*/
-					vector<float> outputs;
+					vector<vector<float>> outputs;
 
 					/*
 					  The anticipated results to calculate loss against

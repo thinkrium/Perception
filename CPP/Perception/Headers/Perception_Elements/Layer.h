@@ -3,6 +3,7 @@
 
 #include <Perception_Element.h>
 #include <Bias.h>
+#include <Loss.h>
 #include <Neural_Node.h>
 #include <Prediction.h>
 #include <Output.h>
@@ -193,7 +194,7 @@ namespace Perception {
 					/*
 					*  Returns the losses created in the final layer
 					*/
-					vector<float> Get_Losses();
+					vector<Loss> Get_Losses();
 
 					/*
 					 Generates a random real number between -1 and 1
@@ -347,7 +348,7 @@ namespace Perception {
 					/*
 					  the vector/list of losses on the output layer
 					*/
-					vector<float> losses;
+					vector<Loss> losses;
 
 					/*
 					  The bias of the predictoin

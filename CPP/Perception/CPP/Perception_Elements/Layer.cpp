@@ -179,12 +179,12 @@ vector<vector<Output>> Layer::Get_Outputs() {
     return this->outputs;
 }
 
-vector<float> Layer::Get_Losses() {
+vector<Loss> Layer::Get_Losses() {
     return this->losses;
 }
 
 void Layer::Initialize_Losses() {
-    this->losses = vector<float>(this->Get_Node_Count(), -1);
+    this->losses = vector<Loss>(this->Get_Node_Count(), -1);
 }
 
 float Layer::Generate_Random_Numerical_Value() {

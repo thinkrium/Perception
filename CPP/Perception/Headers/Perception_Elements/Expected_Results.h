@@ -10,7 +10,7 @@ using namespace Perception::Layer::Element;
 namespace Perception {
     namespace Layer {
 
-		class Expected_Results : public Perception_Element
+		class Expected_Results // : public Perception_Element
 		{
 		public:
 			Expected_Results();

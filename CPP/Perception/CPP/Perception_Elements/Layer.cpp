@@ -44,7 +44,7 @@ vector<vector<float>> Layer::Get_Neural_Nodes_Values() {
         for (int node_value_column_index = 0; node_value_column_index < this->Get_Node_Count(); node_value_column_index++) {
 
             node_values[node_value_row_index][node_value_column_index] =  
-                this->neuralNodes[node_value_row_index][node_value_column_index].Get_Input().Get_Value();
+                this->neuralNodes[node_value_row_index][node_value_column_index].Get_Value();
         }
     }
 
@@ -59,7 +59,7 @@ int Layer::Get_Weight_Count() {
     return this->weightCount;
 }
 
-vector<vector<float>> Layer::Get_Weights() {
+vector<vector<Weight>> Layer::Get_Weights() {
     return this->weights;
 }
  
@@ -103,12 +103,12 @@ void Layer::Initialize_Nodes_By_Count(int param_node_count) {
 
 void Layer::Initialize_Weights_By_Count() {
     // create a temp matrix of weights to avoid the new * operator and protect memory
-    vector<vector<float>> weight_matrix(this->neuralNodeCount, std::vector<float>(this->neuralNodeCount, 0));
+    vector<vector<Weight>> weight_matrix(this->neuralNodeCount, std::vector<Weight>(this->neuralNodeCount, 0));
 
     this->weights = weight_matrix;
 
     for (int node_index = 0; node_index < this->neuralNodeCount; node_index++) {
-        this->weights[node_index] = vector<float>(this->neuralNodeCount);
+        this->weights[node_index] = vector<Weight>(this->neuralNodeCount);
         for (int weight_index = 0; weight_index < this->weightCount; weight_index++) {
              this->weights[node_index][weight_index] = this->Generate_Random_Numerical_Value();
         }
@@ -117,7 +117,7 @@ void Layer::Initialize_Weights_By_Count() {
 
 void Layer::Initialize_Weights_By_Count(int param_node_count) {
     // create a temp matrix of weights to avoid the new * operator and protect memory
-    vector<vector<float>> weight_matrix(this->neuralNodeCount, std::vector<float>(this->neuralNodeCount, 0));
+    vector<vector<Weight>> weight_matrix(this->neuralNodeCount, std::vector<Weight>(this->neuralNodeCount, 0));
 
     this->weights = weight_matrix;
 
@@ -233,7 +233,7 @@ void Layer::Dot_Product(vector<vector<Neural_Node>> param_inputs, vector<vector<
 
 
                 results +=
-                    param_inputs[neural_node_row_index][neural_node_column_index].Get_Input().Get_Value()
+                    param_inputs[neural_node_row_index][neural_node_column_index].Get_Value()
                     *
                     param_weights[neural_node_row_index][neural_node_column_index];
             }
@@ -384,7 +384,7 @@ void Layer::Calculate_Loss_By_Cross_Entropy(float param_output, int param_index)
 
 vector<vector<float>> Layer::Feed_Forward_Pass() {
 
-    this->Dot_Product(this->neuralNodes, this->weights);
+    //this->Dot_Product(this->neuralNodes, this->weights);
     //this->Add_Bias_To_Prediction(
     //    this->predictions,
     //    this->biases

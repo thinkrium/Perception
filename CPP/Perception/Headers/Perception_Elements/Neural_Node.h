@@ -1,8 +1,7 @@
 #ifndef Neural_Node_H
 #define Neural_Node_H
 
-#include <Input.h>
-#include <Weight.h>
+ #include <Weight.h>
 #include <Perception_Element.h>
 
 using namespace Utilities;
@@ -12,7 +11,7 @@ namespace Perception {
 	namespace Layer {
 		namespace Element {
 
-			class Neural_Node : public Perception_Element
+			class Neural_Node  : public Perception_Element
  			{
 				public:
 
@@ -27,29 +26,13 @@ namespace Perception {
 					   Param=param_input
 					 */
 					Neural_Node(float param_input);
-
-					/*
-					   Sets the input value of a Neural Node
-					   Param=param_input
-					*/
-					void Set_Input(float param_input);
-					/*
-					Gets the input value of the Neural Node
-					returns float input value
-					*/
-					Input Get_Input();
-
+					 
 					/*
 					Destructor
 					*/
 					~Neural_Node();
 
-				private:
-
-					/*
-					   The value of the node
-					*/
-					Input input;
+			 
 			};
 		}
 	}

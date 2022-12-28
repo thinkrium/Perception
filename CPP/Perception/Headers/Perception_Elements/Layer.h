@@ -15,7 +15,7 @@ namespace Perception {
     namespace Layer {
 		namespace Element {
 
-			class Layer : public Perception_Element
+			class Layer // : public Perception_Element
 			{
 				public:
 
@@ -88,7 +88,7 @@ namespace Perception {
 					/*
 					   Gets the list of weights for the layer
 					*/
-					vector<vector<float>> Get_Weights();
+					vector<vector<Weight>> Get_Weights();
 
 					/*
 					  Gets the bias for the layer
@@ -324,7 +324,7 @@ namespace Perception {
 					  The Vector/list of weights {prediction importance} is the weighted value of each of
 					  the previous llayers predictions for each current node
 					*/
-					vector<vector<float>> weights;
+					vector<vector<Weight>> weights;
 					
 					/*
 					   The preditions without bias

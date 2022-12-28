@@ -12,7 +12,7 @@ TEST(Perception_Test, Test_The_Node_Value_Setters_And_Getters_By_Constructor) {
 
     float test_node_value = 4;
     Neural_Node test_node(test_node_value);
-    EXPECT_EQ(test_node_value, test_node.Get_Input().Get_Value());
+    EXPECT_EQ(test_node_value, test_node.Get_Value());
 }
 
 /// <summary>
@@ -22,8 +22,8 @@ TEST(Perception_Test, Test_The_Node_Value_Setters_And_Getters_By_Method) {
 
     float test_node_value = 4;
     Neural_Node test_node;
-    test_node.Set_Input(test_node_value);
-    EXPECT_EQ(test_node_value, test_node.Get_Input().Get_Value());
+    test_node.Set_Value(test_node_value);
+    EXPECT_EQ(test_node_value, test_node.Get_Value());
 }
 
 

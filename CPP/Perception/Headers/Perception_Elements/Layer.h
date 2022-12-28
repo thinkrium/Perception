@@ -2,7 +2,9 @@
 #define LAYER_H
 
 #include <Perception_Element.h>
+#include <Bias.h>
 #include <Neural_Node.h>
+#include <Prediction.h>
 #include <vector>
 #include <random>
 #include <Enums.h>
@@ -93,7 +95,7 @@ namespace Perception {
 					/*
 					  Gets the bias for the layer
 					*/
-					vector<float> Get_Biases();
+					vector<Bias> Get_Biases();
 
 					/*
 					   Initializes the all new nodes for this layer by the size of the previously defined
@@ -210,12 +212,12 @@ namespace Perception {
 					/*
 					* returns the prediction without the bias
 					*/
-					vector<vector<float>> Get_Prediction_Without_Bias();
+					vector<vector<Prediction>> Get_Prediction_Without_Bias();
 
 					/*
 					 * returns the prediction with the bias
 					 */
-					vector<vector<float>> Get_Prediction_With_Bias();
+					vector<vector<Prediction>> Get_Prediction_With_Bias();
 
 					/*
 					*  If the -log loss algorithm sees a 0 then it will
@@ -329,12 +331,12 @@ namespace Perception {
 					/*
 					   The preditions without bias
 					*/
-					vector<vector<float>> predictions;
+					vector<vector<Prediction>> predictions;
 
 					/*
 					   The preditions with bias
 					*/
-					vector<vector<float>> predictions_with_bias;
+					vector<vector<Prediction>> predictions_with_bias;
 
 					/*
 					*  The exponential sum of the layers predictions
@@ -349,7 +351,7 @@ namespace Perception {
 					/*
 					  The bias of the predictoin
 					*/
-					vector<float> biases;
+					vector<Bias> biases;
 
 					/*
 					* The outputs after prediction, bias, and activation

@@ -141,7 +141,7 @@ void Layer::Initialize_Predictions() {
 }
 
 void Layer::Initialize_Predictions_By_Count(int param_node_count) {
-    vector<vector<float>> prediction_matrix(param_node_count, vector<float>(param_node_count, 0));
+    vector<vector<Prediction>> prediction_matrix(param_node_count, vector<Prediction>(param_node_count, 0));
 
     this->predictions = prediction_matrix;
 
@@ -153,7 +153,7 @@ void Layer::Initialize_Predictions_With_Biases() {
 }
 
 void Layer::Initialize_Predictions_With_Biases_By_Count(int param_node_count) {
-    vector<vector<float>> prediction_matrix(param_node_count, vector<float>(param_node_count, 0));
+    vector<vector<Prediction>> prediction_matrix(param_node_count, vector<Prediction>(param_node_count, 0));
 
     this->predictions_with_bias = prediction_matrix;
 
@@ -171,7 +171,7 @@ void Layer::Initialize_Outputs_By_Count(int param_node_count) {
 
 }
 
-vector<float> Layer::Get_Biases() {
+vector<Bias> Layer::Get_Biases() {
     return this->biases;
 }
 
@@ -244,11 +244,11 @@ void Layer::Dot_Product(vector<vector<Neural_Node>> param_inputs, vector<vector<
      }
 }
 
-vector<vector<float>> Layer::Get_Prediction_Without_Bias() {
+vector<vector<Prediction>> Layer::Get_Prediction_Without_Bias() {
     return this->predictions;
 }
 
-vector<vector<float>> Layer::Get_Prediction_With_Bias() {
+vector<vector<Prediction>> Layer::Get_Prediction_With_Bias() {
     return this->predictions_with_bias;
 }
 
@@ -265,7 +265,7 @@ void Layer::Set_Layers_Exponential_Sum() {
     this->prediction_with_bias_exponential_sum = 0;
     for (int exponential_sum_row_index = 0; exponential_sum_row_index < this->Get_Prediction_With_Bias().size(); exponential_sum_row_index++) {
         for (int exponential_sum_column_index = 0; exponential_sum_column_index < this->Get_Prediction_With_Bias()[exponential_sum_row_index].size(); exponential_sum_column_index++) {
-            this->prediction_with_bias_exponential_sum += exp(this->Get_Prediction_With_Bias()[exponential_sum_row_index][exponential_sum_column_index]);
+            this->prediction_with_bias_exponential_sum += exp(this->Get_Prediction_With_Bias()[exponential_sum_row_index][exponential_sum_column_index].Get_Value());
         }
     }
 }
@@ -285,16 +285,16 @@ void Layer::Activate_Neural_Nodes_By(Utilities::Neural_Node_Activation_Method pa
     for (int output_row_index = 0; output_row_index < this->Get_Prediction_With_Bias().size(); output_row_index++) {
         for (int output_column_index = 0; output_column_index < this->Get_Prediction_With_Bias()[output_row_index].size(); output_column_index++) {
             if (param_method == Neural_Node_Activation_Method::ReLu) {
-                this->Activate_Neural_Node_By_ReLu(this->Get_Prediction_With_Bias()[output_row_index][output_column_index], output_row_index, output_column_index);
+                this->Activate_Neural_Node_By_ReLu(this->Get_Prediction_With_Bias()[output_row_index][output_column_index].Get_Value(), output_row_index, output_column_index);
             }
             else if (param_method == Neural_Node_Activation_Method::Sigmoid) {
-                this->Activate_Neural_Node_By_Sigmoid(this->Get_Prediction_With_Bias()[output_row_index][output_column_index], output_row_index, output_column_index);
+                this->Activate_Neural_Node_By_Sigmoid(this->Get_Prediction_With_Bias()[output_row_index][output_column_index].Get_Value(), output_row_index, output_column_index);
             }
             else if (param_method == Neural_Node_Activation_Method::Softmax) {
-                this->Activate_Neural_Node_By_Softmax(this->Get_Prediction_With_Bias()[output_row_index][output_column_index], output_row_index, output_column_index);
+                this->Activate_Neural_Node_By_Softmax(this->Get_Prediction_With_Bias()[output_row_index][output_column_index].Get_Value(), output_row_index, output_column_index);
             }
             else if (param_method == Neural_Node_Activation_Method::Softplus) {
-                this->Activate_Neural_Node_By_Softplus(this->Get_Prediction_With_Bias()[output_row_index][output_column_index], output_row_index, output_column_index);
+                this->Activate_Neural_Node_By_Softplus(this->Get_Prediction_With_Bias()[output_row_index][output_column_index].Get_Value(), output_row_index, output_column_index);
             }
         }
      }
@@ -302,7 +302,7 @@ void Layer::Activate_Neural_Nodes_By(Utilities::Neural_Node_Activation_Method pa
 
 
 void Layer::Activate_Neural_Node_By_ReLu(float param_prediction_with_bias, float param_prediction_row_index, float param_prediction_column_index) {
-    if ( this->Get_Prediction_With_Bias()[param_prediction_row_index][param_prediction_column_index] <= 0) {
+    if ( this->Get_Prediction_With_Bias()[param_prediction_row_index][param_prediction_column_index].Get_Value() <= 0) {
         this->outputs[param_prediction_row_index][param_prediction_column_index] = 0 ;
     }
     else {
@@ -312,14 +312,14 @@ void Layer::Activate_Neural_Node_By_ReLu(float param_prediction_with_bias, float
 
 void Layer::Activate_Neural_Node_By_Sigmoid(float param_prediction_with_bias, float param_prediction_row_index, float param_prediction_column_index) {
 
-    float current_sigmoid_value = (1 / (1 + exp(-this->Get_Prediction_With_Bias()[param_prediction_row_index][param_prediction_column_index])));
+    float current_sigmoid_value = (1 / (1 + exp(-this->Get_Prediction_With_Bias()[param_prediction_row_index][param_prediction_column_index].Get_Value())));
 
     this->outputs[param_prediction_row_index][param_prediction_column_index] = current_sigmoid_value;
 }
 
 void Layer::Activate_Neural_Node_By_Softmax(float param_prediction_with_bias, float param_prediction_row_index, float param_prediction_column_index) {
 
-    float normalized_exponential_sum = exp(this->Get_Prediction_With_Bias()[param_prediction_row_index][param_prediction_column_index]) / this->prediction_with_bias_exponential_sum;
+    float normalized_exponential_sum = exp(this->Get_Prediction_With_Bias()[param_prediction_row_index][param_prediction_column_index].Get_Value()) / this->prediction_with_bias_exponential_sum;
 
     this->outputs[param_prediction_row_index][param_prediction_column_index] = normalized_exponential_sum;
 }

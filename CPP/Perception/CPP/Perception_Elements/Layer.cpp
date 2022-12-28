@@ -165,7 +165,7 @@ void Layer::Initialize_Outputs() {
 }
 
 void Layer::Initialize_Outputs_By_Count(int param_node_count) {
-    vector<vector<float>> ouptut_matrix(param_node_count, vector<float>(param_node_count, 0));
+    vector<vector<Output>> ouptut_matrix(param_node_count, vector<Output>(param_node_count, 0));
 
     this->outputs = ouptut_matrix;
 
@@ -175,7 +175,7 @@ vector<Bias> Layer::Get_Biases() {
     return this->biases;
 }
 
-vector<vector<float>> Layer::Get_Outputs() {
+vector<vector<Output>> Layer::Get_Outputs() {
     return this->outputs;
 }
 
@@ -368,7 +368,7 @@ void Layer::Calculate_Loss_By(Utilities::Loss_Calculation_Method param_method) {
         for (int losses_column_index = 0; losses_column_index < this->outputs[losses_row_index].size(); losses_column_index ++) {
             if (this->Get_Expected_Results()[losses_row_index] == 1) {
                 if (param_method == Utilities::Loss_Calculation_Method::CrossEntropy) {
-                    this->Calculate_Loss_By_Cross_Entropy(this->Clip_Output_For_Negative_Log_Loss(this->outputs[losses_row_index][losses_column_index]), losses_row_index);
+                    this->Calculate_Loss_By_Cross_Entropy(this->Clip_Output_For_Negative_Log_Loss(this->outputs[losses_row_index][losses_column_index].Get_Value()), losses_row_index);
                 }
             }
         }
@@ -382,7 +382,7 @@ void Layer::Calculate_Loss_By_Cross_Entropy(float param_output, int param_index)
 }
 
 
-vector<vector<float>> Layer::Feed_Forward_Pass() {
+vector<vector<Output>> Layer::Feed_Forward_Pass() {
 
     //this->Dot_Product(this->neuralNodes, this->weights);
     //this->Add_Bias_To_Prediction(

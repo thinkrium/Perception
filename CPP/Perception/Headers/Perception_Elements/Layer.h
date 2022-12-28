@@ -5,6 +5,7 @@
 #include <Bias.h>
 #include <Neural_Node.h>
 #include <Prediction.h>
+#include <Output.h>
 #include <vector>
 #include <random>
 #include <Enums.h>
@@ -180,7 +181,7 @@ namespace Perception {
 					/*
 					 * Gets The outputs from the current layer 
 					 */
-					vector<vector<float>> Get_Outputs();
+					vector<vector<Output>> Get_Outputs();
 
 					/*
 					*  Initializes the losslayer to the size of node count to
@@ -300,7 +301,7 @@ namespace Perception {
 					  Passes the full matrix multiplacation value of the this layer to the
 					  next
 					*/
-					vector<vector<float>> Feed_Forward_Pass();
+					vector<vector<Output>> Feed_Forward_Pass();
 
 					/*Destructor*/
 					~Layer();
@@ -356,7 +357,7 @@ namespace Perception {
 					/*
 					* The outputs after prediction, bias, and activation
 					*/
-					vector<vector<float>> outputs;
+					vector<vector<Output>> outputs;
 
 					/*
 					  The anticipated results to calculate loss against

@@ -1,7 +1,6 @@
 #ifndef Neural_Node_H
 #define Neural_Node_H
-
- #include <Weight.h>
+ 
 #include <Perception_Element.h>
 
 using namespace Utilities;
@@ -25,7 +24,7 @@ namespace Perception {
 					   Instantiate a Neural Node and assigns it a value for input
 					   Param=param_input
 					 */
-					Neural_Node(float param_input);
+					Neural_Node(float param_value) ;
 					 
 					/*
 					Destructor

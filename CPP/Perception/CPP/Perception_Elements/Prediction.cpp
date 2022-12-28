@@ -12,7 +12,7 @@ Prediction::Prediction()
 /// Instantiate an Input for a Neural Node and assigns it a value for input
 /// </summary>
 /// <param name="param_value">float</param>
-Prediction::Prediction(float param_value)
+Prediction::Prediction(float param_value) : Perception_Element(param_value)
 {
 }
 

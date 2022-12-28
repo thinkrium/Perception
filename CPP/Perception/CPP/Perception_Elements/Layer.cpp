@@ -212,7 +212,7 @@ float Layer::Limit_Precision(float param_value_to_limit) {
     return step_3;
 }
 
-void Layer::Dot_Product(vector<vector<Neural_Node>> param_inputs, vector<vector<float>> param_weights) {
+void Layer::Dot_Product(vector<vector<Neural_Node>> param_inputs, vector<vector<Weight>> param_weights) {
     float results = 0;
 
     // iterate through the inputs rows to get the row index for the inputs and the outputs matrix
@@ -235,9 +235,9 @@ void Layer::Dot_Product(vector<vector<Neural_Node>> param_inputs, vector<vector<
                 results +=
                     param_inputs[neural_node_row_index][neural_node_column_index].Get_Value()
                     *
-                    param_weights[neural_node_row_index][neural_node_column_index];
+                    param_weights[neural_node_row_index][neural_node_column_index].Get_Value();
             }
-            this->predictions[neural_node_row_index][result_matrix_index] = results;
+            this->predictions[neural_node_row_index][result_matrix_index].Set_Value(results);
             results = 0;
 
         }

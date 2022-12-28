@@ -7,6 +7,7 @@
 #include <Neural_Node.h>
 #include <Prediction.h>
 #include <Output.h>
+#include <Weight.h>
 #include <vector>
 #include <random>
 #include <Enums.h>
@@ -209,7 +210,7 @@ namespace Perception {
 					/*
 					   Performs a Dot product operation on the incoming weights and parameters
 					*/
-					void Dot_Product(vector<vector<Neural_Node>> param_inputs, vector<vector<float>> param_weights);
+					void Dot_Product(vector<vector<Neural_Node>> param_inputs, vector<vector<Weight>> param_weights);
 
 					/*
 					* returns the prediction without the bias

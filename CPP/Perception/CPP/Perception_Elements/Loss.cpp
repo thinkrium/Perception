@@ -12,7 +12,7 @@ Loss::Loss()
 /// Instantiate an Input for a Neural Node and assigns it a value for input
 /// </summary>
 /// <param name="param_value">float</param>
-Loss::Loss(float param_value)
+Loss::Loss(float param_value) : Perception_Element(param_value)
 {
 }
 

@@ -15,35 +15,35 @@ TEST(Perception_Test, Test_The_Node_Value_Setters_And_Getters_By_Constructor) {
     EXPECT_EQ(test_node_value, test_node.Get_Value());
 }
 
-///// <summary>
-///// Tests the Node count is correct
-///// </summary>
-//TEST(Perception_Test, Test_The_Node_Value_Setters_And_Getters_By_Method) {
-//
-//    float test_node_value = 4;
-//    Neural_Node test_node;
-//    test_node.Set_Value(test_node_value);
-//    EXPECT_EQ(test_node_value, test_node.Get_Value());
-//}
-//
-//
-//
-//
-///// <summary>
-///// Tests the Node count is correct
-///// </summary>
-//TEST(Perception_Test, Test_Layer_Node_Count_From_Constructor) {
-//    int test_node_count = 3;
-//    Layer test_layer(test_node_count);
-//    EXPECT_EQ(test_node_count, test_layer.Get_Node_Count());
-//}
-//
-//TEST(Perception_Test, Test_Layer_Weight_Count_From_Constructor) {
-//    int test_node_count = 3;
-//    Layer test_layer(test_node_count);
-//    EXPECT_EQ(test_node_count, test_layer.Get_Weight_Count());
-//}
-//
+/// <summary>
+/// Tests the Node count is correct
+/// </summary>
+TEST(Perception_Test, Test_The_Node_Value_Setters_And_Getters_By_Method) {
+
+    float test_node_value = 4;
+    Neural_Node test_node;
+    test_node.Set_Value(test_node_value);
+    EXPECT_EQ(test_node_value, test_node.Get_Value());
+}
+
+
+
+
+/// <summary>
+/// Tests the Node count is correct
+/// </summary>
+TEST(Perception_Test, Test_Layer_Node_Count_From_Constructor) {
+    int test_node_count = 3;
+    Layer test_layer(test_node_count);
+    EXPECT_EQ(test_node_count, test_layer.Get_Node_Count());
+}
+
+TEST(Perception_Test, Test_Layer_Weight_Count_From_Constructor) {
+    int test_node_count = 3;
+    Layer test_layer(test_node_count);
+    EXPECT_EQ(test_node_count, test_layer.Get_Weight_Count());
+}
+
 ///// <summary>
 ///// Tests the Node count is correct
 ///// </summary>

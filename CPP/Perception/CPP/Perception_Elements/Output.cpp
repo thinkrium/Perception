@@ -12,7 +12,7 @@ Output::Output()
 /// Instantiate an Input for a Neural Node and assigns it a value for input
 /// </summary>
 /// <param name="param_value">float</param>
-Output::Output(float param_value)
+Output::Output(float param_value) : Perception_Element(param_value)
 {
 }
 

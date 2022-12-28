@@ -12,7 +12,7 @@ Bias::Bias()
 /// Instantiate an Input for a Neural Node and assigns it a value for input
 /// </summary>
 /// <param name="param_value">float</param>
-Bias::Bias(float param_value)
+Bias::Bias(float param_value) : Perception_Element(param_value)
 {
 }
 

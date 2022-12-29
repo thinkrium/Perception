@@ -17,6 +17,8 @@ namespace Perception {
 
                     float Get_Value();
 
+                    bool operator==(const Perception_Element element);
+
                     ~Perception_Element();
 
                 private:

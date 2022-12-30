@@ -11,7 +11,7 @@ using namespace Perception::Layer::Element;
 int main(int argc, char** argv)
 {
 
-	Layer layer(3);
+	Layer layer(3,4);
 
 	::testing::InitGoogleTest(&argc, argv);
 	return RUN_ALL_TESTS();

@@ -34,13 +34,15 @@ TEST(Perception_Test, Test_The_Node_Value_Setters_And_Getters_By_Method) {
 /// </summary>
 TEST(Perception_Test, Test_Layer_Node_Count_From_Constructor) {
     int test_node_count = 3;
-    Layer test_layer(test_node_count);
+    int test_row_count = 4;
+    Layer test_layer(test_node_count, test_row_count);
     EXPECT_EQ(test_node_count, test_layer.Get_Node_Count());
 }
 
 TEST(Perception_Test, Test_Layer_Weight_Count_From_Constructor) {
     int test_node_count = 3;
-    Layer test_layer(test_node_count);
+    int test_row_count = 4;
+    Layer test_layer(test_node_count, test_row_count);
     EXPECT_EQ(test_node_count, test_layer.Get_Weight_Count());
 }
 
@@ -49,8 +51,9 @@ TEST(Perception_Test, Test_Layer_Weight_Count_From_Constructor) {
 /// </summary>
 TEST(Perception_Test, Test_Layer_Node_Count_From_Method) {
     int test_node_count = 3;
-    Layer test_layer(test_node_count);
-    test_layer.Initialize_Nodes_By_Count(3);
+    int test_row_count = 4;
+    Layer test_layer(test_node_count, test_row_count);
+    test_layer.Initialize_Nodes_By_Count(test_node_count, test_row_count);
     EXPECT_EQ(test_node_count, test_layer.Get_Node_Count());
 }
 
@@ -104,7 +107,7 @@ TEST(Perception_Test, Test_Layer_Prediction_without_bias) {
 
     Prediction prediction30(30);
 
-    Layer test_layer(4);
+    Layer test_layer(4, 4);
 
 
     vector<vector<Neural_Node>> test_inputs = { 
@@ -138,6 +141,47 @@ TEST(Perception_Test, Test_Layer_Prediction_without_bias) {
     EXPECT_EQ(prediction_without_bias, comparison);
 }
 
+/// <summary>
+/// Tests the dot product from the layer
+/// </summary>
+/// <param name=""></param>
+/// <param name=""></param>
+TEST(Perception_Test, Test_Layer_With_Different_Node_vs_Row_Sizes) {
+    Neural_Node node1(1);
+    Prediction predict1(1);
+    Bias bias1(1);
+    Weight weight1(1);
+
+
+
+
+    int node_count = 4;
+    int row_count = 3;
+    Layer test_layer(node_count, row_count);
+
+    vector<vector<Prediction>> test_weight = {
+        {weight1, weight1, weight1, weight1},
+        {weight1, weight1, weight1, weight1},
+        {weight1, weight1, weight1, weight1}
+    };
+
+    vector<vector<Prediction>> test_prediction = {
+        {predict1, predict1, predict1, predict1},
+        {predict1, predict1, predict1, predict1},
+        {predict1, predict1, predict1, predict1}
+    };
+
+
+    vector<vector<Prediction>> comparison = {
+        {predict1, predict1, predict1, predict1},
+        {predict1, predict1, predict1, predict1},
+        {predict1, predict1, predict1, predict1}
+    };
+
+    EXPECT_EQ()
+
+}
+
 TEST(Perception_Test, Test_Layer_Prediction_with_bias) {
     Neural_Node node1(1);
     Neural_Node node2(2);
@@ -154,7 +198,7 @@ TEST(Perception_Test, Test_Layer_Prediction_with_bias) {
 
     Bias bias1(1);
 
-    Layer test_layer(4);
+    Layer test_layer(4 , 4);
 
 
     vector<vector<Neural_Node>> test_inputs = {

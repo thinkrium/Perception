@@ -136,7 +136,7 @@ namespace Perception {
 						Initializes the all new nodes for this layer by the size of the param_node_count
 						and initializes their value with random number between -1 and 1
 					*/
-					void Initialize_Nodes_By_Count(int param_node_count);
+					void Initialize_Nodes_By_Count(int param_node_count, int param_row_count);
 
 					/*
 					Initializes the all new weights for this layer by the size of the internal objects node_count
@@ -152,7 +152,7 @@ namespace Perception {
 					/*
 					* Sets the size of the predictions and initializes them with some value to populate later
 					*/
-					void Initialize_Predictions_By_Count(int param_node_count);
+					void Initialize_Predictions_By_Count(int param_node_count, int param_row_count);
 
 					/*
 					* Sets the size of the predictions with Biases and initializes them with some value to populate later
@@ -162,13 +162,13 @@ namespace Perception {
 					/*
 					* Sets the size of the predictions with Biases and initializes them with some value to populate later
 					*/
-					void Initialize_Predictions_With_Biases_By_Count(int param_node_count);
+					void Initialize_Predictions_With_Biases_By_Count(int param_node_count, int param_row_count);
 
 					/*
 					Initializes the all new weights for this layer by the size of the internal objects node_count
 					and initializes their value with random number between -1 and 1
 					*/
-					void Initialize_Weights_By_Count(int param_node_count);
+					void Initialize_Weights_By_Count(int param_node_count, int param_row_count);
 					/*
 
 					  Generates a random number between -1 and 1 from the hardware
@@ -189,7 +189,7 @@ namespace Perception {
 					/*
 					* Sets the size of the inputs and initializes the values to 0
 					*/
-					void Initialize_Outputs_By_Count(int param_node_count);
+					void Initialize_Outputs_By_Count(int param_node_count, int param_row_count);
 
 
 					/*

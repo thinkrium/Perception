@@ -19,6 +19,10 @@ namespace Perception {
 
                     bool operator==(const Perception_Element element) const;
 
+                    Perception_Element operator*(const Perception_Element element) const;
+
+                    Perception_Element operator+(const Perception_Element element) const;
+
                     ~Perception_Element();
 
                 private:

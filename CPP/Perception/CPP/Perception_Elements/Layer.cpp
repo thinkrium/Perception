@@ -49,7 +49,7 @@ vector<vector<Neural_Node>> Layer::Get_Neural_Nodes() {
 vector<vector<float>> Layer::Get_Neural_Nodes_Values() {
     vector<vector<float>> node_values;
 
-    for (int node_value_row_index = 0; node_value_row_index < this->Get_Node_Count(); node_value_row_index++) {
+    for (int node_value_row_index = 0; node_value_row_index < this->Get_Row_Count(); node_value_row_index++) {
         for (int node_value_column_index = 0; node_value_column_index < this->Get_Node_Count(); node_value_column_index++) {
 
             node_values[node_value_row_index][node_value_column_index] =  
@@ -83,10 +83,10 @@ void Layer::Initialize_Layer_Weights() {
 
 void Layer::Initialize_Nodes_By_Count() {
 
-    this->neuralNodes.resize(this->Get_Node_Count());
+    this->neuralNodes.resize(this->Get_Row_Count());
 
-    for (int row_index = 0; row_index < this->neuralNodeCount; row_index++) {
-        for (int column_index = 0; column_index < this->neuralNodeCount; column_index++) {
+    for (int row_index = 0; row_index < this->Get_Row_Count(); row_index++) {
+        for (int column_index = 0; column_index < this->Get_Node_Count(); column_index++) {
             this->Get_Neural_Nodes()[row_index].push_back(
                 Neural_Node(this->Generate_Random_Numerical_Value())
             ); // input value
@@ -96,11 +96,11 @@ void Layer::Initialize_Nodes_By_Count() {
 
 }
  
-void Layer::Initialize_Nodes_By_Count(int param_node_count) {
+void Layer::Initialize_Nodes_By_Count(int param_node_count, int param_row_count) {
 
-    this->neuralNodes.resize(this->Get_Node_Count());
+    this->neuralNodes.resize(param_row_count);
 
-    for (int row_index = 0; row_index < param_node_count; row_index++) {
+    for (int row_index = 0; row_index < param_row_count; row_index++) {
         for (int column_index = 0; column_index < param_node_count; column_index++) {
             this->Get_Neural_Nodes()[row_index].push_back(  
                  Neural_Node(this->Generate_Random_Numerical_Value())
@@ -112,19 +112,19 @@ void Layer::Initialize_Nodes_By_Count(int param_node_count) {
 
 void Layer::Initialize_Weights_By_Count() {
     // create a temp matrix of weights to avoid the new * operator and protect memory
-    vector<vector<Weight>> weight_matrix(this->neuralNodeCount, std::vector<Weight>(this->neuralNodeCount, 0));
+    vector<vector<Weight>> weight_matrix(this->Get_Row_Count(), std::vector<Weight>(this->Get_Weight_Count(), 0));
 
     this->weights = weight_matrix;
 
-    for (int node_index = 0; node_index < this->neuralNodeCount; node_index++) {
-        this->weights[node_index] = vector<Weight>(this->neuralNodeCount);
-        for (int weight_index = 0; weight_index < this->weightCount; weight_index++) {
+    for (int node_index = 0; node_index < this->Get_Row_Count(); node_index++) {
+        this->weights[node_index] = vector<Weight>(this->Get_Weight_Count());
+        for (int weight_index = 0; weight_index < this->Get_Weight_Count(); weight_index++) {
              this->weights[node_index][weight_index] = this->Generate_Random_Numerical_Value();
         }
     }
 }
 
-void Layer::Initialize_Weights_By_Count(int param_node_count) {
+void Layer::Initialize_Weights_By_Count(int param_node_count, int param_row_count) {
     // create a temp matrix of weights to avoid the new * operator and protect memory
     vector<vector<Weight>> weight_matrix(this->neuralNodeCount, std::vector<Weight>(this->neuralNodeCount, 0));
 
@@ -145,11 +145,11 @@ void Layer::Initialize_Bias( ) {
 }
 
 void Layer::Initialize_Predictions() {
-    this->Initialize_Predictions_By_Count(this->Get_Node_Count());
+    this->Initialize_Predictions_By_Count(this->Get_Node_Count(), this->Get_Row_Count());
 
 }
 
-void Layer::Initialize_Predictions_By_Count(int param_node_count) {
+void Layer::Initialize_Predictions_By_Count(int param_node_count, int param_row_count) {
     vector<vector<Prediction>> prediction_matrix(param_node_count, vector<Prediction>(param_node_count, 0));
 
     this->predictions = prediction_matrix;
@@ -157,11 +157,11 @@ void Layer::Initialize_Predictions_By_Count(int param_node_count) {
 }
 
 void Layer::Initialize_Predictions_With_Biases() {
-    this->Initialize_Predictions_With_Biases_By_Count(this->Get_Node_Count());
+    this->Initialize_Predictions_With_Biases_By_Count(this->Get_Node_Count(), this->Get_Row_Count());
 
 }
 
-void Layer::Initialize_Predictions_With_Biases_By_Count(int param_node_count) {
+void Layer::Initialize_Predictions_With_Biases_By_Count(int param_node_count, int param_row_count) {
     vector<vector<Prediction>> prediction_matrix(param_node_count, vector<Prediction>(param_node_count, 0));
 
     this->predictions_with_bias = prediction_matrix;
@@ -170,10 +170,10 @@ void Layer::Initialize_Predictions_With_Biases_By_Count(int param_node_count) {
 
 
 void Layer::Initialize_Outputs() {
-    this->Initialize_Outputs_By_Count(this->Get_Node_Count());
+    this->Initialize_Outputs_By_Count(this->Get_Node_Count(), this->Get_Row_Count());
 }
 
-void Layer::Initialize_Outputs_By_Count(int param_node_count) {
+void Layer::Initialize_Outputs_By_Count(int param_node_count, int param_row_count) {
     vector<vector<Output>> ouptut_matrix(param_node_count, vector<Output>(param_node_count, 0));
 
     this->outputs = ouptut_matrix;

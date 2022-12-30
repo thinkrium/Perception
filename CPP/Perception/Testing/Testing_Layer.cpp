@@ -159,7 +159,7 @@ TEST(Perception_Test, Test_Layer_With_Different_Node_vs_Row_Sizes) {
     int row_count = 3;
     Layer test_layer(node_count, row_count);
 
-    vector<vector<Prediction>> test_weight = {
+    vector<vector<Weight>> test_weight = {
         {weight1, weight1, weight1, weight1},
         {weight1, weight1, weight1, weight1},
         {weight1, weight1, weight1, weight1}
@@ -178,7 +178,7 @@ TEST(Perception_Test, Test_Layer_With_Different_Node_vs_Row_Sizes) {
         {predict1, predict1, predict1, predict1}
     };
 
-    EXPECT_EQ()
+//    EXPECT_EQ()
 
 }
 

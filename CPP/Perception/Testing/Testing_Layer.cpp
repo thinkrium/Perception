@@ -128,8 +128,6 @@ TEST(Perception_Test, Test_Layer_Prediction_without_bias) {
         {prediction30, prediction30, prediction30, prediction30}
     };
 
-    vector<vector<float>> t1 = { {1,2,3}, {1,2,3} };
-    vector<vector<float>> t2 = { {1,2,3}, {1,2,3} };
 
     test_layer.Dot_Product(test_inputs, test_weights);
     
@@ -141,18 +139,61 @@ TEST(Perception_Test, Test_Layer_Prediction_without_bias) {
 }
 
 TEST(Perception_Test, Test_Layer_Prediction_with_bias) {
-    Layer test_layer(1);
-    Prediction test_predict30(30);
-    Prediction test_predict31(31);
+    Neural_Node node1(1);
+    Neural_Node node2(2);
+    Neural_Node node3(3);
+    Neural_Node node4(4);
+
+    Weight weight1(1);
+    Weight weight2(2);
+    Weight weight3(3);
+    Weight weight4(4);
+
+    Prediction prediction30(30);
+    Prediction prediction31(31);
+
     Bias bias1(1);
-    vector<vector<Prediction>> test_predictions = { { test_predict30, test_predict30, test_predict30, test_predict30 } };
+
+    Layer test_layer(4);
+
+
+    vector<vector<Neural_Node>> test_inputs = {
+        { node1, node2, node3, node4 },
+        { node1, node2, node3, node4 },
+        { node1, node2, node3, node4 },
+        { node1, node2, node3, node4 }
+    };
+
+    vector<vector<Weight>> test_weights = {
+        {weight1,weight2,weight3,weight4},
+        {weight1,weight2,weight3,weight4},
+        {weight1,weight2,weight3,weight4},
+        {weight1,weight2,weight3,weight4}
+    };
+
     vector<Bias> test_biases = { bias1, bias1, bias1, bias1 };
-    vector<Prediction> comparison = {{ test_predict31, test_predict31, test_predict31, test_predict31 }};
+
+    vector<vector<Prediction>> test_predictions = {
+        {prediction30, prediction30, prediction30, prediction30},
+        {prediction30, prediction30, prediction30, prediction30},
+        {prediction30, prediction30, prediction30, prediction30},
+        {prediction30, prediction30, prediction30, prediction30}
+    };
+
+
+    vector<vector<Prediction>> comparison = {
+        {prediction31, prediction31, prediction31, prediction31},
+        {prediction31, prediction31, prediction31, prediction31},
+        {prediction31, prediction31, prediction31, prediction31},
+        {prediction31, prediction31, prediction31, prediction31}
+    };
+
+    
     test_layer.Add_Bias_To_Prediction(test_predictions, test_biases);
     
     vector<vector<Prediction>> predictions_with_bias = test_layer.Get_Prediction_With_Bias();
 
-    //EXPECT_EQ(test_layer.Get_Prediction_With_Bias(), comparison);
+    EXPECT_EQ(test_layer.Get_Prediction_With_Bias(), comparison);
 
 }
 

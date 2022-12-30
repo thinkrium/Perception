@@ -12,9 +12,10 @@ Layer::Layer()
 }
 
 
-Layer::Layer(int param_node_count) {
+Layer::Layer(int param_node_count, int param_row_count) {
     
     this->Set_Node_Count (param_node_count);
+    this->Set_Row_Count(param_row_count);
     this->Set_Weight_Count(param_node_count);
     this->Initialize_Layer_Nodes();
     this->Initialize_Layer_Weights();
@@ -31,6 +32,14 @@ void Layer::Set_Node_Count(int param_node_count) {
 
 int Layer::Get_Node_Count() {
     return this->neuralNodeCount;
+}
+
+void Layer::Set_Row_Count(int param_row_count) {
+    this->rowCount = param_row_count;
+}
+
+int Layer::Get_Row_Count() {
+    return this->rowCount;
 }
 
 vector<vector<Neural_Node>> Layer::Get_Neural_Nodes() {

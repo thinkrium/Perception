@@ -54,10 +54,10 @@ namespace Perception {
 					 */
 					Layer();
 
-					/*
-					  Initializes an Layer of Neural Nodes by the count of param_node_count
+				    /*
+					  Initializes an Layer of Neural Nodes by the count of param_node_count, param_rows
 					*/
-					Layer(int param_node_count);
+					Layer(int param_node_count, int param_row_count);
 
 					/*
 					  Sets the node count
@@ -69,6 +69,18 @@ namespace Perception {
 					   Initializes the all new nodes for this layer and initializes their value with random number between -1 and 1
 					*/
 					int Get_Node_Count();
+
+					/*
+					  Sets the node count
+					  param name="param_node_count"
+					*/
+					void Set_Row_Count(int param_row_count);
+
+					/*
+					   Initializes the all new nodes for this layer and initializes their value with random number between -1 and 1
+					*/
+					int Get_Row_Count();
+
 
 					/*
 					    Gets the list of neural nodes for the layer
@@ -314,6 +326,11 @@ namespace Perception {
 					   The number of Neural Nodes in this layer
 					*/
 					int neuralNodeCount;
+
+					/*
+					   The number of Neural Nodes in this layer
+					*/
+					int rowCount;
 
 					/*
 					  The Vector/list of Neural Nodes

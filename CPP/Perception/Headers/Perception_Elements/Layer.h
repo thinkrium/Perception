@@ -243,7 +243,7 @@ namespace Perception {
 					/*
 					* Determines the trust of the prediction by adding abias to the prediction
 					*/
-					void Add_Bias_To_Prediction(vector<vector<float>> param_prediction, vector<float> param_biases);
+					void Add_Bias_To_Prediction(vector<vector<Prediction>> param_prediction, vector<Bias> param_biases);
 
 					/*
 					  Activates the current node, defaults to Rectified Linear Unit 

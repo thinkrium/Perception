@@ -16,8 +16,8 @@ float Perception_Element::Get_Value() {
 	return this->value;
 }
 
-bool Perception_Element::operator==(const Perception_Element element) {
-	return (this->Get_Value() == element.value);
+bool Perception_Element::operator==(const Perception_Element element) const {
+	return (value == element.value);
 }
 
 

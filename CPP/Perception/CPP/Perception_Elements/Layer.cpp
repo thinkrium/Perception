@@ -252,11 +252,11 @@ vector<vector<Prediction>> Layer::Get_Prediction_With_Bias() {
     return this->predictions_with_bias;
 }
 
-void Layer::Add_Bias_To_Prediction(vector<vector<float>> param_prediction, vector<float> param_biases) {
+void Layer::Add_Bias_To_Prediction(vector<vector<Prediction>> param_prediction, vector<Bias> param_biases) {
     for (int node_row_index = 0; node_row_index < param_prediction.size(); node_row_index++) {
         for (int node_column_index = 0; node_column_index < param_prediction[node_row_index].size(); node_column_index++) {
-            float prediction_with_bias = param_prediction[node_row_index][node_column_index] + param_biases[node_column_index];
-            this->predictions_with_bias[node_row_index][node_column_index] = prediction_with_bias ;
+            float prediction_with_bias = param_prediction[node_row_index][node_column_index].Get_Value() + param_biases[node_column_index].Get_Value();
+            this->predictions_with_bias[node_row_index][node_column_index].Set_Value(prediction_with_bias);
         }
     }
 }

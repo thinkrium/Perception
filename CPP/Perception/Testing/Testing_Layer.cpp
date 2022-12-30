@@ -137,31 +137,44 @@ TEST(Perception_Test, Test_Layer_Prediction_without_bias) {
                          test_layer.Get_Prediction_Without_Bias();
 
      
-    EXPECT_TRUE((prediction_without_bias == comparison));
+    EXPECT_EQ(prediction_without_bias, comparison);
 }
+
+TEST(Perception_Test, Test_Layer_Prediction_with_bias) {
+    Layer test_layer(1);
+    Prediction test_predict30(30);
+    Prediction test_predict31(31);
+    Bias bias1(1);
+    vector<vector<Prediction>> test_predictions = { { test_predict30, test_predict30, test_predict30, test_predict30 } };
+    vector<Bias> test_biases = { bias1, bias1, bias1, bias1 };
+    vector<Prediction> comparison = {{ test_predict31, test_predict31, test_predict31, test_predict31 }};
+    test_layer.Add_Bias_To_Prediction(test_predictions, test_biases);
+    
+    vector<vector<Prediction>> predictions_with_bias = test_layer.Get_Prediction_With_Bias();
+
+    //EXPECT_EQ(test_layer.Get_Prediction_With_Bias(), comparison);
+
+}
+
 //
-//TEST(Perception_Test, Test_Layer_Prediction_with_bias) {
-//    Layer test_layer(1);
-//    vector<vector<float>> test_predictions = { { 30, 30, 30, 30 } };
-//    vector<float> test_biases = { 1, 1, 1, 1 };
-//    vector<float> comparison = {{ 31, 31, 31, 31 }};
+//TEST(Perception_Test, Test_Layer_Activation_By_ReLu_GT_zero) {
+//    Layer test_layer(4);
+//    Prediction test_predict_20(.20);
+//    Prediction test_predict_30(.30);
+//    Prediction test_predict_40(.40);
+//    Prediction test_predict_50(.50);
+//    Prediction test_predict_60(.60);
+//
+//
+//    Bias bias_1(1);
+//    vector<vector<Prediction>> test_predictions = {{ test_predict_20, test_predict_30, test_predict_40, test_predict_50 }};
+//    vector<Bias> test_biases = { bias_1, bias_1, bias_1, bias_1 };
+//    vector<Prediction> comparison = { test_predict_30, test_predict_40, test_predict_50 , test_predict_60 };
 //    test_layer.Add_Bias_To_Prediction(test_predictions, test_biases);
-//    test_layer.Get_Prediction_With_Bias();
-//    //EXPECT_EQ(test_layer.Get_Prediction_With_Bias(), comparison);
+//    test_layer.Activate_Neural_Nodes();
+//    //EXPECT_EQ(test_layer.Get_Outputs(), comparison);
 //
 //}
-//
-////
-////TEST(Perception_Test, Test_Layer_Activation_By_ReLu_GT_zero) {
-////    Layer test_layer(4);
-////    vector<vector<float>> test_predictions = {{ .20, .30, .40, .50 }};
-////    vector<float> test_biases = { .1, .1, .1, .1 };
-////    vector<float> comparison = { .3, .4, .5, .6 };
-////    test_layer.Add_Bias_To_Prediction(test_predictions, test_biases);
-////    test_layer.Activate_Neural_Nodes();
-////    EXPECT_EQ(test_layer.Get_Outputs(), comparison);
-////
-////}
 ////
 ////TEST(Perception_Test, Test_Layer_Activation_By_ReLu_EQ_zero) {
 ////    Layer test_layer(4);

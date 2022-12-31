@@ -126,7 +126,7 @@ void Layer::Initialize_Weights_By_Count() {
 
 void Layer::Initialize_Weights_By_Count(int param_node_count, int param_row_count) {
     // create a temp matrix of weights to avoid the new * operator and protect memory
-    vector<vector<Weight>> weight_matrix(this->neuralNodeCount, std::vector<Weight>(this->neuralNodeCount, 0));
+    vector<vector<Weight>> weight_matrix(param_row_count, std::vector<Weight>(param_node_count, 0));
 
     this->weights = weight_matrix;
 
@@ -150,7 +150,7 @@ void Layer::Initialize_Predictions() {
 }
 
 void Layer::Initialize_Predictions_By_Count(int param_node_count, int param_row_count) {
-    vector<vector<Prediction>> prediction_matrix(param_node_count, vector<Prediction>(param_node_count, 0));
+    vector<vector<Prediction>> prediction_matrix(param_row_count, vector<Prediction>(param_node_count, 0));
 
     this->predictions = prediction_matrix;
 
@@ -162,7 +162,7 @@ void Layer::Initialize_Predictions_With_Biases() {
 }
 
 void Layer::Initialize_Predictions_With_Biases_By_Count(int param_node_count, int param_row_count) {
-    vector<vector<Prediction>> prediction_matrix(param_node_count, vector<Prediction>(param_node_count, 0));
+    vector<vector<Prediction>> prediction_matrix(param_row_count, vector<Prediction>(param_node_count, 0));
 
     this->predictions_with_bias = prediction_matrix;
 
@@ -174,7 +174,7 @@ void Layer::Initialize_Outputs() {
 }
 
 void Layer::Initialize_Outputs_By_Count(int param_node_count, int param_row_count) {
-    vector<vector<Output>> ouptut_matrix(param_node_count, vector<Output>(param_node_count, 0));
+    vector<vector<Output>> ouptut_matrix(param_row_count, vector<Output>(param_node_count, 0));
 
     this->outputs = ouptut_matrix;
 

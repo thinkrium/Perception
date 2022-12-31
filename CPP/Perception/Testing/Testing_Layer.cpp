@@ -148,37 +148,51 @@ TEST(Perception_Test, Test_Layer_Prediction_without_bias) {
 /// <param name=""></param>
 TEST(Perception_Test, Test_Layer_With_Different_Node_vs_Row_Sizes) {
     Neural_Node node1(1);
-    Prediction predict1(1);
+    Prediction predict4(4);
+    Prediction predict5(5);
     Bias bias1(1);
     Weight weight1(1);
-
-
 
 
     int node_count = 4;
     int row_count = 3;
     Layer test_layer(node_count, row_count);
 
-    vector<vector<Weight>> test_weight = {
+    vector<vector<Neural_Node>> test_neural_nodes = {
+        {node1, node1, node1, node1},
+        {node1, node1, node1, node1},
+        {node1, node1, node1, node1}
+    };
+
+    vector<vector<Weight>> test_weights = {
         {weight1, weight1, weight1, weight1},
         {weight1, weight1, weight1, weight1},
         {weight1, weight1, weight1, weight1}
     };
 
-    vector<vector<Prediction>> test_prediction = {
-        {predict1, predict1, predict1, predict1},
-        {predict1, predict1, predict1, predict1},
-        {predict1, predict1, predict1, predict1}
+    vector<Bias> test_biases = {bias1, bias1, bias1, bias1};
+
+    vector<vector<Prediction>> test_predictions_without_bias = {
+        {predict4, predict4, predict4, predict4},
+        {predict4, predict4, predict4, predict4},
+        {predict4, predict4, predict4, predict4}
     };
 
 
-    vector<vector<Prediction>> comparison = {
-        {predict1, predict1, predict1, predict1},
-        {predict1, predict1, predict1, predict1},
-        {predict1, predict1, predict1, predict1}
+    vector<vector<Prediction>> test_predictions_with_bias = {
+        {predict5, predict5, predict5, predict5},
+        {predict5, predict5, predict5, predict5},
+        {predict5, predict5, predict5, predict5}
     };
 
-//    EXPECT_EQ()
+    test_layer.Dot_Product(test_neural_nodes, test_weights);
+
+ 
+    EXPECT_EQ(test_layer.Get_Prediction_Without_Bias(), test_predictions_without_bias);
+
+    test_layer.Add_Bias_To_Prediction(test_predictions_without_bias, test_biases);
+
+    EXPECT_EQ(test_layer.Get_Prediction_With_Bias(), test_predictions_with_bias);
 
 }
 

@@ -1,10 +1,10 @@
-#include <Weight.h>
+#include <Prediction.h>
 
 using namespace Perception::Layer::Element;
 /// <summary>
 /// Instantiate an empty Input for a Neural Node 
 /// </summary>
-Weight::Weight()
+Prediction::Prediction()
 {
 }
 
@@ -12,7 +12,7 @@ Weight::Weight()
 /// Instantiate an Input for a Neural Node and assigns it a value for input
 /// </summary>
 /// <param name="param_value">float</param>
-Weight::Weight(float param_value) : Perception_Element(param_value)
+Prediction::Prediction(float param_value) : Perception_Element(param_value)
 {
 }
 
@@ -21,7 +21,7 @@ Weight::Weight(float param_value) : Perception_Element(param_value)
 /// <summary>
 /// destructor for input object
 /// </summary>
-Weight::~Weight()
+Prediction::~Prediction()
 {
 }
 

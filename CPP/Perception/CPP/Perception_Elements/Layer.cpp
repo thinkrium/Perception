@@ -12,9 +12,10 @@ Layer::Layer()
 }
 
 
-Layer::Layer(int param_node_count) {
+Layer::Layer(int param_node_count, int param_row_count) {
     
     this->Set_Node_Count (param_node_count);
+    this->Set_Row_Count(param_row_count);
     this->Set_Weight_Count(param_node_count);
     this->Initialize_Layer_Nodes();
     this->Initialize_Layer_Weights();
@@ -33,6 +34,14 @@ int Layer::Get_Node_Count() {
     return this->neuralNodeCount;
 }
 
+void Layer::Set_Row_Count(int param_row_count) {
+    this->rowCount = param_row_count;
+}
+
+int Layer::Get_Row_Count() {
+    return this->rowCount;
+}
+
 vector<vector<Neural_Node>> Layer::Get_Neural_Nodes() {
     return this->neuralNodes;
 }
@@ -40,11 +49,11 @@ vector<vector<Neural_Node>> Layer::Get_Neural_Nodes() {
 vector<vector<float>> Layer::Get_Neural_Nodes_Values() {
     vector<vector<float>> node_values;
 
-    for (int node_value_row_index = 0; node_value_row_index < this->Get_Node_Count(); node_value_row_index++) {
+    for (int node_value_row_index = 0; node_value_row_index < this->Get_Row_Count(); node_value_row_index++) {
         for (int node_value_column_index = 0; node_value_column_index < this->Get_Node_Count(); node_value_column_index++) {
 
             node_values[node_value_row_index][node_value_column_index] =  
-                this->neuralNodes[node_value_row_index][node_value_column_index].Get_Input().Get_Value();
+                this->neuralNodes[node_value_row_index][node_value_column_index].Get_Value();
         }
     }
 
@@ -59,7 +68,7 @@ int Layer::Get_Weight_Count() {
     return this->weightCount;
 }
 
-vector<vector<float>> Layer::Get_Weights() {
+vector<vector<Weight>> Layer::Get_Weights() {
     return this->weights;
 }
  
@@ -74,10 +83,10 @@ void Layer::Initialize_Layer_Weights() {
 
 void Layer::Initialize_Nodes_By_Count() {
 
-    this->neuralNodes.resize(this->Get_Node_Count());
+    this->neuralNodes.resize(this->Get_Row_Count());
 
-    for (int row_index = 0; row_index < this->neuralNodeCount; row_index++) {
-        for (int column_index = 0; column_index < this->neuralNodeCount; column_index++) {
+    for (int row_index = 0; row_index < this->Get_Row_Count(); row_index++) {
+        for (int column_index = 0; column_index < this->Get_Node_Count(); column_index++) {
             this->Get_Neural_Nodes()[row_index].push_back(
                 Neural_Node(this->Generate_Random_Numerical_Value())
             ); // input value
@@ -87,11 +96,11 @@ void Layer::Initialize_Nodes_By_Count() {
 
 }
  
-void Layer::Initialize_Nodes_By_Count(int param_node_count) {
+void Layer::Initialize_Nodes_By_Count(int param_node_count, int param_row_count) {
 
-    this->neuralNodes.resize(this->Get_Node_Count());
+    this->neuralNodes.resize(param_row_count);
 
-    for (int row_index = 0; row_index < param_node_count; row_index++) {
+    for (int row_index = 0; row_index < param_row_count; row_index++) {
         for (int column_index = 0; column_index < param_node_count; column_index++) {
             this->Get_Neural_Nodes()[row_index].push_back(  
                  Neural_Node(this->Generate_Random_Numerical_Value())
@@ -103,21 +112,21 @@ void Layer::Initialize_Nodes_By_Count(int param_node_count) {
 
 void Layer::Initialize_Weights_By_Count() {
     // create a temp matrix of weights to avoid the new * operator and protect memory
-    vector<vector<float>> weight_matrix(this->neuralNodeCount, std::vector<float>(this->neuralNodeCount, 0));
+    vector<vector<Weight>> weight_matrix(this->Get_Row_Count(), std::vector<Weight>(this->Get_Weight_Count(), 0));
 
     this->weights = weight_matrix;
 
-    for (int node_index = 0; node_index < this->neuralNodeCount; node_index++) {
-        this->weights[node_index] = vector<float>(this->neuralNodeCount);
-        for (int weight_index = 0; weight_index < this->weightCount; weight_index++) {
+    for (int node_index = 0; node_index < this->Get_Row_Count(); node_index++) {
+        this->weights[node_index] = vector<Weight>(this->Get_Weight_Count());
+        for (int weight_index = 0; weight_index < this->Get_Weight_Count(); weight_index++) {
              this->weights[node_index][weight_index] = this->Generate_Random_Numerical_Value();
         }
     }
 }
 
-void Layer::Initialize_Weights_By_Count(int param_node_count) {
+void Layer::Initialize_Weights_By_Count(int param_node_count, int param_row_count) {
     // create a temp matrix of weights to avoid the new * operator and protect memory
-    vector<vector<float>> weight_matrix(this->neuralNodeCount, std::vector<float>(this->neuralNodeCount, 0));
+    vector<vector<Weight>> weight_matrix(param_row_count, std::vector<Weight>(param_node_count, 0));
 
     this->weights = weight_matrix;
 
@@ -136,24 +145,24 @@ void Layer::Initialize_Bias( ) {
 }
 
 void Layer::Initialize_Predictions() {
-    this->Initialize_Predictions_By_Count(this->Get_Node_Count());
+    this->Initialize_Predictions_By_Count(this->Get_Node_Count(), this->Get_Row_Count());
 
 }
 
-void Layer::Initialize_Predictions_By_Count(int param_node_count) {
-    vector<vector<float>> prediction_matrix(param_node_count, vector<float>(param_node_count, 0));
+void Layer::Initialize_Predictions_By_Count(int param_node_count, int param_row_count) {
+    vector<vector<Prediction>> prediction_matrix(param_row_count, vector<Prediction>(param_node_count, 0));
 
     this->predictions = prediction_matrix;
 
 }
 
 void Layer::Initialize_Predictions_With_Biases() {
-    this->Initialize_Predictions_With_Biases_By_Count(this->Get_Node_Count());
+    this->Initialize_Predictions_With_Biases_By_Count(this->Get_Node_Count(), this->Get_Row_Count());
 
 }
 
-void Layer::Initialize_Predictions_With_Biases_By_Count(int param_node_count) {
-    vector<vector<float>> prediction_matrix(param_node_count, vector<float>(param_node_count, 0));
+void Layer::Initialize_Predictions_With_Biases_By_Count(int param_node_count, int param_row_count) {
+    vector<vector<Prediction>> prediction_matrix(param_row_count, vector<Prediction>(param_node_count, 0));
 
     this->predictions_with_bias = prediction_matrix;
 
@@ -161,30 +170,30 @@ void Layer::Initialize_Predictions_With_Biases_By_Count(int param_node_count) {
 
 
 void Layer::Initialize_Outputs() {
-    this->Initialize_Outputs_By_Count(this->Get_Node_Count());
+    this->Initialize_Outputs_By_Count(this->Get_Node_Count(), this->Get_Row_Count());
 }
 
-void Layer::Initialize_Outputs_By_Count(int param_node_count) {
-    vector<vector<float>> ouptut_matrix(param_node_count, vector<float>(param_node_count, 0));
+void Layer::Initialize_Outputs_By_Count(int param_node_count, int param_row_count) {
+    vector<vector<Output>> ouptut_matrix(param_row_count, vector<Output>(param_node_count, 0));
 
     this->outputs = ouptut_matrix;
 
 }
 
-vector<float> Layer::Get_Biases() {
+vector<Bias> Layer::Get_Biases() {
     return this->biases;
 }
 
-vector<vector<float>> Layer::Get_Outputs() {
+vector<vector<Output>> Layer::Get_Outputs() {
     return this->outputs;
 }
 
-vector<float> Layer::Get_Losses() {
+vector<Loss> Layer::Get_Losses() {
     return this->losses;
 }
 
 void Layer::Initialize_Losses() {
-    this->losses = vector<float>(this->Get_Node_Count(), -1);
+    this->losses = vector<Loss>(this->Get_Node_Count(), -1);
 }
 
 float Layer::Generate_Random_Numerical_Value() {
@@ -212,7 +221,7 @@ float Layer::Limit_Precision(float param_value_to_limit) {
     return step_3;
 }
 
-void Layer::Dot_Product(vector<vector<Neural_Node>> param_inputs, vector<vector<float>> param_weights) {
+void Layer::Dot_Product(vector<vector<Neural_Node>> param_inputs, vector<vector<Weight>> param_weights) {
     float results = 0;
 
     // iterate through the inputs rows to get the row index for the inputs and the outputs matrix
@@ -233,30 +242,30 @@ void Layer::Dot_Product(vector<vector<Neural_Node>> param_inputs, vector<vector<
 
 
                 results +=
-                    param_inputs[neural_node_row_index][neural_node_column_index].Get_Input().Get_Value()
+                    param_inputs[neural_node_row_index][neural_node_column_index].Get_Value()
                     *
-                    param_weights[neural_node_row_index][neural_node_column_index];
+                    param_weights[neural_node_row_index][neural_node_column_index].Get_Value();
             }
-            this->predictions[neural_node_row_index][result_matrix_index] = results;
+            this->predictions[neural_node_row_index][result_matrix_index].Set_Value(results);
             results = 0;
 
         }
      }
 }
 
-vector<vector<float>> Layer::Get_Prediction_Without_Bias() {
+vector<vector<Prediction>> Layer::Get_Prediction_Without_Bias() {
     return this->predictions;
 }
 
-vector<vector<float>> Layer::Get_Prediction_With_Bias() {
+vector<vector<Prediction>> Layer::Get_Prediction_With_Bias() {
     return this->predictions_with_bias;
 }
 
-void Layer::Add_Bias_To_Prediction(vector<vector<float>> param_prediction, vector<float> param_biases) {
+void Layer::Add_Bias_To_Prediction(vector<vector<Prediction>> param_prediction, vector<Bias> param_biases) {
     for (int node_row_index = 0; node_row_index < param_prediction.size(); node_row_index++) {
         for (int node_column_index = 0; node_column_index < param_prediction[node_row_index].size(); node_column_index++) {
-            float prediction_with_bias = param_prediction[node_row_index][node_column_index] + param_biases[node_column_index];
-            this->predictions_with_bias[node_row_index][node_column_index] = prediction_with_bias ;
+            float prediction_with_bias = param_prediction[node_row_index][node_column_index].Get_Value() + param_biases[node_column_index].Get_Value();
+            this->predictions_with_bias[node_row_index][node_column_index].Set_Value(prediction_with_bias);
         }
     }
 }
@@ -265,7 +274,7 @@ void Layer::Set_Layers_Exponential_Sum() {
     this->prediction_with_bias_exponential_sum = 0;
     for (int exponential_sum_row_index = 0; exponential_sum_row_index < this->Get_Prediction_With_Bias().size(); exponential_sum_row_index++) {
         for (int exponential_sum_column_index = 0; exponential_sum_column_index < this->Get_Prediction_With_Bias()[exponential_sum_row_index].size(); exponential_sum_column_index++) {
-            this->prediction_with_bias_exponential_sum += exp(this->Get_Prediction_With_Bias()[exponential_sum_row_index][exponential_sum_column_index]);
+            this->prediction_with_bias_exponential_sum += exp(this->Get_Prediction_With_Bias()[exponential_sum_row_index][exponential_sum_column_index].Get_Value());
         }
     }
 }
@@ -285,16 +294,16 @@ void Layer::Activate_Neural_Nodes_By(Utilities::Neural_Node_Activation_Method pa
     for (int output_row_index = 0; output_row_index < this->Get_Prediction_With_Bias().size(); output_row_index++) {
         for (int output_column_index = 0; output_column_index < this->Get_Prediction_With_Bias()[output_row_index].size(); output_column_index++) {
             if (param_method == Neural_Node_Activation_Method::ReLu) {
-                this->Activate_Neural_Node_By_ReLu(this->Get_Prediction_With_Bias()[output_row_index][output_column_index], output_row_index, output_column_index);
+                this->Activate_Neural_Node_By_ReLu(this->Get_Prediction_With_Bias()[output_row_index][output_column_index].Get_Value(), output_row_index, output_column_index);
             }
             else if (param_method == Neural_Node_Activation_Method::Sigmoid) {
-                this->Activate_Neural_Node_By_Sigmoid(this->Get_Prediction_With_Bias()[output_row_index][output_column_index], output_row_index, output_column_index);
+                this->Activate_Neural_Node_By_Sigmoid(this->Get_Prediction_With_Bias()[output_row_index][output_column_index].Get_Value(), output_row_index, output_column_index);
             }
             else if (param_method == Neural_Node_Activation_Method::Softmax) {
-                this->Activate_Neural_Node_By_Softmax(this->Get_Prediction_With_Bias()[output_row_index][output_column_index], output_row_index, output_column_index);
+                this->Activate_Neural_Node_By_Softmax(this->Get_Prediction_With_Bias()[output_row_index][output_column_index].Get_Value(), output_row_index, output_column_index);
             }
             else if (param_method == Neural_Node_Activation_Method::Softplus) {
-                this->Activate_Neural_Node_By_Softplus(this->Get_Prediction_With_Bias()[output_row_index][output_column_index], output_row_index, output_column_index);
+                this->Activate_Neural_Node_By_Softplus(this->Get_Prediction_With_Bias()[output_row_index][output_column_index].Get_Value(), output_row_index, output_column_index);
             }
         }
      }
@@ -302,7 +311,7 @@ void Layer::Activate_Neural_Nodes_By(Utilities::Neural_Node_Activation_Method pa
 
 
 void Layer::Activate_Neural_Node_By_ReLu(float param_prediction_with_bias, float param_prediction_row_index, float param_prediction_column_index) {
-    if ( this->Get_Prediction_With_Bias()[param_prediction_row_index][param_prediction_column_index] <= 0) {
+    if ( this->Get_Prediction_With_Bias()[param_prediction_row_index][param_prediction_column_index].Get_Value() <= 0) {
         this->outputs[param_prediction_row_index][param_prediction_column_index] = 0 ;
     }
     else {
@@ -312,14 +321,14 @@ void Layer::Activate_Neural_Node_By_ReLu(float param_prediction_with_bias, float
 
 void Layer::Activate_Neural_Node_By_Sigmoid(float param_prediction_with_bias, float param_prediction_row_index, float param_prediction_column_index) {
 
-    float current_sigmoid_value = (1 / (1 + exp(-this->Get_Prediction_With_Bias()[param_prediction_row_index][param_prediction_column_index])));
+    float current_sigmoid_value = (1 / (1 + exp(-this->Get_Prediction_With_Bias()[param_prediction_row_index][param_prediction_column_index].Get_Value())));
 
     this->outputs[param_prediction_row_index][param_prediction_column_index] = current_sigmoid_value;
 }
 
 void Layer::Activate_Neural_Node_By_Softmax(float param_prediction_with_bias, float param_prediction_row_index, float param_prediction_column_index) {
 
-    float normalized_exponential_sum = exp(this->Get_Prediction_With_Bias()[param_prediction_row_index][param_prediction_column_index]) / this->prediction_with_bias_exponential_sum;
+    float normalized_exponential_sum = exp(this->Get_Prediction_With_Bias()[param_prediction_row_index][param_prediction_column_index].Get_Value()) / this->prediction_with_bias_exponential_sum;
 
     this->outputs[param_prediction_row_index][param_prediction_column_index] = normalized_exponential_sum;
 }
@@ -368,7 +377,7 @@ void Layer::Calculate_Loss_By(Utilities::Loss_Calculation_Method param_method) {
         for (int losses_column_index = 0; losses_column_index < this->outputs[losses_row_index].size(); losses_column_index ++) {
             if (this->Get_Expected_Results()[losses_row_index] == 1) {
                 if (param_method == Utilities::Loss_Calculation_Method::CrossEntropy) {
-                    this->Calculate_Loss_By_Cross_Entropy(this->Clip_Output_For_Negative_Log_Loss(this->outputs[losses_row_index][losses_column_index]), losses_row_index);
+                    this->Calculate_Loss_By_Cross_Entropy(this->Clip_Output_For_Negative_Log_Loss(this->outputs[losses_row_index][losses_column_index].Get_Value()), losses_row_index);
                 }
             }
         }
@@ -382,9 +391,9 @@ void Layer::Calculate_Loss_By_Cross_Entropy(float param_output, int param_index)
 }
 
 
-vector<vector<float>> Layer::Feed_Forward_Pass() {
+vector<vector<Output>> Layer::Feed_Forward_Pass() {
 
-    this->Dot_Product(this->neuralNodes, this->weights);
+    //this->Dot_Product(this->neuralNodes, this->weights);
     //this->Add_Bias_To_Prediction(
     //    this->predictions,
     //    this->biases

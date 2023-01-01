@@ -17,6 +17,13 @@ namespace Perception {
 
                     float Get_Value();
 
+                    /*
+                       Washes the value of the float to give a precision of expected amount
+                    */
+                    float Limit_Precision(float param_value_to_limit);
+
+                    bool Is_A_Reasonable_Approximation(float param_value_to_approximate);
+
                     bool operator==(const Perception_Element element) const;
 
                     Perception_Element operator*(const Perception_Element element) const;

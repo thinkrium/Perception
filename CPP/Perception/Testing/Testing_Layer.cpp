@@ -255,51 +255,76 @@ TEST(Perception_Test, Test_Layer_Prediction_with_bias) {
 
 }
 
+
+TEST(Perception_Test, Test_Layer_Activation_By_ReLu_GT_zero) {
+    Layer test_layer(4,1);
+
+    float test = float(.2 * 100) / 100;
+
+    Prediction test_predict_20(0.2f);
+    Prediction test_predict_30(0.3f);
+    Prediction test_predict_40(0.4f);
+    Prediction test_predict_50(0.5f);
+
+    Output test_output_30(1.2f);
+    Output test_output_40(1.3f);
+    Output test_output_50(1.4f);
+    Output test_output_60(1.5f);
+
+    Bias bias_1(1.0f);
+    vector<vector<Prediction>> test_predictions = {{ test_predict_20, test_predict_30, test_predict_40, test_predict_50 }};
+    vector<Bias> test_biases = { bias_1, bias_1, bias_1, bias_1 };
+    vector<vector<Output>> output_comparison = { {test_output_30, test_output_40, test_output_50 , test_output_60 } };
+    test_layer.Add_Bias_To_Prediction(test_predictions, test_biases);
+    test_layer.Activate_Neural_Nodes();
+    vector<vector<Output>> test_outputs = test_layer.Get_Outputs();
+    EXPECT_EQ( test_outputs, output_comparison);
+
+}
+
+TEST(Perception_Test, Test_Layer_Overloaded_EQ_Operator) {
+    Prediction test_1(.1f);
+    Prediction test_2(.1f);
+ 
+    EXPECT_EQ(test_1, test_2);
+
+}
+
+
+TEST(Perception_Test, Test_Layer_Overloaded_Not_EQ_Operator) {
+
+    Prediction test_3(.1f);
+    Prediction test_4(.15f);
+
+     EXPECT_NE(test_3, test_4);
+}
+
 //
-//TEST(Perception_Test, Test_Layer_Activation_By_ReLu_GT_zero) {
+//TEST(Perception_Test, Test_Layer_Activation_By_ReLu_EQ_zero) {
 //    Layer test_layer(4);
-//    Prediction test_predict_20(.20);
-//    Prediction test_predict_30(.30);
-//    Prediction test_predict_40(.40);
-//    Prediction test_predict_50(.50);
-//    Prediction test_predict_60(.60);
-//
-//
-//    Bias bias_1(1);
-//    vector<vector<Prediction>> test_predictions = {{ test_predict_20, test_predict_30, test_predict_40, test_predict_50 }};
-//    vector<Bias> test_biases = { bias_1, bias_1, bias_1, bias_1 };
-//    vector<Prediction> comparison = { test_predict_30, test_predict_40, test_predict_50 , test_predict_60 };
+//    vector<vector<float>> test_predictions = { { -.30, -.30, -.30, -.30 } };
+//    vector<float> test_biases = { -.1, -.1, -.1, -.1 };
+//    vector<float> comparison = { 0, 0, 0, 0 };
 //    test_layer.Add_Bias_To_Prediction(test_predictions, test_biases);
 //    test_layer.Activate_Neural_Nodes();
-//    //EXPECT_EQ(test_layer.Get_Outputs(), comparison);
+//    EXPECT_EQ(test_layer.Get_Outputs(), comparison);
 //
 //}
-////
-////TEST(Perception_Test, Test_Layer_Activation_By_ReLu_EQ_zero) {
-////    Layer test_layer(4);
-////    vector<vector<float>> test_predictions = { { -.30, -.30, -.30, -.30 } };
-////    vector<float> test_biases = { -.1, -.1, -.1, -.1 };
-////    vector<float> comparison = { 0, 0, 0, 0 };
-////    test_layer.Add_Bias_To_Prediction(test_predictions, test_biases);
-////    test_layer.Activate_Neural_Nodes();
-////    EXPECT_EQ(test_layer.Get_Outputs(), comparison);
-////
-////}
-////
-////
-////TEST(Perception_Test, Test_Layer_Activation_By_Sigmoid) {
-////
-////    float sigmoid_value =  1 / (1 + exp(-.4)) ;
-////    Layer test_layer(4);
-////    vector<vector<float>> test_predictions = { { .30, .30, .30, .30 } };
-////    vector<float> test_biases = { .1, .1, .1, .1 };
-////
-////    vector<float> comparison = { sigmoid_value, sigmoid_value, sigmoid_value, sigmoid_value };
-////    test_layer.Add_Bias_To_Prediction(test_predictions, test_biases);
-////    test_layer.Activate_Neural_Nodes_By(Utilities::Neural_Node_Activation_Method::Sigmoid);
-////    EXPECT_EQ(test_layer.Get_Outputs(), comparison);
-////
-////}
+//
+//
+//TEST(Perception_Test, Test_Layer_Activation_By_Sigmoid) {
+//
+//    float sigmoid_value =  1 / (1 + exp(-.4)) ;
+//    Layer test_layer(4);
+//    vector<vector<float>> test_predictions = { { .30, .30, .30, .30 } };
+//    vector<float> test_biases = { .1, .1, .1, .1 };
+//
+//    vector<float> comparison = { sigmoid_value, sigmoid_value, sigmoid_value, sigmoid_value };
+//    test_layer.Add_Bias_To_Prediction(test_predictions, test_biases);
+//    test_layer.Activate_Neural_Nodes_By(Utilities::Neural_Node_Activation_Method::Sigmoid);
+//    EXPECT_EQ(test_layer.Get_Outputs(), comparison);
+//
+//}
 ////
 ////TEST(Perception_Test, Test_Layer_Activation_By_Softmax) {
 ////

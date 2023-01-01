@@ -214,12 +214,7 @@ namespace Perception {
 					*/
 					float Generate_Random_Numerical_Value();
 					 
-					/*
-					   Washes the value of the float to give a precision of expected amount
-					*/
-					float Limit_Precision(float param_value_to_limit);
-
-					/*
+					/*/
 					   Performs a Dot product operation on the incoming weights and parameters
 					*/
 					void Dot_Product(vector<vector<Neural_Node>> param_inputs, vector<vector<Weight>> param_weights);

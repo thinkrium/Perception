@@ -26,12 +26,7 @@ float Perception_Element::Limit_Precision(float param_value_to_limit) {
 	float step_3 = step_2 / precision_multiplier;
 	return step_3;
 }
-
-bool Perception_Element::Is_A_Reasonable_Approximation(float param_value_to_approximate) {
-	return true;
-
-}
-
+  
 bool Perception_Element::operator==(const Perception_Element element) const {
 
 	int current_whole_number = abs(floor(value));

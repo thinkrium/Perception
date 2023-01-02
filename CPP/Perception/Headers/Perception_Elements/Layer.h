@@ -310,7 +310,23 @@ namespace Perception {
 					  Passes the full matrix multiplacation value of the this layer to the
 					  next
 					*/
-					vector<vector<Output>> Feed_Forward_Pass();
+					vector<vector<Output>> Forward_Pass();
+
+					/*
+					  Passes the gradient decent value of the this layer to the
+					  previous layer so that we can optimize/update weights and bias
+
+					  This function initiates and manages the chain rule
+
+					  Definition:
+
+					  Change loss with respect to bias
+					  or
+					  Change loss with respect to weight
+					*/
+					vector<vector<Output>> Backward_Pass();
+
+					void 
 
 					/*Destructor*/
 					~Layer();

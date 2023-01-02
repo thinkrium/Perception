@@ -391,4 +391,8 @@ TEST(Perception_Test, Test_Layer_Activation_By_Softplus) {
     EXPECT_EQ(test_layer.Get_Outputs(), comparison);
 
 }
-   
+
+
+TEST(Perception_Test, Test_Layer_Activation_By_Softplus) { 
+
+}

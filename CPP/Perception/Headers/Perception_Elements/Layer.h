@@ -326,7 +326,6 @@ namespace Perception {
 					*/
 					vector<vector<Output>> Backward_Pass();
 
-					void 
 
 					/*Destructor*/
 					~Layer();

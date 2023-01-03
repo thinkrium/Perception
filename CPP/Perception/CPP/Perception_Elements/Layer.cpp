@@ -281,6 +281,14 @@ void Layer::Set_Layers_Exponential_Sum() {
     }
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                                     //     
+//                            Forward pass calculations                                                //
+//                                                                                                     // 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 // able to call this method and defaults to ReLu for now 
 // 11-26-2022
 void Layer::Activate_Neural_Nodes() {
@@ -393,27 +401,102 @@ void Layer::Calculate_Loss_By_Cross_Entropy(float param_output, int param_index)
 }
 
 
-void Layer::Calculate_Neural_Nodes_Derivatives() {}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                                     //     
+//                            Backward pass calculations                                               //
+//                                                                                                     // 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void Layer::Calculate_Neural_Nodes_Derivative(Utilities::Neural_Node_Activation_Method  param_method) {}
+void Layer::Calculate_Neural_Nodes_Derivatives() {
+    this->Calculate_Neural_Nodes_Derivative(Neural_Node_Activation_Method::ReLu);
+}
+
+void Layer::Calculate_Neural_Nodes_Derivative(Utilities::Neural_Node_Activation_Method  param_method) {
+    if (param_method == Neural_Node_Activation_Method::Softmax) {
+        this->Set_Layers_Exponential_Sum();
+    }
+
+    for (int output_row_index = 0; output_row_index < this->Get_Prediction_With_Bias().size(); output_row_index++) {
+        for (int output_column_index = 0; output_column_index < this->Get_Prediction_With_Bias()[output_row_index].size(); output_column_index++) {
+            if (param_method == Neural_Node_Activation_Method::ReLu) {
+                this->Calculate_Derivative_Of_ReLu(this->Get_Prediction_With_Bias()[output_row_index][output_column_index].Get_Value(), output_row_index, output_column_index);
+            }
+            else if (param_method == Neural_Node_Activation_Method::Sigmoid) {
+                this->Calculate_Derivative_Of_Sigmoid(this->Get_Prediction_With_Bias()[output_row_index][output_column_index].Get_Value(), output_row_index, output_column_index);
+            }
+            else if (param_method == Neural_Node_Activation_Method::Softmax) {
+                this->Calculate_Derivative_Of_Softmax(this->Get_Prediction_With_Bias()[output_row_index][output_column_index].Get_Value(), output_row_index, output_column_index);
+            }
+            else if (param_method == Neural_Node_Activation_Method::Softplus) {
+                this->Calculate_Derivative_Of_Softplus(this->Get_Prediction_With_Bias()[output_row_index][output_column_index].Get_Value(), output_row_index, output_column_index);
+            }
+        }
+    }
+
+}
 
 
-void Layer::Calculate_Derivative_Of_ReLu(float param_prediction_with_bias, float param_prediction_row_index, float param_prediction_columnn_index) {}
+void Layer::Calculate_Derivative_Of_ReLu(float param_prediction_with_bias, float param_prediction_row_index, float param_prediction_columnn_index) {
+    if (this->Get_Prediction_With_Bias()[param_prediction_row_index][param_prediction_column_index].Get_Value() <= 0.0f) {
+        this->outputs[param_prediction_row_index][param_prediction_column_index].Set_Value(0.0f);
+    }
+    else {
+        this->outputs[param_prediction_row_index][param_prediction_column_index].Set_Value(param_prediction_with_bias);
+    }
+}
 
-void Layer::Calculate_Derivative_Of_Sigmoid(float param_prediction_with_bias, float param_prediction_row_index, float param_prediction_columnn_index) {}
+void Layer::Calculate_Derivative_Of_Sigmoid(float param_prediction_with_bias, float param_prediction_row_index, float param_prediction_columnn_index) {
+    float current_sigmoid_value = (1 / (1 + exp(-this->Get_Prediction_With_Bias()[param_prediction_row_index][param_prediction_column_index].Get_Value())));
+
+    this->outputs[param_prediction_row_index][param_prediction_column_index].Set_Value(current_sigmoid_value);
+}
 
 
-void Layer::Calculate_Derivative_Of_Softmax(float param_prediction_with_bias, float param_prediction_row_index, float param_prediction_columnn_index) {}
+void Layer::Calculate_Derivative_Of_Softmax(float param_prediction_with_bias, float param_prediction_row_index, float param_prediction_columnn_index) {
+
+    float normalized_exponential_sum = exp(this->Get_Prediction_With_Bias()[param_prediction_row_index][param_prediction_column_index].Get_Value()) / this->prediction_with_bias_exponential_sum;
+
+    this->outputs[param_prediction_row_index][param_prediction_column_index].Set_Value(normalized_exponential_sum);
+
+}
 
 
-void Layer::Calculate_Derivative_Of_Softplus(float param_prediction_with_bias, float param_prediction_row_index, float param_prediction_columnn_index) { }
+void Layer::Calculate_Derivative_Of_Softplus(float param_prediction_with_bias, float param_prediction_row_index, float param_prediction_columnn_index) {
+    float current_softplus_value = log(1 + exp(param_prediction_with_bias));
 
-void Layer::Calculate_Loss_Derivative() {}
+    this->outputs[param_prediction_row_index][param_prediction_column_index].Set_Value(current_softplus_value);
+
+}
+
+void Layer::Calculate_Loss_Derivative() {
+    this->Calculate_Loss_Derivative_By(Loss_Calculation_Method::CrossEntropy);
+}
 
 
-void Layer::Calculate_Loss_Derivative_By(Utilities::Loss_Calculation_Method param_method) {}
+void Layer::Calculate_Loss_Derivative_By(Utilities::Loss_Calculation_Method param_method) {
+    if (this->Get_Expected_Results().size() == 0) {
+        logger.Error("There are no expected results to compare losses against");
+        return;
+    }
 
-void Layer::Calculate_Derivative_Of_Cross_Entropy(float param_output, int param_index) {}
+    for (int losses_row_index = 0; losses_row_index < this->outputs.size(); losses_row_index++) {
+        for (int losses_column_index = 0; losses_column_index < this->outputs[losses_row_index].size(); losses_column_index++) {
+            if (this->Get_Expected_Results()[losses_row_index] == 1) {
+                if (param_method == Utilities::Loss_Calculation_Method::CrossEntropy) {
+                    this->Calculate_Loss_By_Cross_Entropy(this->Clip_Output_For_Negative_Log_Loss(this->outputs[losses_row_index][losses_column_index].Get_Value()), losses_row_index);
+                }
+            }
+        }
+    }
+
+}
+
+void Layer::Calculate_Derivative_Of_Cross_Entropy(float param_output, int param_index) {
+    float loss = -log(param_output);
+    this->losses[param_index] = loss;
+}
 
 
 

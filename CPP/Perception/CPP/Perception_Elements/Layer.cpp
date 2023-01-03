@@ -418,19 +418,19 @@ void Layer::Calculate_Neural_Nodes_Derivative(Utilities::Neural_Node_Activation_
         this->Set_Layers_Exponential_Sum();
     }
 
-    for (int output_row_index = 0; output_row_index < this->Get_Prediction_With_Bias().size(); output_row_index++) {
-        for (int output_column_index = 0; output_column_index < this->Get_Prediction_With_Bias()[output_row_index].size(); output_column_index++) {
+    for (int output_row_index = 0; output_row_index < this->Get_Outputs().size(); output_row_index++) {
+        for (int output_column_index = 0; output_column_index < this->Get_Outputs()[output_row_index].size(); output_column_index++) {
             if (param_method == Neural_Node_Activation_Method::ReLu) {
-                this->Calculate_Derivative_Of_ReLu(this->Get_Prediction_With_Bias()[output_row_index][output_column_index].Get_Value(), output_row_index, output_column_index);
+                this->Calculate_Derivative_Of_ReLu(this->Get_Outputs()[output_row_index][output_column_index].Get_Value(), output_row_index, output_column_index);
             }
             else if (param_method == Neural_Node_Activation_Method::Sigmoid) {
-                this->Calculate_Derivative_Of_Sigmoid(this->Get_Prediction_With_Bias()[output_row_index][output_column_index].Get_Value(), output_row_index, output_column_index);
+                this->Calculate_Derivative_Of_Sigmoid(this->Get_Outputs()[output_row_index][output_column_index].Get_Value(), output_row_index, output_column_index);
             }
             else if (param_method == Neural_Node_Activation_Method::Softmax) {
-                this->Calculate_Derivative_Of_Softmax(this->Get_Prediction_With_Bias()[output_row_index][output_column_index].Get_Value(), output_row_index, output_column_index);
+                this->Calculate_Derivative_Of_Softmax(this->Get_Outputs()[output_row_index][output_column_index].Get_Value(), output_row_index, output_column_index);
             }
             else if (param_method == Neural_Node_Activation_Method::Softplus) {
-                this->Calculate_Derivative_Of_Softplus(this->Get_Prediction_With_Bias()[output_row_index][output_column_index].Get_Value(), output_row_index, output_column_index);
+                this->Calculate_Derivative_Of_Softplus(this->Get_Outputs()[output_row_index][output_column_index].Get_Value(), output_row_index, output_column_index);
             }
         }
     }
@@ -439,7 +439,7 @@ void Layer::Calculate_Neural_Nodes_Derivative(Utilities::Neural_Node_Activation_
 
 
 void Layer::Calculate_Derivative_Of_ReLu(float param_prediction_with_bias, float param_prediction_row_index, float param_prediction_columnn_index) {
-    if (this->Get_Prediction_With_Bias()[param_prediction_row_index][param_prediction_column_index].Get_Value() <= 0.0f) {
+    if (this->Get_Outputs()[param_prediction_row_index][param_prediction_column_index].Get_Value() <= 0.0f) {
         this->outputs[param_prediction_row_index][param_prediction_column_index].Set_Value(0.0f);
     }
     else {
@@ -448,7 +448,7 @@ void Layer::Calculate_Derivative_Of_ReLu(float param_prediction_with_bias, float
 }
 
 void Layer::Calculate_Derivative_Of_Sigmoid(float param_prediction_with_bias, float param_prediction_row_index, float param_prediction_columnn_index) {
-    float current_sigmoid_value = (1 / (1 + exp(-this->Get_Prediction_With_Bias()[param_prediction_row_index][param_prediction_column_index].Get_Value())));
+    float current_sigmoid_value = (1 / (1 + exp(-this->Get_Outputs()[param_prediction_row_index][param_prediction_column_index].Get_Value())));
 
     this->outputs[param_prediction_row_index][param_prediction_column_index].Set_Value(current_sigmoid_value);
 }
@@ -456,7 +456,7 @@ void Layer::Calculate_Derivative_Of_Sigmoid(float param_prediction_with_bias, fl
 
 void Layer::Calculate_Derivative_Of_Softmax(float param_prediction_with_bias, float param_prediction_row_index, float param_prediction_columnn_index) {
 
-    float normalized_exponential_sum = exp(this->Get_Prediction_With_Bias()[param_prediction_row_index][param_prediction_column_index].Get_Value()) / this->prediction_with_bias_exponential_sum;
+    float normalized_exponential_sum = exp(this->Get_Outputs()[param_prediction_row_index][param_prediction_column_index].Get_Value()) / this->prediction_with_bias_exponential_sum;
 
     this->outputs[param_prediction_row_index][param_prediction_column_index].Set_Value(normalized_exponential_sum);
 

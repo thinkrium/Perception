@@ -306,6 +306,59 @@ namespace Perception {
 					*/
 					void Calculate_Loss_By_Cross_Entropy(float param_output, int param_index);
 
+					/////////////////////////////////////////////////////////////////////////////////
+                    
+					/*
+					  Activates the current node, defaults to Rectified Linear Unit
+					*/
+					void Calculate_Neural_Nodes_Derivatives();
+					 
+					/*
+					  Activates the current node by a specifict activation method
+					  overloaded jsut sending method
+					*/
+					void Calculate_Neural_Nodes_Derivative(Utilities::Neural_Node_Activation_Method  param_method);
+
+					/*
+					  Activates the current node by a specific by Rectified Linear Unit
+					*/
+					void Calculate_Derivative_Of_ReLu(float param_prediction_with_bias, float param_prediction_row_index, float param_prediction_columnn_index);
+
+					/*
+					  Activates the current node by a Sigmoid
+					*/
+					void Calculate_Derivative_Of_Sigmoid(float param_prediction_with_bias, float param_prediction_row_index, float param_prediction_columnn_index);
+
+					/*
+					  Activates the current node by a Softmax
+					*/
+					void Calculate_Derivative_Of_Softmax(float param_prediction_with_bias, float param_prediction_row_index, float param_prediction_columnn_index);
+
+					/*
+					  Activates the current node by a Softmax
+					 */
+					void Calculate_Derivative_Of_Softplus(float param_prediction_with_bias, float param_prediction_row_index, float param_prediction_columnn_index);
+
+					/*
+					Calculating Loss for each Node
+					cant happen without predicted value
+					*/
+					void Calculate_Loss_Derivative();
+
+					/*
+					Calculating Loss for each Node with method option
+					cant happen without predicted value
+					*/
+					void Calculate_Loss_Derivative_By(Utilities::Loss_Calculation_Method param_method);
+
+					/*
+					Calculating Loss for each Node with method option and overloaded neural_node
+					cant happen without predicted value
+					*/
+					void Calculate_Derivative_Of_Cross_Entropy(float param_output, int param_index);
+
+					/////////////////////////////////////////////////////////////////////////////////////
+
 					/*
 					  Passes the full matrix multiplacation value of the this layer to the
 					  next

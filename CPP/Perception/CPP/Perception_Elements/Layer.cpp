@@ -393,6 +393,30 @@ void Layer::Calculate_Loss_By_Cross_Entropy(float param_output, int param_index)
 }
 
 
+void Layer::Calculate_Neural_Nodes_Derivatives() {}
+
+void Layer::Calculate_Neural_Nodes_Derivative(Utilities::Neural_Node_Activation_Method  param_method) {}
+
+
+void Layer::Calculate_Derivative_Of_ReLu(float param_prediction_with_bias, float param_prediction_row_index, float param_prediction_columnn_index) {}
+
+void Layer::Calculate_Derivative_Of_Sigmoid(float param_prediction_with_bias, float param_prediction_row_index, float param_prediction_columnn_index) {}
+
+
+void Layer::Calculate_Derivative_Of_Softmax(float param_prediction_with_bias, float param_prediction_row_index, float param_prediction_columnn_index) {}
+
+
+void Layer::Calculate_Derivative_Of_Softplus(float param_prediction_with_bias, float param_prediction_row_index, float param_prediction_columnn_index) { }
+
+void Layer::Calculate_Loss_Derivative() {}
+
+
+void Layer::Calculate_Loss_Derivative_By(Utilities::Loss_Calculation_Method param_method) {}
+
+void Layer::Calculate_Derivative_Of_Cross_Entropy(float param_output, int param_index) {}
+
+
+
 vector<vector<Output>> Layer::Forward_Pass() {
 
     this->Dot_Product(this->neuralNodes, this->weights);

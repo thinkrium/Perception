@@ -393,6 +393,6 @@ TEST(Perception_Test, Test_Layer_Activation_By_Softplus) {
 }
 
 
-TEST(Perception_Test, Test_Layer_Activation_By_Softplus) { 
-
-}
+//TEST(Perception_Test, Test_Layer_Activation_By_Softplus) { 
+//
+////}

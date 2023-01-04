@@ -322,22 +322,22 @@ namespace Perception {
 					/*
 					  Activates the current node by a specific by Rectified Linear Unit
 					*/
-					void Calculate_Derivative_Of_ReLu(float param_prediction_with_bias, float param_prediction_row_index, float param_prediction_columnn_index);
+					void Calculate_Derivative_Of_ReLu(float param_output, float param_prediction_row_index, float param_prediction_columnn_index);
 
 					/*
 					  Activates the current node by a Sigmoid
 					*/
-					void Calculate_Derivative_Of_Sigmoid(float param_prediction_with_bias, float param_prediction_row_index, float param_prediction_columnn_index);
+					void Calculate_Derivative_Of_Sigmoid(float param_output, float param_prediction_row_index, float param_prediction_columnn_index);
 
 					/*
 					  Activates the current node by a Softmax
 					*/
-					void Calculate_Derivative_Of_Softmax(float param_prediction_with_bias, float param_prediction_row_index, float param_prediction_columnn_index);
+					void Calculate_Derivative_Of_Softmax(float param_output, float param_prediction_row_index, float param_prediction_columnn_index);
 
 					/*
 					  Activates the current node by a Softmax
 					 */
-					void Calculate_Derivative_Of_Softplus(float param_prediction_with_bias, float param_prediction_row_index, float param_prediction_columnn_index);
+					void Calculate_Derivative_Of_Softplus(float param_output, float param_prediction_row_index, float param_prediction_columnn_index);
 
 					/*
 					Calculating Loss for each Node

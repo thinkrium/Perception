@@ -212,10 +212,8 @@ namespace Perception {
 					/*
 					 * Gets The outputs from the current layer
 					 */
-					vector<vector<Output>> Get_Derived_Values();
-
-
-					
+					vector<vector<Derived_Values>> Get_Derived_Values();
+					 
 					/*
 					*  Initializes the losslayer to the size of node count to
 					*  an initial value of negativ 1 so that it can be iteratedt

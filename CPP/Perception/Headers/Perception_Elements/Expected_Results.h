@@ -1,26 +1,22 @@
-#ifndef EXPECTED_RESULTS_H
-#define	EXPECTED_RESULTS_H
+#ifndef Expected_Results_H
+#define Expected_Results_H
 
 #include <Perception_Element.h>
-#include <vector>
 
-using namespace std;
-using namespace Perception::Layer::Element;
+using namespace Utilities;
 
 namespace Perception {
-    namespace Layer {
 
-		class Expected_Results // : public Perception_Element
-		{
-		public:
-			Expected_Results();
-			~Expected_Results();
-
-		private:
-			vector<int> oneHotEncodingExpectation;
-
-		};
-
-    }
+	namespace Layer {
+		namespace Element {
+			class Expected_Results : public Perception_Element
+			{
+			public:
+				Expected_Results();
+				Expected_Results(float param_value);
+				~Expected_Results();
+			};
+		}
+	}
 }
-#endif // EXPECTED_RESULTS_H
+#endif // !Expected_Results_H

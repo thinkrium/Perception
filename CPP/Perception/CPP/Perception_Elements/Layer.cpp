@@ -204,14 +204,14 @@ void Layer::Initialize_Derived_Values() {
 }
 
 void Layer::Initialize_Derived_Values_By_Count(int param_node_count, int param_row_count) {
-    Derived_Values initializing_derived_values(0);
-    vector<vector<Derived_Values>> ouptut_matrix(param_row_count, vector<Derived_Values>(param_node_count, initializing_derived_values));
+    Derived_Value initializing_derived_values(0);
+    vector<vector<Derived_Value>> ouptut_matrix(param_row_count, vector<Derived_Value>(param_node_count, initializing_derived_values));
 
     this->derived_values_to_check = ouptut_matrix;
 
 }
  
-vector<vector<Derived_Values>> Layer::Get_Derived_Values() {
+vector<vector<Derived_Value>> Layer::Get_Derived_Values() {
     return this->derived_values_to_check;
 }
 

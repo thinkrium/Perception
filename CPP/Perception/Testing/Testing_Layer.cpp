@@ -393,6 +393,24 @@ TEST(Perception_Test, Test_Layer_Activation_By_Softplus) {
 }
 
 
-//TEST(Perception_Test, Test_Layer_Activation_By_Softplus) { 
-//
-////}
+TEST(Perception_Test, Test_Layer_ReLu_Derivative) {
+    Layer test_layer(1, 1);
+    Prediction prediction_2(.2f);
+ }
+
+TEST(Perception_Test, Test_Layer_Sigmoid_Derivative) {
+
+}
+
+TEST(Perception_Test, Test_Layer_Softmax_Derivative) {
+
+}
+
+TEST(Perception_Test, Test_Layer_Softplus_Derivative) {
+
+}
+
+TEST(Perception_Test, Test_Layer_Cross_Entropy_Derivative) {
+
+}
+

@@ -1,5 +1,5 @@
-#ifndef Derived_Values_H
-#define Derived_Values_H
+#ifndef Derived_Value_H
+#define Derived_Value_H
 
 #include <Perception_Element.h>
 
@@ -9,12 +9,12 @@ namespace Perception {
 
 	namespace Layer {
 		namespace Element {
-			class Derived_Values : public Perception_Element
+			class Derived_Value : public Perception_Element
 			{
 			public:
-				Derived_Values();
-				Derived_Values(float param_value);
-				~Derived_Values();
+				Derived_Value();
+				Derived_Value(float param_value);
+				~Derived_Value();
 			};
 		}
 	}

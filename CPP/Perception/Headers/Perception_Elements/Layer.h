@@ -8,7 +8,7 @@
 #include <Prediction.h>
 #include <Output.h>
 #include <Weight.h>
-#include <Derived_Values.h>
+#include <Derived_Value.h>
 #include <vector>
 #include <random>
 #include <Enums.h>
@@ -212,7 +212,7 @@ namespace Perception {
 					/*
 					 * Gets The outputs from the current layer
 					 */
-					vector<vector<Derived_Values>> Get_Derived_Values();
+					vector<vector<Derived_Value>> Get_Derived_Values();
 					 
 					/*
 					*  Initializes the losslayer to the size of node count to
@@ -441,7 +441,7 @@ namespace Perception {
 					/*
 					*   Derived values to check against
 					*/
-					vector<vector<Derived_Values>> derived_values_to_check;
+					vector<vector<Derived_Value>> derived_values_to_check;
 
 					/*
 					*  The exponential sum of the layers predictions

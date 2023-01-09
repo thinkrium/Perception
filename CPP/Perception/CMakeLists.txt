@@ -38,7 +38,7 @@ add_executable (Perception
 "CPP/Perception_Elements/Output.cpp" 
 "Headers/Perception_Elements/Output.h" 
 "CPP/Perception_Elements/Loss.cpp" 
-"Headers/Perception_Elements/Loss.h" "CPP/Perception_Elements/Derived_Values.cpp" "Headers/Perception_Elements/Derived_Values.h")
+"Headers/Perception_Elements/Loss.h" "CPP/Perception_Elements/Derived_Value.cpp" "Headers/Perception_Elements/Derived_Value.h")
 
 target_include_directories(${PROJECT_NAME} PUBLIC 
       ${CMAKE_CURRENT_SOURCE_DIR}/Headers/Perception_Elements

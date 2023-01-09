@@ -321,7 +321,7 @@ void Layer::Activate_Neural_Nodes_By(Utilities::Neural_Node_Activation_Method pa
 
 
 void Layer::Activate_Neural_Node_By_ReLu(float param_prediction_with_bias, float param_prediction_row_index, float param_prediction_column_index) {
-    if ( this->Get_Prediction_With_Bias()[param_prediction_row_index][param_prediction_column_index].Get_Value() <= 0.0f) {
+    if ( param_prediction_with_bias <= 0.0f) {
         this->outputs[param_prediction_row_index][param_prediction_column_index].Set_Value( 0.0f) ;
     }
     else {
@@ -331,14 +331,14 @@ void Layer::Activate_Neural_Node_By_ReLu(float param_prediction_with_bias, float
 
 void Layer::Activate_Neural_Node_By_Sigmoid(float param_prediction_with_bias, float param_prediction_row_index, float param_prediction_column_index) {
 
-    float current_sigmoid_value = (1 / (1 + exp(-this->Get_Prediction_With_Bias()[param_prediction_row_index][param_prediction_column_index].Get_Value())));
+    float current_sigmoid_value = (1 / (1 + exp(-param_prediction_with_bias)));
 
     this->outputs[param_prediction_row_index][param_prediction_column_index].Set_Value(current_sigmoid_value);
 }
 
 void Layer::Activate_Neural_Node_By_Softmax(float param_prediction_with_bias, float param_prediction_row_index, float param_prediction_column_index) {
 
-    float normalized_exponential_sum = exp(this->Get_Prediction_With_Bias()[param_prediction_row_index][param_prediction_column_index].Get_Value()) / this->prediction_with_bias_exponential_sum;
+    float normalized_exponential_sum = exp(param_prediction_with_bias) / this->prediction_with_bias_exponential_sum;
 
     this->outputs[param_prediction_row_index][param_prediction_column_index].Set_Value(normalized_exponential_sum);
 }
@@ -410,10 +410,10 @@ void Layer::Calculate_Loss_By_Cross_Entropy(float param_output, int param_index)
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void Layer::Calculate_Neural_Nodes_Derivatives() {
-    this->Calculate_Neural_Nodes_Derivative(Neural_Node_Activation_Method::ReLu);
+    this->Calculate_Neural_Nodes_Derivative_By(Neural_Node_Activation_Method::ReLu);
 }
 
-void Layer::Calculate_Neural_Nodes_Derivative(Utilities::Neural_Node_Activation_Method  param_method) {
+void Layer::Calculate_Neural_Nodes_Derivative_By(Utilities::Neural_Node_Activation_Method  param_method) {
     if (param_method == Neural_Node_Activation_Method::Softmax) {
         this->Set_Layers_Exponential_Sum();
     }
@@ -444,7 +444,7 @@ void Layer::Calculate_Derivative_Of_ReLu(float param_output, float param_predict
         this->Get_Weights()[param_prediction_row_index][param_prediction_column_index].Set_Value(0.0f);
     }
     else {
-        this->Get_Weights()[param_prediction_row_index][param_prediction_column_index].Set_Value(param_output);
+        this->Get_Weights()[param_prediction_row_index][param_prediction_column_index].Set_Value(1.0f);
     }
 }
 
@@ -458,17 +458,43 @@ void Layer::Calculate_Derivative_Of_Sigmoid(float param_output, float param_pred
 
 void Layer::Calculate_Derivative_Of_Softmax(float param_output, float param_prediction_row_index, float param_prediction_column_index) {
 
-    float normalized_exponential_sum = exp(this->Get_Outputs()[param_prediction_row_index][param_prediction_column_index].Get_Value()) / this->prediction_with_bias_exponential_sum;
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //                                                                                                                        //
+    //                  Quotient Rule : MNemonic : Softmax                                                                    //
+    //                                                                                                                        //
+    //                  Lo D Hi minus Hi D Lo Over the Square of Whats Below                                                  //
+    //                                                                                                                        //
+    //                  -----------------------------------------------------                                                 //
+    //                                                                                                                        //
+    //                  Softmax Output of index = SO(i)                                                                       //
+    //                                                                                                                        //
+    //                                                                                                                        //
+    //                  if current output index = to index of output that you are                                             //
+    //                  iterating through then derivative of Softmax is:                                                      //
+    //                                                                                                                        //
+    //                       SO(i) * ( 1 - SO(i))                                                                             //
+    //                                                                                                                        //   
+    //                  if current output index = to index of output that you are                                             //
+    //                  iterating through then derivative of Softmax is:                                                      //
+    //                                                                                                                        //
+    //                       -SO(i) * SO(j)                                                                                   //
+    //                                                                                                                        // 
+    //                                                                                                                        //  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    this->outputs[param_prediction_row_index][param_prediction_column_index].Set_Value(normalized_exponential_sum);
+    float value_of_derived_softmax = param_output * (1 - param_output);
+
+    this->outputs[param_prediction_row_index][param_prediction_column_index].Set_Value(value_of_derived_softmax);
 
 }
 
 
 void Layer::Calculate_Derivative_Of_Softplus(float param_output, float param_prediction_row_index, float param_prediction_column_index) {
-    float current_softplus_value = log(1 + exp(param_output));
+    float value_of_derived_softplus =  1 / (1 + exp(-param_output));
 
-    this->outputs[param_prediction_row_index][param_prediction_column_index].Set_Value(current_softplus_value);
+    this->outputs[param_prediction_row_index][param_prediction_column_index].Set_Value(value_of_derived_softplus);
 
 }
 
@@ -496,8 +522,8 @@ void Layer::Calculate_Loss_Derivative_By(Utilities::Loss_Calculation_Method para
 }
 
 void Layer::Calculate_Derivative_Of_Cross_Entropy(float param_output, int param_index) {
-    float loss = -log(param_output);
-    this->losses[param_index] = loss;
+    float derivative_of_loss = -1 /  param_output ;
+    this->losses[param_index] = derivative_of_loss;
 }
 
 

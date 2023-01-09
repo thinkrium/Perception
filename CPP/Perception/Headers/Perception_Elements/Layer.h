@@ -8,6 +8,7 @@
 #include <Prediction.h>
 #include <Output.h>
 #include <Weight.h>
+#include <Derived_Values.h>
 #include <vector>
 #include <random>
 #include <Enums.h>
@@ -198,6 +199,24 @@ namespace Perception {
 					vector<vector<Output>> Get_Outputs();
 
 					/*
+					* Sets the size of the inputs and initializes the values to 0
+					*/
+					void Initialize_Derived_Values();
+
+					/*
+					* Sets the size of the inputs and initializes the values to 0
+					*/
+					void Initialize_Derived_Values_By_Count(int param_node_count, int param_row_count);
+
+
+					/*
+					 * Gets The outputs from the current layer
+					 */
+					vector<vector<Output>> Get_Derived_Values();
+
+
+					
+					/*
 					*  Initializes the losslayer to the size of node count to
 					*  an initial value of negativ 1 so that it can be iteratedt
 					*  through later by index
@@ -317,7 +336,7 @@ namespace Perception {
 					  Activates the current node by a specifict activation method
 					  overloaded jsut sending method
 					*/
-					void Calculate_Neural_Nodes_Derivative(Utilities::Neural_Node_Activation_Method  param_method);
+					void Calculate_Neural_Nodes_Derivative_By(Utilities::Neural_Node_Activation_Method  param_method);
 
 					/*
 					  Activates the current node by a specific by Rectified Linear Unit
@@ -420,6 +439,11 @@ namespace Perception {
 					   The preditions with bias
 					*/
 					vector<vector<Prediction>> predictions_with_bias;
+
+					/*
+					*   Derived values to check against
+					*/
+					vector<vector<Derived_Values>> derived_values_to_check;
 
 					/*
 					*  The exponential sum of the layers predictions

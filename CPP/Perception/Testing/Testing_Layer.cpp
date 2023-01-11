@@ -476,6 +476,19 @@ TEST(Perception_Test, Test_Layer_Softplus_Derivative) {
 
 }
 
+
+
+TEST(Perception_Test, Test_Layer_Learning_Rate_Accuracy) {
+    Layer test_layer;
+
+    float test_learning_rate = .1f;
+
+    test_layer.Set_Learning_Rate(test_learning_rate);
+
+    EXPECT_EQ(test_layer.Get_Learning_Rate(), test_learning_rate);
+}
+
+
 TEST(Perception_Test, Test_Layer_Cross_Entropy_Derivative) {
 
 }

@@ -574,6 +574,13 @@ vector<vector<Output>> Layer::Backward_Pass() {
     return this->Get_Outputs();
 }
 
+void Layer::Adjust_Weight_Value(float param_value_to_adjust_by, int param_weight_row_index, int param_weight_column_index) {
+    float pre_adjusted_weight = this->weights[param_weight_row_index][param_weight_column_index].Get_Value();
+
+    float adjusted_weight = pre_adjusted_weight - (param_value_to_adjust_by * this->Get_Learning_Rate());
+    this->weights[param_weight_row_index][param_weight_column_index].Set_Value(adjusted_weight);
+}
+
 Layer::~Layer()
 {
 }

@@ -408,6 +408,11 @@ namespace Perception {
 					*/
 					vector<vector<Output>> Backward_Pass();
 
+					/*
+					* Adjust the value of the weight during learning/back propagation
+					*/
+					void Adjust_Weight_Value(float param_value_to_adjust_by, int param_weight_row_index, int param_weight_column_index);
+
 
 					/*Destructor*/
 					~Layer();

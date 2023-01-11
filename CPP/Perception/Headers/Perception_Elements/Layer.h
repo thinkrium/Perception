@@ -82,6 +82,18 @@ namespace Perception {
 					*/
 					int Get_Row_Count();
 
+					/*
+					  Sets the node count
+					  param name="param_node_count"
+					*/
+					void Set_Learning_Rate (float param_learning_rate);
+
+					/*
+					   Initializes the all new nodes for this layer and initializes their value with random number between -1 and 1
+					*/
+					float Get_Learning_Rate();
+
+
 
 					/*
 					    Gets the list of neural nodes for the layer
@@ -467,6 +479,14 @@ namespace Perception {
 					  The anticipated results to calculate loss against
 					*/
 					vector<int> expected_results;
+
+					/*
+					* Learning rate is a fraction of the rate of change value
+					* 
+					* TODO: potentially pull this in from a properties file
+					*/
+
+					float learning_rate;
 
 					/*
 					* Logger - might change approach

@@ -68,6 +68,15 @@ int Layer::Get_Weight_Count() {
     return this->weightCount;
 }
 
+void Layer::Set_Learning_Rate(float param_learning_rate) {
+    this->learning_rate
+        = param_learning_rate;
+}
+
+float Layer::Get_Learning_Rate() {
+    return this->learning_rate;
+}
+
 vector<vector<Weight>> Layer::Get_Weights() {
     return this->weights;
 }

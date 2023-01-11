@@ -431,7 +431,7 @@ TEST(Perception_Test, Test_Layer_Sigmoid_Derivative) {
 
     vector<vector<Derived_Value>> test_derived_values = { {sigmoid} };
     test_layer.Initialize_Derived_Values();
-    test_layer.Calculate_Derivative_Of_ReLu(output_2.Get_Value(), 0, 0);
+    test_layer.Calculate_Derivative_Of_Sigmoid(output_2.Get_Value(), 0, 0);
 
     vector<vector<Derived_Value>> derived_values_to_compare = test_layer.Get_Derived_Values();
 
@@ -440,7 +440,7 @@ TEST(Perception_Test, Test_Layer_Sigmoid_Derivative) {
 
 }
 
-/*
+
 TEST(Perception_Test, Test_Layer_Softmax_Derivative) {
     Layer test_layer(1, 1);
     Output output_2(.2f);
@@ -452,7 +452,7 @@ TEST(Perception_Test, Test_Layer_Softmax_Derivative) {
 
     vector<vector<Derived_Value>> test_derived_values = { {softmax} };
     test_layer.Initialize_Derived_Values();
-    test_layer.Calculate_Derivative_Of_ReLu(output_2.Get_Value(), 0, 0);
+    test_layer.Calculate_Derivative_Of_Softmax(output_2.Get_Value(), 0, 0);
 
     EXPECT_EQ(test_layer.Get_Derived_Values(), test_derived_values);
 
@@ -470,7 +470,7 @@ TEST(Perception_Test, Test_Layer_Softplus_Derivative) {
 
     vector<vector<Derived_Value>> test_derived_values = { {softplus} };
     test_layer.Initialize_Derived_Values();
-    test_layer.Calculate_Derivative_Of_ReLu(output_2.Get_Value(), 0, 0);
+    test_layer.Calculate_Derivative_Of_Softplus(output_2.Get_Value(), 0, 0);
 
     EXPECT_EQ(test_layer.Get_Derived_Values(), test_derived_values);
 
@@ -480,4 +480,4 @@ TEST(Perception_Test, Test_Layer_Cross_Entropy_Derivative) {
 
 }
 
-*/
+ 

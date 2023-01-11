@@ -205,13 +205,14 @@ void Layer::Initialize_Derived_Values() {
 
 void Layer::Initialize_Derived_Values_By_Count(int param_node_count, int param_row_count) {
     Derived_Value initializing_derived_values(0);
-    vector<vector<Derived_Value>> ouptut_matrix(param_row_count, vector<Derived_Value>(param_node_count, initializing_derived_values));
+    vector<vector<Derived_Value>> derivative_matrix(param_row_count, vector<Derived_Value>(param_node_count, initializing_derived_values));
 
-    this->derived_values_to_check = ouptut_matrix;
+    this->derived_values_to_check = derivative_matrix;
 
 }
  
 vector<vector<Derived_Value>> Layer::Get_Derived_Values() {
+
     return this->derived_values_to_check;
 }
 
@@ -459,18 +460,19 @@ void Layer::Calculate_Neural_Nodes_Derivative_By(Utilities::Neural_Node_Activati
 void Layer::Calculate_Derivative_Of_ReLu(float param_output, float param_prediction_row_index, float param_prediction_column_index) {
 
     if (param_output <= 0.0f) {
-        this->Get_Weights()[param_prediction_row_index][param_prediction_column_index].Set_Value(0.0f);
+        this->derived_values_to_check[param_prediction_row_index][param_prediction_column_index].Set_Value(0.0f);
     }
     else {
-        this->Get_Weights()[param_prediction_row_index][param_prediction_column_index].Set_Value(1.0f);
+        this->derived_values_to_check[param_prediction_row_index][param_prediction_column_index].Set_Value(1.0f);
     }
-}
+
+ }
 
 void Layer::Calculate_Derivative_Of_Sigmoid(float param_output, float param_prediction_row_index, float param_prediction_column_index) {
 
     float current_sigmoid_derivative_value = exp(param_output) / pow((exp(param_output) + 1), 2);
 
-    this->Get_Weights()[param_prediction_row_index][param_prediction_column_index].Set_Value(current_sigmoid_derivative_value);
+    this->derived_values_to_check[param_prediction_row_index][param_prediction_column_index].Set_Value(current_sigmoid_derivative_value);
 }
 
 
@@ -504,7 +506,7 @@ void Layer::Calculate_Derivative_Of_Softmax(float param_output, float param_pred
 
     float value_of_derived_softmax = param_output * (1 - param_output);
 
-    this->outputs[param_prediction_row_index][param_prediction_column_index].Set_Value(value_of_derived_softmax);
+    this->derived_values_to_check[param_prediction_row_index][param_prediction_column_index].Set_Value(value_of_derived_softmax);
 
 }
 
@@ -512,7 +514,7 @@ void Layer::Calculate_Derivative_Of_Softmax(float param_output, float param_pred
 void Layer::Calculate_Derivative_Of_Softplus(float param_output, float param_prediction_row_index, float param_prediction_column_index) {
     float value_of_derived_softplus =  1 / (1 + exp(-param_output));
 
-    this->outputs[param_prediction_row_index][param_prediction_column_index].Set_Value(value_of_derived_softplus);
+    this->derived_values_to_check[param_prediction_row_index][param_prediction_column_index].Set_Value(value_of_derived_softplus);
 
 }
 
